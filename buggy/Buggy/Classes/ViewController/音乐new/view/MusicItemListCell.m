@@ -7,7 +7,6 @@
 //
 
 #import "MusicItemListCell.h"
-#import "MusicViewModel.h"
 #import "NSString+AVLeanCloud.h"
 #import "DownLoadDataBase.h"
 #import "CalendarHelper.h"

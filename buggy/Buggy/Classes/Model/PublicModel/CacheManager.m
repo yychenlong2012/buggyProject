@@ -22,19 +22,19 @@
 
 - (void)saveLocalData:(id <NSCoding>)data name:(NSString *)name;
 {
-    AVUser *user = [AVUser currentUser];
-    name = [NSString stringWithFormat:@"%@%@",name,user.objectId];
-    [[TMCache sharedCache] setObject:data forKey:name block:^(TMCache *cache, NSString *key, id object) {
-    }];
+//    AVUser *user = [AVUser currentUser];
+//    name = [NSString stringWithFormat:@"%@%@",name,user.objectId];
+//    [[TMCache sharedCache] setObject:data forKey:name block:^(TMCache *cache, NSString *key, id object) {
+//    }];
 }
 
 - (void)getLocalData:(NSString *)key complete:(void(^)(NSObject *object))success;
 {
-    AVUser *user = [AVUser currentUser];
-    key = [NSString stringWithFormat:@"%@%@",key,user.objectId];
-    [[TMCache sharedCache]objectForKey:key block:^(TMCache *cache, NSString *key, id object) {
-        success(object);
-    }];
+//    AVUser *user = [AVUser currentUser];
+//    key = [NSString stringWithFormat:@"%@%@",key,user.objectId];
+//    [[TMCache sharedCache]objectForKey:key block:^(TMCache *cache, NSString *key, id object) {
+//        success(object);
+//    }];
 }
 
 - (NSString *)cachePathWithName:(NSString *)name{

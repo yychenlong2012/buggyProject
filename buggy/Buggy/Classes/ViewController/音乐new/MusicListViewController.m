@@ -8,7 +8,6 @@
 
 #import "MusicListViewController.h"
 #import "MusicInfoListView.h"
-#import "MusicViewModel.h"
 #import "DYBaseNaviagtionController.h"
 #import "MusicVehicleViewModel.h"
 #import "NetWorkStatus.h"
@@ -279,7 +278,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [AVFile clearAllCachedFiles];
+//    [AVFile clearAllCachedFiles];
     
     //清除音乐缓存  直接移除文件夹  不需要单个移除
     //    NSError *error;

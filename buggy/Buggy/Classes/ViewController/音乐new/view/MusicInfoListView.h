@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "MusicListCell.h"
 #import "MusicThemeModel.h"
-#import "BLEMusicPlayer.h"
 #import "MainModel.h"
 @class MusicAlbumModel;
 
@@ -39,7 +38,7 @@
 
 @property (nonatomic,strong) UITableView *tableView;
 
-@property (nonatomic,strong) MusicThemeModel *model;   //3.0版本之前的model
+//@property (nonatomic,strong) MusicThemeModel *model;   //3.0版本之前的model
 
 @property (nonatomic,strong) MusicAlbumModel *topModel; //现在的模型
 

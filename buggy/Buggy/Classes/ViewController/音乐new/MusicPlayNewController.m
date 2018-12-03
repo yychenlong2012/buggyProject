@@ -11,7 +11,6 @@
 #import "CLButton.h"
 #import "CLImageView.h"
 #import "MusicManager.h"
-#import "SDMusicPlayer.h"
 #import "NetWorkStatus.h"
 #import "NSString+AVLoader.h"
 #import "CALayer+PauseAimate.h"
@@ -22,6 +21,7 @@
 #import "FloatTools.h"
 #import "WNJsonModel.h"
 #import "DeviceModel.h"
+#import "BlueToothManager.h"
 
 @interface MusicPlayNewController ()<PlayerDelegate,UIScrollViewDelegate>
 @property (nonatomic,assign) Music_Play_Mode playMode; //歌曲播放顺序
@@ -567,7 +567,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [AVFile clearAllCachedFiles];
+//    [AVFile clearAllCachedFiles];
     //清除音乐缓存
     [MUSICMANAGER clearMusicCache];
 }

@@ -7,7 +7,7 @@
 //
 
 #import "BaseModel.h"
-#import <AVOSCloud.h>
+//#import <AVOSCloud.h>
 
 @interface HealthTipModel : BaseModel
 /**

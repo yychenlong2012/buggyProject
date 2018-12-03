@@ -8,8 +8,8 @@
 
 #import "LoginVC.h"
 #import "RegisterVC.h"
-#import <AVOSCloudSNS.h>
-#import <LeanCloudSocial/AVUser+SNS.h>
+//#import <AVOSCloudSNS.h>
+//#import <LeanCloudSocial/AVUser+SNS.h>
 #import "LoginModel.h"
 #import "RegisterVC.h"
 #import "setBabyBirthdayVC.h"
@@ -68,7 +68,7 @@
     UITapGestureRecognizer *panGestureRecognizer = [[UITapGestureRecognizer alloc]
                                                     initWithTarget:self action:@selector(panView:)];
     [self.view addGestureRecognizer:panGestureRecognizer];
-    self.openIDOAuthView.hidden = [[UserModel model] hideOpenIDOAuth];
+    self.openIDOAuthView.hidden = NO;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick)];
     [self.userAgreement addGestureRecognizer:tap];
     
@@ -135,14 +135,6 @@
 }
 #pragma mark ===  手机号码登录
 - (IBAction)onLogin:(id)sender {
-//    __weak typeof(self) wself = self;
-//    [LoginViewModel loginMobilePhoneWithNumber:self.tfPhoneNum.text
-//                                      passWord:self.tfPassword.text
-//                                      complete:^{
-//        [wself dismissViewControllerAnimated:YES completion:^{}];
-//    }];
-//
-    
     [NETWorkAPI loginWithMobilePhone:self.tfPhoneNum.text password:self.tfPassword.text callback:^(BOOL success, NSError * _Nullable error) {
         if (success) {
 //            [self dismissViewControllerAnimated:YES completion:^{}];
@@ -178,8 +170,6 @@
             //添加宝宝信息
             setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
             birthday.isResetData = NO;
-//            birthday.BabyObject = [AVObject objectWithClassName:@"BabyInfo"];
-//            [birthday.BabyObject setObject:[AVUser currentUser] forKey:@"post"];
             birthday.sourceVC = self;
             birthday.skip.hidden = NO;
             birthday.view.backgroundColor = kWhiteColor;
@@ -195,8 +185,6 @@
             //添加宝宝信息
             setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
             birthday.isResetData = NO;
-//            birthday.BabyObject = [AVObject objectWithClassName:@"BabyInfo"];
-//            [birthday.BabyObject setObject:[AVUser currentUser] forKey:@"post"];
             birthday.sourceVC = self;
             birthday.skip.hidden = NO;
             birthday.view.backgroundColor = kWhiteColor;
@@ -213,8 +201,6 @@
             //添加宝宝信息
             setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
             birthday.isResetData = NO;
-//            birthday.BabyObject = [AVObject objectWithClassName:@"BabyInfo"];
-//            [birthday.BabyObject setObject:[AVUser currentUser] forKey:@"post"];
             birthday.sourceVC = self;
             birthday.skip.hidden = NO;
             birthday.view.backgroundColor = kWhiteColor;

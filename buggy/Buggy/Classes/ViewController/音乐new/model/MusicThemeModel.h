@@ -28,7 +28,7 @@
 /**
  主题的图片
  */
-@property (nonatomic ,strong) AVFile *themeImage;
+//@property (nonatomic ,strong) AVFile *themeImage;
 
 /**
  主题副标题

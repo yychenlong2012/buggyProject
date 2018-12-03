@@ -7,13 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import <AVOSCloud/AVOSCloud.h>
-#import <AVOSCloudSNS.h>
 #import <TencentOpenAPI/TencentOAuth.h>
-#import <AVOSCloudCrashReporting.h>
 #import "WeiboSDK.h"
 #import "WXApi.h"
-#import <AMapFoundationKit/AMapFoundationKit.h>
 #import "AlertActionSheetMgr.h"
 #import "ScreenMgr.h"
 #import "MonitorCrash.h"
@@ -305,7 +301,7 @@ void handleException(NSException *exception){
     [WeiboSDK enableDebugMode:YES];
     [WeiboSDK registerApp:WEIBOAPPKEY];
     [WXApi registerApp:WEIXINAPPID];
-    [AMapServices sharedServices].apiKey = AMAP;
+//    [AMapServices sharedServices].apiKey = AMAP;
 }
 
 #pragma mark - 第三方回调url
@@ -336,7 +332,8 @@ void handleException(NSException *exception){
             return [WeiboSDK handleOpenURL:url delegate:self];
         }break;
         default:{
-            return [AVOSCloudSNS handleOpenURL:url];
+            return NO;
+//            return [AVOSCloudSNS handleOpenURL:url];
         }break;
     }
 }
@@ -376,27 +373,27 @@ void handleException(NSException *exception){
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
 
     //cleanCloud处理deviceToken
-    AVInstallation *currentInstallation = [AVInstallation currentInstallation];
-    [currentInstallation setDeviceTokenFromData:deviceToken];
-    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            
-            NSMutableString *deviceTokenString = [NSMutableString string];
-            const char *bytes = deviceToken.bytes;
-            NSInteger iCount = deviceToken.length;
-            for (NSInteger i = 0; i < iCount; i++) {
-                [deviceTokenString appendFormat:@"%02x", bytes[i]&0x000000FF];
-            }
-
-            //将deviceToken上传到用户表 和用户绑定 做定点推送
-            AVUser *user = [AVUser currentUser];
-            
-            [user setObject:deviceTokenString forKey:@"deviceToken"];
-            [user setObject:@"iOS" forKey:@"deviceType"];
-            
-            [user saveInBackground];
-        }
-    }];
+//    AVInstallation *currentInstallation = [AVInstallation currentInstallation];
+//    [currentInstallation setDeviceTokenFromData:deviceToken];
+//    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//        if (succeeded) {
+//
+//            NSMutableString *deviceTokenString = [NSMutableString string];
+//            const char *bytes = deviceToken.bytes;
+//            NSInteger iCount = deviceToken.length;
+//            for (NSInteger i = 0; i < iCount; i++) {
+//                [deviceTokenString appendFormat:@"%02x", bytes[i]&0x000000FF];
+//            }
+//
+//            //将deviceToken上传到用户表 和用户绑定 做定点推送
+//            AVUser *user = [AVUser currentUser];
+//
+//            [user setObject:deviceTokenString forKey:@"deviceToken"];
+//            [user setObject:@"iOS" forKey:@"deviceType"];
+//
+//            [user saveInBackground];
+//        }
+//    }];
 }
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
     DLog(@"RemoteNotifications is failed and error:%@",error);
@@ -430,7 +427,7 @@ void handleException(NSException *exception){
                              animated:YES
                            completion:^{
                 [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-                [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+//                [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
             }];
         }
     }];

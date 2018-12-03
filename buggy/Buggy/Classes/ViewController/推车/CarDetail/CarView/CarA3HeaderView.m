@@ -8,7 +8,6 @@
 
 #import "CarA3HeaderView.h"
 #import "ParentsManager.h"
-#import "BabyStrollerManager.h"
 #import "CalendarHelper.h"
 #import "MainModel.h"
 @interface CarA3HeaderView ()<UIAlertViewDelegate>

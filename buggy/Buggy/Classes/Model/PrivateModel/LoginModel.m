@@ -7,8 +7,8 @@
 //
 
 #import "LoginModel.h"
-#import <AVOSCloudSNS.h>
-#import <LeanCloudSocial/AVUser+SNS.h>
+//#import <AVOSCloudSNS.h>
+//#import <LeanCloudSocial/AVUser+SNS.h>
 #import "MainModel.h"
 
 #define kLoginToken @"kLoginToken"
@@ -51,41 +51,41 @@
 }
 - (void)loginWithWeibo:(void (^)(NSError *error))block
 {
-    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo
-                     withAppKey:WEIBOAPPKEY
-                   andAppSecret:WEIBOAPPSECREAT
-                 andRedirectURI:WEIBOREDIRECTURI];
-    [self loginWithType:AVOSCloudSNSSinaWeibo
-               platform:AVOSCloudSNSPlatformWeiBo
-                failure:^(NSError *error) {
-                block(error);
-    }];
+//    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo
+//                     withAppKey:WEIBOAPPKEY
+//                   andAppSecret:WEIBOAPPSECREAT
+//                 andRedirectURI:WEIBOREDIRECTURI];
+//    [self loginWithType:AVOSCloudSNSSinaWeibo
+//               platform:AVOSCloudSNSPlatformWeiBo
+//                failure:^(NSError *error) {
+//                block(error);
+//    }];
 }
 
 - (void)loginWithWeixin:(void(^)(NSError *error))block
 {
-    [AVOSCloudSNS setupPlatform:AVOSCloudSNSWeiXin
-                     withAppKey:WEIXINAPPID
-                   andAppSecret:WEIXINSECRET
-                 andRedirectURI:@""];
-    [self loginWithType:AVOSCloudSNSWeiXin
-               platform:AVOSCloudSNSPlatformWeiXin
-                failure:^(NSError *error) {
-                block(error);
-    }];
+//    [AVOSCloudSNS setupPlatform:AVOSCloudSNSWeiXin
+//                     withAppKey:WEIXINAPPID
+//                   andAppSecret:WEIXINSECRET
+//                 andRedirectURI:@""];
+//    [self loginWithType:AVOSCloudSNSWeiXin
+//               platform:AVOSCloudSNSPlatformWeiXin
+//                failure:^(NSError *error) {
+//                block(error);
+//    }];
 }
 
 - (void)loginWithQQ:(void(^)(NSError *error))block
 {
-    [AVOSCloudSNS setupPlatform:AVOSCloudSNSQQ
-                     withAppKey:QQAPPID
-                   andAppSecret:QQAPPKEY
-                 andRedirectURI:@""];
-    [self loginWithType:AVOSCloudSNSQQ
-               platform:AVOSCloudSNSPlatformQQ
-                failure:^(NSError *error) {
-                block(error);
-    }];
+//    [AVOSCloudSNS setupPlatform:AVOSCloudSNSQQ
+//                     withAppKey:QQAPPID
+//                   andAppSecret:QQAPPKEY
+//                 andRedirectURI:@""];
+//    [self loginWithType:AVOSCloudSNSQQ
+//               platform:AVOSCloudSNSPlatformQQ
+//                failure:^(NSError *error) {
+//                block(error);
+//    }];
 }
 /*
  {
@@ -108,35 +108,35 @@
  *      "expires_in": 1382686496
  */
 
-- (void)loginWithType:(AVOSCloudSNSType )type platform:(NSString *)platform
-              failure:(void(^)(NSError *error))failure
-{
-    [AVOSCloudSNS logout:type];
-    [AVOSCloudSNS loginWithCallback:^(id object, NSError *error) {
-        if (error) {
-            failure(error);
-        } else {
-            NSLog(@"%@",object);
-            NSString *accessToken = object[@"access_token"];
-            NSDictionary *authData = @{ [platform isEqualToString:AVOSCloudSNSPlatformWeiBo] ? @"uid":@"openid":object[@"id"],
-                                       @"access_token":accessToken,
-                                        [platform isEqualToString:AVOSCloudSNSPlatformWeiBo] ? @"expiration_in":@"expires_in":@"701365"
-                                       };
-            NSLog(@"==%@",authData);
-            [AVUser loginWithAuthData:authData platform:platform block:^(AVUser *user, NSError *error) {
-                if (error) {
-                    [MBProgressHUD showError:@"登录失败，请重新再试!"];
-                    failure(error);
-                } else {
-                    [MBProgressHUD showSuccess:@"登录成功"];
-                    [MainModel model].user = user;
-                    [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:kLoginToken];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    failure(error);
-                }
-            }];
-        }
-    } toPlatform:type];
-}
+//- (void)loginWithType:(AVOSCloudSNSType )type platform:(NSString *)platform
+//              failure:(void(^)(NSError *error))failure
+//{
+//    [AVOSCloudSNS logout:type];
+//    [AVOSCloudSNS loginWithCallback:^(id object, NSError *error) {
+//        if (error) {
+//            failure(error);
+//        } else {
+//            NSLog(@"%@",object);
+//            NSString *accessToken = object[@"access_token"];
+//            NSDictionary *authData = @{ [platform isEqualToString:AVOSCloudSNSPlatformWeiBo] ? @"uid":@"openid":object[@"id"],
+//                                       @"access_token":accessToken,
+//                                        [platform isEqualToString:AVOSCloudSNSPlatformWeiBo] ? @"expiration_in":@"expires_in":@"701365"
+//                                       };
+//            NSLog(@"==%@",authData);
+//            [AVUser loginWithAuthData:authData platform:platform block:^(AVUser *user, NSError *error) {
+//                if (error) {
+//                    [MBProgressHUD showError:@"登录失败，请重新再试!"];
+//                    failure(error);
+//                } else {
+//                    [MBProgressHUD showSuccess:@"登录成功"];
+//                    [MainModel model].user = user;
+//                    [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:kLoginToken];
+//                    [[NSUserDefaults standardUserDefaults] synchronize];
+//                    failure(error);
+//                }
+//            }];
+//        }
+//    } toPlatform:type];
+//}
 
 @end

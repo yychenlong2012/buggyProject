@@ -1,1 +1,0 @@
-../../../LeanCloudSocial/Classes/Vendor/AFNetworking/LCSNetworkReachabilityManager.h

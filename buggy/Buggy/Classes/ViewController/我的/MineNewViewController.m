@@ -24,7 +24,6 @@
 #import "CarOldDetailViewController.h"
 #import "BabyModel.h"
 #import "BlueToothManager.h"
-#import "DeviceViewModel.h"
 #import "UIImage+COSAdtions.h"
 #import "CLImageView.h"
 #import "setBabyBirthdayVC.h"

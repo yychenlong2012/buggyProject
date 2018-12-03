@@ -18,8 +18,6 @@
 #import "tripAndMusicTwoCellView.h"
 #import "BLEDataParserAPI.h"
 #import "BlueToothManager.h"
-#import "BabyStrollerManager.h"
-#import "HealthModel.h"
 #import "tripAndMusicTools.h"
 #import "DeviceModel.h"
 #import "bleConnectPromptView.h"
@@ -127,7 +125,6 @@
                 return ;
             }
             if (model != nil && [model isKindOfClass:[homeDataModel class]]) {
-                
                 self.twoCell.todayMileage.text = model.todayMileage;
                 self.twoCell.weekFrequency.text = [NSString stringWithFormat:@"%ld",(long)model.frequencyWeek];
                 self.oneCell.tipsLabel.text = model.recommendedContent;
@@ -149,7 +146,6 @@
                     }
                 }
                 [imageArray removeAllObjects];
-                
             }else{
                 DLog(@"暂无数据");
             }
@@ -303,9 +299,10 @@
 //    __weak typeof(self) wself = self;
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:parm];
     [dic setObject:[BLEMANAGER.currentPeripheral.identifier UUIDString] forKey:@"bluetoothUUID"];
-    [BabyStrollerManager postA1Travel:dic complete:^(NSDictionary *dic, BOOL success) {
+    //上传里程
+//    [BabyStrollerManager postA1Travel:dic complete:^(NSDictionary *dic, BOOL success) {
 //        [wself requestNetWorkData];
-    }];
+//    }];
 }
 
 - (void)G_refreshBabyWeight:(NSString *)babyWeight{
@@ -313,9 +310,9 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"提示", nil) message:text preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"取消", nil) style:UIAlertActionStyleCancel handler:nil]];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"确定", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [HealthModel postWeight:babyWeight date:[CalendarHelper getDate] complete:^(NSString *weight, NSString *date) {
+//        [HealthModel postWeight:babyWeight date:[CalendarHelper getDate] complete:^(NSString *weight, NSString *date) {
 //            _homeView.weight = [NSString stringWithFormat:@"%@",weight];
-        }];
+//        }];
     }]];
     [self presentViewController:alert animated:YES completion:nil];
 }

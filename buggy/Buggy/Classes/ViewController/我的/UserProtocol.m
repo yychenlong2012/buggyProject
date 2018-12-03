@@ -7,7 +7,7 @@
 //
 
 #import "UserProtocol.h"
-#import "UserProtocolViewModel.h"
+//#import "UserProtocolViewModel.h"
 #import "CLImageView.h"
 @interface UserProtocol ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewTop;

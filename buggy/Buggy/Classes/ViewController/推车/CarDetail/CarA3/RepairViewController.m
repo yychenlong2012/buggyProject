@@ -10,7 +10,7 @@
 #import "RepairView.h"
 #import "BlueToothManager.h"
 #import "BLEDataCallBackAPI.h"
-#import "DeviceLogViewModel.h"
+//#import "DeviceLogViewModel.h"
 
 @interface RepairViewController ()<BlueToothManagerDelegate,BLEDataCallBackAPIDelegate>{
     

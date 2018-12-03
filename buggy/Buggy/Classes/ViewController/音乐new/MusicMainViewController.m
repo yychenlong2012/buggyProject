@@ -64,7 +64,6 @@
 
 //请求专辑
 -(void)requestItemData{
-    
     [NETWorkAPI requestHotMusiccallback:^(NSArray * _Nullable modelArray, NSInteger currentPage, NSError * _Nullable error) {
         if (modelArray != nil && [modelArray isKindOfClass:[NSArray class]] && error == nil) {
             [self.albumArray addObjectsFromArray:modelArray];

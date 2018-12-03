@@ -7,8 +7,8 @@
 //
 
 #import "BaseModel.h"
-#import <AVOSCloudSNS.h>
-#import <LeanCloudSocial/AVUser+SNS.h>
+//#import <AVOSCloudSNS.h>
+//#import <LeanCloudSocial/AVUser+SNS.h>
 
 typedef NS_ENUM(NSInteger, LOGINType){
     /// 新浪微博
@@ -25,6 +25,6 @@ typedef NS_ENUM(NSInteger, LOGINType){
 
 + (instancetype)model;
 
-- (void)loginWithLoginType:(LOGINType )login
-                     error:(void(^)(NSError *error))Error;
+//- (void)loginWithLoginType:(LOGINType )login
+//                     error:(void(^)(NSError *error))Error;
 @end

@@ -13,7 +13,6 @@
 #import "BLEA4API.h"
 #import "BlueToothManager.h"
 #import "RepairViewController.h"
-#import "DeviceViewModel.h"
 #import "FAQViewController.h"
 @interface moreOperationsView()
 @property (weak, nonatomic) IBOutlet UIView *repairView;

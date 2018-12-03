@@ -14,5 +14,5 @@
 +(NSInteger)getSelectedMusicCount;  //获取收藏音乐数目
 +(NSInteger)getDownloadMusicCount;  //获取下载音乐数目
 
-+(void)requestDeviceListWithBlock:(void(^)(NSArray <DeviceModel *>* modelArray))block;
+//+(void)requestDeviceListWithBlock:(void(^)(NSArray <DeviceModel *>* modelArray))block;
 @end

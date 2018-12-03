@@ -15,7 +15,7 @@
 
 + (void)loginMobilePhoneWithNumber:(NSString *)number passWord:(NSString *)passWord complete:(void(^)(void))complete{
     
-    [leanCloudMgr event:YOUZI_Login];
+//    [leanCloudMgr event:YOUZI_Login];
     [MainModel model].openURLType = 0;
 //    if (![Check validateMobile:number]) {
 //        [MBProgressHUD showError:NSLocalizedString(@"手机号正则验证不通过", nil)];
@@ -27,69 +27,69 @@
     }
     __weak typeof(self) wself = self;
     //登录
-    [AVUser logInWithMobilePhoneNumberInBackground:number password:passWord
-                                             block:^(AVUser *user, NSError *error) {
-                                                 if (!error) {
-                                                    
-                                                     [MBProgressHUD showSuccess:NSLocalizedString(@"登录成功", nil)];
-                                                     [[NSUserDefaults standardUserDefaults] setObject:user.sessionToken forKey:kLoginToken];
-                                                     [[NSUserDefaults standardUserDefaults] synchronize];
-                                                     [MainModel model].user = user;
-                                                     [wself postLoginNoti];
-                                                     if (complete) complete();
-                                                 }else{
-//                                                     NSLog(@"%@",error.localizedDescription);
-                                                     switch (error.code) {
-                                                         case 1:
-                                                             [MBProgressHUD showToast:NSLocalizedString(@"登录次数已达今日上限", nil)];
-                                                             break;
-                                                         case 211:
-                                                             [MBProgressHUD showToast:NSLocalizedString(@"手机号未注册", nil)];
-                                                             break;
-                                                         default:
-                                                             [MBProgressHUD showError:NSLocalizedString(@"用户名或密码不正确", nil)];
-                                                             break;
-                                                     }
-                                                 }
-                                             }];
+//    [AVUser logInWithMobilePhoneNumberInBackground:number password:passWord
+//                                             block:^(AVUser *user, NSError *error) {
+//                                                 if (!error) {
+//
+//                                                     [MBProgressHUD showSuccess:NSLocalizedString(@"登录成功", nil)];
+//                                                     [[NSUserDefaults standardUserDefaults] setObject:user.sessionToken forKey:kLoginToken];
+//                                                     [[NSUserDefaults standardUserDefaults] synchronize];
+//                                                     [MainModel model].user = user;
+//                                                     [wself postLoginNoti];
+//                                                     if (complete) complete();
+//                                                 }else{
+////                                                     NSLog(@"%@",error.localizedDescription);
+//                                                     switch (error.code) {
+//                                                         case 1:
+//                                                             [MBProgressHUD showToast:NSLocalizedString(@"登录次数已达今日上限", nil)];
+//                                                             break;
+//                                                         case 211:
+//                                                             [MBProgressHUD showToast:NSLocalizedString(@"手机号未注册", nil)];
+//                                                             break;
+//                                                         default:
+//                                                             [MBProgressHUD showError:NSLocalizedString(@"用户名或密码不正确", nil)];
+//                                                             break;
+//                                                     }
+//                                                 }
+//                                             }];
 }
 
 + (void)loginQQcomplete:(void(^)(BOOL isNew))complete{
 
-    [leanCloudMgr event:YOUZI_QQLogin];
+//    [leanCloudMgr event:YOUZI_QQLogin];
     [MainModel model].openURLType = 0;
     __weak typeof(self) wself = self;
-    [[LoginModel model] loginWithLoginType:LOGIN_QQ
-                                     error:^(NSError *error) {
-                                         [wself dealProcessingError:error complete:^(BOOL isComNew) {
-                                             if (complete) complete(isComNew);
-                                         }];
-                                         
-    }];
+//    [[LoginModel model] loginWithLoginType:LOGIN_QQ
+//                                     error:^(NSError *error) {
+//                                         [wself dealProcessingError:error complete:^(BOOL isComNew) {
+//                                             if (complete) complete(isComNew);
+//                                         }];
+//
+//    }];
 }
 
 + (void)loginWeiBocomplete:(void(^)(BOOL isNew))complete{
     
-    [leanCloudMgr event:YOUZI_WeiBoLogin];
+//    [leanCloudMgr event:YOUZI_WeiBoLogin];
     [MainModel model].openURLType = 0;
     __weak typeof(self) wself = self;
-    [[LoginModel model] loginWithLoginType:LOGIN_SinaWeibo
-                                     error:^(NSError *error) {
-                                         [wself dealProcessingError:error complete:^(BOOL isComNew) {
-                                             if (complete) complete(isComNew);
-                                         }];
-    }];
+//    [[LoginModel model] loginWithLoginType:LOGIN_SinaWeibo
+//                                     error:^(NSError *error) {
+//                                         [wself dealProcessingError:error complete:^(BOOL isComNew) {
+//                                             if (complete) complete(isComNew);
+//                                         }];
+//    }];
 }
 
 + (void)loginWeiXincomplete:(void(^)(BOOL isNew))complete {
-    [leanCloudMgr event:YOUZI_WeiXinLogin];
+//    [leanCloudMgr event:YOUZI_WeiXinLogin];
     [MainModel model].openURLType = 0;
     __weak typeof(self) wself = self;
-    [[LoginModel model] loginWithLoginType:LOGIN_WeiXin error:^(NSError *error) {
-         [wself dealProcessingError:error complete:^(BOOL isComNew) {
-             if (complete) complete(isComNew);
-         }];
-    }];
+//    [[LoginModel model] loginWithLoginType:LOGIN_WeiXin error:^(NSError *error) {
+//         [wself dealProcessingError:error complete:^(BOOL isComNew) {
+//             if (complete) complete(isComNew);
+//         }];
+//    }];
 }
 
 // 第三方登录回调信息，集中处理

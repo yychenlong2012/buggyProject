@@ -13,7 +13,7 @@
 #import "TagView.h"
 #import "shareManager.h"
 #import "ShareAnimationView.h"
-#import "HealthModel.h"
+//#import "HealthModel.h"
 #import "BabyModel.h"
 #import "WatermarkView.h"
 #import "BabyInfoMarkView.h"
@@ -54,8 +54,8 @@
     }
     
     self.featureView.hidden = YES;
-    self.heightLabel.text = [NSString stringWithFormat:@"%@%@",[HealthModel manager].height,@"cm"];
-    self.weightLabel.text = [NSString stringWithFormat:@"%@%@",[HealthModel manager].weight,@"kg"];
+//    self.heightLabel.text = [NSString stringWithFormat:@"%@%@",[HealthModel manager].height,@"cm"];
+//    self.weightLabel.text = [NSString stringWithFormat:@"%@%@",[HealthModel manager].weight,@"kg"];
     NSDateFormatter *dateF = [[NSDateFormatter alloc]init];
     [dateF setDateFormat:@"yyyy年MM月dd日"];
     self.birthdayLabel.text = [self getAgeSince:[dateF dateFromString:[BabyModel manager].birthday]];
@@ -197,12 +197,12 @@
 - (void)onBabyInfo {
     
     _babyInfoMarkVeiw = [[BabyInfoMarkView alloc] initWithFrame:CGRectMake(0, 0, BabyInfoMarkViewWeight, BabyInfoMarkViewWeight)];
-    NSString *height = [NSString stringWithFormat:@"%@%@",[HealthModel manager].height,@"cm"];
-    NSString *weight = [NSString stringWithFormat:@"%@%@",[HealthModel manager].weight,@"kg"];
+//    NSString *height = [NSString stringWithFormat:@"%@%@",[HealthModel manager].height,@"cm"];
+//    NSString *weight = [NSString stringWithFormat:@"%@%@",[HealthModel manager].weight,@"kg"];
     NSDateFormatter *dateF = [[NSDateFormatter alloc]init];
     [dateF setDateFormat:@"yyyy年MM月dd日"];
     NSString *day = [self getAgeSince:[dateF dateFromString:[BabyModel manager].birthday]];
-    [_babyInfoMarkVeiw setbabyDay:day height:height weight:weight];
+//    [_babyInfoMarkVeiw setbabyDay:day height:height weight:weight];
     [self.imgView.superview addSubview:_babyInfoMarkVeiw];
     _babyInfoMarkVeiw.top  = 40;
     _babyInfoMarkVeiw.right = ScreenWidth - 20 * _MAIN_RATIO_375;

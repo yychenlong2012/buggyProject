@@ -12,47 +12,47 @@
 
 - (void)getTips:(NSString *)date block:(void(^)(NSDictionary *dic,NSError *error))complete
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
-    NSDate *DateF = [dateFormatter dateFromString:date];
-//    if (!DateF) {
-//        return;xxxxxxxxxxxxxx
-//    }
-    NSString *param = [self getAgeSince:DateF];
-    AVQuery *query = [AVQuery queryWithClassName:@"HealthTips"];
-    //query.maxCacheAge = 30 * 24 * 3600;
-     query.cachePolicy = kAVCachePolicyIgnoreCache;
-    [query whereKey:@"TipOrderMenu" equalTo:param];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        NSMutableDictionary *dictionary = [NSMutableDictionary new];
-        if (objects.count > 0) {
-            AVObject *obj = [objects firstObject];
-            [dictionary setValue:[self dataFromKey:@"DevelopmentSigns" object:obj] forKey:@"DevelopmentSigns"];
-            [dictionary setValue:[self dataFromKey:@"ParentalInteraction" object:obj] forKey:@"ParentalInteraction"];
-            [dictionary setValue:[self dataFromKey:@"GrownConcern" object:obj] forKey:@"GrownConcern"];
-            [dictionary setValue:[self dataFromKey:@"ChildcarePoints" object:obj] forKey:@"ChildcarePoints"];
-            [dictionary setValue:[self dataFromKey:@"ScienceTip" object:obj] forKey:@"ScienceTip"];
-            [dictionary setValue:[obj objectForKey:@"TipsPreview"] forKey:@"TipsPreview"];
-        }
-        complete(dictionary,error);
-    }];
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
+//    NSDate *DateF = [dateFormatter dateFromString:date];
+////    if (!DateF) {
+////        return;xxxxxxxxxxxxxx
+////    }
+//    NSString *param = [self getAgeSince:DateF];
+//    AVQuery *query = [AVQuery queryWithClassName:@"HealthTips"];
+//    //query.maxCacheAge = 30 * 24 * 3600;
+//     query.cachePolicy = kAVCachePolicyIgnoreCache;
+//    [query whereKey:@"TipOrderMenu" equalTo:param];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        NSMutableDictionary *dictionary = [NSMutableDictionary new];
+//        if (objects.count > 0) {
+//            AVObject *obj = [objects firstObject];
+//            [dictionary setValue:[self dataFromKey:@"DevelopmentSigns" object:obj] forKey:@"DevelopmentSigns"];
+//            [dictionary setValue:[self dataFromKey:@"ParentalInteraction" object:obj] forKey:@"ParentalInteraction"];
+//            [dictionary setValue:[self dataFromKey:@"GrownConcern" object:obj] forKey:@"GrownConcern"];
+//            [dictionary setValue:[self dataFromKey:@"ChildcarePoints" object:obj] forKey:@"ChildcarePoints"];
+//            [dictionary setValue:[self dataFromKey:@"ScienceTip" object:obj] forKey:@"ScienceTip"];
+//            [dictionary setValue:[obj objectForKey:@"TipsPreview"] forKey:@"TipsPreview"];
+//        }
+//        complete(dictionary,error);
+//    }];
 }
 
 - (void)getTipsSuccess:(void(^)(NSDictionary *dicWebData,NSArray *TipsPreviewArray,NSError *error))success
 {
-    AVQuery *query = [AVQuery queryWithClassName:@"HealthTips"];
-    query.cachePolicy = kAVCachePolicyIgnoreCache;
-    // query.maxCacheAge = 12 * 30 * 24 * 3600;
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"TipOrder" ascending:YES];
-    [query orderBySortDescriptor:sortDescriptor];
-    __block NSMutableDictionary *dicWeb = [NSMutableDictionary dictionaryWithCapacity:5];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-   
-            dispatch_async(dispatch_get_main_queue(), ^{
-                success(dicWeb,objects,error);
-            });
-       
-    }];
+//    AVQuery *query = [AVQuery queryWithClassName:@"HealthTips"];
+//    query.cachePolicy = kAVCachePolicyIgnoreCache;
+//    // query.maxCacheAge = 12 * 30 * 24 * 3600;
+//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"TipOrder" ascending:YES];
+//    [query orderBySortDescriptor:sortDescriptor];
+//    __block NSMutableDictionary *dicWeb = [NSMutableDictionary dictionaryWithCapacity:5];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                success(dicWeb,objects,error);
+//            });
+//
+//    }];
 }
 
 //- (void)getTipsSuccess:(void(^)(NSDictionary *dicWebData,NSArray *TipsPreviewArray,NSError *error))success
@@ -102,14 +102,14 @@
 //    }];
 //}
 
-- (NSData *)dataFromKey:(NSString *)key object:(AVObject *)obj
-{
-    AVFile *file = [obj objectForKey:key];
-    NSData *data = [file getData];
-    data = data?data:nil;
-    return data;
-}
-- (void)dataFromKey:(NSString *)key object:(AVObject *)obj block:(void(^)(NSData *data))block{
+//- (NSData *)dataFromKey:(NSString *)key object:(AVObject *)obj
+//{
+//    AVFile *file = [obj objectForKey:key];
+//    NSData *data = [file getData];
+//    data = data?data:nil;
+//    return data;
+//}
+//- (void)dataFromKey:(NSString *)key object:(AVObject *)obj block:(void(^)(NSData *data))block{
 //    AVFile *file = [obj objectForKey:key];
 //    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
 //        if (data) {
@@ -118,7 +118,7 @@
 //            block(nil);
 //        }
 //    }];
-}
+//}
 
 
 - (NSString *)setUnderlineAgeTypeWithDate:(NSString *)date{

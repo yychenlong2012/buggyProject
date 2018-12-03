@@ -9,7 +9,7 @@
 #import "MineDataTools.h"
 #import "PreferenceDataBase.h"
 #import "DownLoadDataBase.h"
-#import "HomeViewModel.h"
+//#import "HomeViewModel.h"
 
 @implementation MineDataTools
 
@@ -23,11 +23,11 @@
     return [dataBase selectAllDatas].count;
 }
 
-+(void)requestDeviceListWithBlock:(void (^)(NSArray<DeviceModel *> * modelArray))block{
-    // 网络获取所有上传过的蓝牙设备
-    [HomeViewModel requestDeviceList:^(NSArray *list, NSError *error) {
-        block(list);
-    }];
-}
+//+(void)requestDeviceListWithBlock:(void (^)(NSArray<DeviceModel *> * modelArray))block{
+//    // 网络获取所有上传过的蓝牙设备
+//    [HomeViewModel requestDeviceList:^(NSArray *list, NSError *error) {
+//        block(list);
+//    }];
+//}
 
 @end

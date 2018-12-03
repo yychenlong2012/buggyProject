@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AVOSCloud.h>
 #import "MainModel.h"
 
 @interface BaseVC : UIViewController

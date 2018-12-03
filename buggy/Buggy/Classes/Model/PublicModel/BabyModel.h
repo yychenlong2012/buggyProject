@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy)NSString *name;
 @property (nonatomic, copy)NSString *birthday;
-@property (nonatomic, strong)AVFile *userImage;
+//@property (nonatomic, strong)AVFile *userImage;
 @property (nonatomic, copy)NSString *bluetoothUUID; // 绑定蓝牙设备的UUID号
 @property (nonatomic, copy)NSString *native;
 @property (nonatomic, copy)NSString *sex;

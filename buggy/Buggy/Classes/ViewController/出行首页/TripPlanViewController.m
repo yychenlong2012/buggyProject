@@ -93,24 +93,24 @@
 
 //请求未来推荐数据
 -(void)requestRecommendData{
-    AVQuery *query = [AVQuery queryWithClassName:@"UserTravelInfo"];
-    [query whereKey:@"userId" equalTo:[AVUser currentUser]];
-    [query getFirstObjectInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
-        if (error == nil && object) {
-            NSString *str = object[@"recommendedDate"];
-            [self.recommendDataDict removeAllObjects];
-            NSDateFormatter *form = [[NSDateFormatter alloc] init];
-            form.dateFormat = @"yyyyMMdd";
-            NSInteger today = [self getWeekDayFordate];
-            for (NSInteger i = today-1; i<str.length; i++) {
-                NSString *recommend = [str substringWithRange:NSMakeRange(i, 1)];
-                if ([recommend isEqualToString:@"2"]) {
-                    [self.recommendDataDict setObject:@"1" forKey:[form stringFromDate:[NSDate dateWithTimeInterval:(i+1-today)*24*60*60 sinceDate:[NSDate date]]]];
-                }
-            }
-            [self.calendar reloadData];
-        }
-    }];
+//    AVQuery *query = [AVQuery queryWithClassName:@"UserTravelInfo"];
+//    [query whereKey:@"userId" equalTo:[AVUser currentUser]];
+//    [query getFirstObjectInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
+//        if (error == nil && object) {
+//            NSString *str = object[@"recommendedDate"];
+//            [self.recommendDataDict removeAllObjects];
+//            NSDateFormatter *form = [[NSDateFormatter alloc] init];
+//            form.dateFormat = @"yyyyMMdd";
+//            NSInteger today = [self getWeekDayFordate];
+//            for (NSInteger i = today-1; i<str.length; i++) {
+//                NSString *recommend = [str substringWithRange:NSMakeRange(i, 1)];
+//                if ([recommend isEqualToString:@"2"]) {
+//                    [self.recommendDataDict setObject:@"1" forKey:[form stringFromDate:[NSDate dateWithTimeInterval:(i+1-today)*24*60*60 sinceDate:[NSDate date]]]];
+//                }
+//            }
+//            [self.calendar reloadData];
+//        }
+//    }];
 }
 
 //分析数据

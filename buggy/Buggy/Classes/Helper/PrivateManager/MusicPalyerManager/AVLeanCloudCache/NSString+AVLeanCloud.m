@@ -16,14 +16,14 @@
     return name;
 }
 
-+ (BOOL)fileExistsAccordingToLeanCloudCache:(AVFile *)leanCloudCacheFileName loadFile:(NSString *)loadFileName{
-//    NSLog(@"%d %@",leanCloudCacheFileName.isDataAvailable,[AVFileHandle loadFileExistsWithFileName:loadFileName]);
-    if (!leanCloudCacheFileName.isDataAvailable && ![AVFileHandle loadFileExistsWithFileName:loadFileName]) {
-        NSLog(@"不存在");
-        return NO;
-    }
-    return YES;
-}
+//+ (BOOL)fileExistsAccordingToLeanCloudCache:(AVFile *)leanCloudCacheFileName loadFile:(NSString *)loadFileName{
+////    NSLog(@"%d %@",leanCloudCacheFileName.isDataAvailable,[AVFileHandle loadFileExistsWithFileName:loadFileName]);
+//    if (!leanCloudCacheFileName.isDataAvailable && ![AVFileHandle loadFileExistsWithFileName:loadFileName]) {
+//        NSLog(@"不存在");
+//        return NO;
+//    }
+//    return YES;
+//}
 
 + (BOOL)fileExitsInDownloadWithFileName:(NSString *)fileName
 {

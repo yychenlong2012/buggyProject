@@ -151,7 +151,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *dict = @{ @"refresh_token":KUserDefualt_Get(USER_REFRESH_TOKEN) };
     [self.manager POST:CHECK_LOGIN parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"验证登录状态:%@",dict);
+        NSLog(@"验证登录状态:%@  %@",dict[@"msg"],dict);
         switch ([dict[@"status"] integerValue]) {
             case 8:{
                 KUserDefualt_Set(@"", USER_LOGIN_TOKEN);                 //需要重新登录

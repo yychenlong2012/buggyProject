@@ -7,14 +7,13 @@
 //
 
 #import "BaseModel.h"
-#import <AVOSCloud.h>
 
 @interface UserModel : BaseModel<NSCoding>
 
 //#pragma mark --- 孩子信息
 @property (nonatomic, strong)NSString *name;
 @property (nonatomic, strong)NSString *birthday;
-@property (nonatomic, strong)AVFile *userImage;
+//@property (nonatomic, strong)AVFile *userImage;
 @property (nonatomic, strong)NSString *bluetoothUUID; // 绑定蓝牙设备的UUID号
 @property (nonatomic, strong)NSString *native;
 @property (nonatomic, strong)NSString *sex;
@@ -99,6 +98,6 @@
  *  @return
  */
 - (BOOL)hideVersionCell;
--(void)getNewestVersion:(void (^)(AVObject *object,NSError *error))success;
+//-(void)getNewestVersion:(void (^)(AVObject *object,NSError *error))success;
 
 @end

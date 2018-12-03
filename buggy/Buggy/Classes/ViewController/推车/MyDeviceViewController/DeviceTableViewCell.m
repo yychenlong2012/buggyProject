@@ -9,7 +9,6 @@
 #import "DeviceTableViewCell.h"
 #import "CacheManager.h"
 #import "BabyModel.h"
-#import "DeviceViewModel.h"
 #import "BlueToothManager.h"
 #import "MainModel.h"
 #import "CarA3DetailsViewController.h"
@@ -197,30 +196,30 @@
 
 -(void)query{
     //查找设备标识
-    AVQuery *query = [AVQuery queryWithClassName:@"Cart_List_Details"];
-    [query whereKey:@"bluetoothName" equalTo:_peripheral[@"name"]];
-    [query getFirstObjectInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
-        if (error == nil && object) {
-            DeviceModel *model = [[DeviceModel alloc] init];
-            model.bluetoothuuid = self->_peripheral[@"UUID"];
-            model.deviceidentifier = [object objectForKey:@"deviceIdentifier"];
-            model.fuctiontype = [object objectForKey:@"fuctionType"] ;
-            model.company = [object objectForKey:@"company"];
-            model.bluetoothbind = YES;
-            model.bluetoothdeviceid = @"";
-            [DeviceViewModel updatecSelectedDevice:model finish:^(BOOL success, NSError *error) {
-                if (success) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MBProgressHUD showSuccess:@"绑定成功"];
-                    });
-                }else{
-                    [self showErrorMessage:error];
-                }
-            }];
-        }else{
-            
-        }
-    }];
+//    AVQuery *query = [AVQuery queryWithClassName:@"Cart_List_Details"];
+//    [query whereKey:@"bluetoothName" equalTo:_peripheral[@"name"]];
+//    [query getFirstObjectInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
+//        if (error == nil && object) {
+//            DeviceModel *model = [[DeviceModel alloc] init];
+//            model.bluetoothuuid = self->_peripheral[@"UUID"];
+//            model.deviceidentifier = [object objectForKey:@"deviceIdentifier"];
+//            model.fuctiontype = [object objectForKey:@"fuctionType"] ;
+//            model.company = [object objectForKey:@"company"];
+//            model.bluetoothbind = YES;
+//            model.bluetoothdeviceid = @"";
+//            [DeviceViewModel updatecSelectedDevice:model finish:^(BOOL success, NSError *error) {
+//                if (success) {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [MBProgressHUD showSuccess:@"绑定成功"];
+//                    });
+//                }else{
+//                    [self showErrorMessage:error];
+//                }
+//            }];
+//        }else{
+//
+//        }
+//    }];
 }
 
 @end

@@ -38,7 +38,6 @@
 		4E5D876A2069E56100B153D0 /* MYLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5D87682069E54300B153D0 /* MYLabel.m */; };
 		4E5D929520A3EAF800EBD692 /* LanguageChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5D929420A3EAF800EBD692 /* LanguageChangeViewController.m */; };
 		4E5D929820A3F21600EBD692 /* languageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5D929720A3F21600EBD692 /* languageTableViewCell.m */; };
-		4E5E2CAC1F4159CF00641C5C /* UserProtocolViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E2CAB1F4159CE00641C5C /* UserProtocolViewModel.m */; };
 		4E5E7CE420D354F600638CBA /* BlueToothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E7CE320D354F600638CBA /* BlueToothManager.m */; };
 		4E5E7CE720D36E8900638CBA /* MusicAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E7CE620D36E8900638CBA /* MusicAlbumModel.m */; };
 		4E5E915A20EA2E0600B26220 /* FloatTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E915920EA2E0600B26220 /* FloatTools.m */; };
@@ -76,8 +75,6 @@
 		4E70D42C2058FDCF00471A7F /* TripAndMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70D42B2058FDCF00471A7F /* TripAndMusicViewController.m */; };
 		4E7215B51F3D850A00672191 /* AYViewPager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7215B41F3D850A00672191 /* AYViewPager.m */; };
 		4E7215B81F3D85A200672191 /* AYInstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7215B71F3D85A200672191 /* AYInstructionsViewController.m */; };
-		4E7215BE1F3D89C000672191 /* AYInstructionsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7215BD1F3D89C000672191 /* AYInstructionsViewModel.m */; };
-		4E7215C11F3D8AAF00672191 /* AYInstructionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7215C01F3D8AAF00672191 /* AYInstructionsModel.m */; };
 		4E72EA7A205A034C003CABFA /* TripPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E72EA79205A034C003CABFA /* TripPlanViewController.m */; };
 		4E742ED020A13B9500360849 /* BLEA4API.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E742ECF20A13B9500360849 /* BLEA4API.m */; };
 		4E742ED320A185E700360849 /* CarA4DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E742ED220A185E700360849 /* CarA4DetailViewController.m */; };
@@ -207,10 +204,8 @@
 		788738C51CDA4029003887A8 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 788738C41CDA4029003887A8 /* CoreBluetooth.framework */; };
 		78A6D9B91CEC5CF6006B4490 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78A6D9B81CEC5CF6006B4490 /* QuartzCore.framework */; };
 		78A6D9BB1CEC5CFE006B4490 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78A6D9BA1CEC5CFE006B4490 /* ImageIO.framework */; };
-		7B0DC4341EC556A900CC1A50 /* DeviceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0DC4331EC556A900CC1A50 /* DeviceViewModel.m */; };
 		7B0DC43A1EC5B8BF00CC1A50 /* PreferenceDataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0DC4391EC5B8BF00CC1A50 /* PreferenceDataBase.m */; };
 		7B0DC43D1EC5B8DB00CC1A50 /* DeviceDataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0DC43C1EC5B8DB00CC1A50 /* DeviceDataBase.m */; };
-		7B0DC4401EC9858C00CC1A50 /* AVRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0DC43F1EC9858C00CC1A50 /* AVRequestTask.m */; };
 		7B0DC4431EC98BD600CC1A50 /* AVFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0DC4421EC98BD600CC1A50 /* AVFileHandle.m */; };
 		7B0DC4461EC99A1D00CC1A50 /* NSURL+AVLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0DC4451EC99A1D00CC1A50 /* NSURL+AVLoader.m */; };
 		7B0DC4491EC99A3A00CC1A50 /* NSString+AVLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0DC4481EC99A3A00CC1A50 /* NSString+AVLoader.m */; };
@@ -412,11 +407,7 @@
 		7B1BBC591E2F657000995017 /* Check.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1BBA361E2F657000995017 /* Check.m */; };
 		7B1BBC5A1E2F657000995017 /* KVCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1BBA381E2F657000995017 /* KVCHelper.m */; };
 		7B1BBC5B1E2F657000995017 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1BBA3A1E2F657000995017 /* Theme.m */; };
-		7B1BBC5C1E2F657000995017 /* TrackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1BBA3D1E2F657000995017 /* TrackManager.m */; };
-		7B1BBC5D1E2F657000995017 /* TrackRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1BBA3F1E2F657000995017 /* TrackRecord.m */; };
-		7B1BBC5E1E2F657000995017 /* TripsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1BBA411E2F657000995017 /* TripsManager.m */; };
 		7B1BBC5F1E2F657000995017 /* AlertActionSheetMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1BBA441E2F657000995017 /* AlertActionSheetMgr.m */; };
-		7B1BBC601E2F657000995017 /* leanCloudMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1BBA461E2F657000995017 /* leanCloudMgr.m */; };
 		7B1BBC611E2F657000995017 /* ScreenMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1BBA481E2F657000995017 /* ScreenMgr.m */; };
 		7B1BBC6E1E2F657000995017 /* 93c9571febeeaabd.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7B1BBA651E2F657000995017 /* 93c9571febeeaabd.txt */; };
 		7B1BBC6F1E2F657000995017 /* c3cc04c0d276d752.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B1BBA661E2F657000995017 /* c3cc04c0d276d752.html */; };
@@ -515,17 +506,14 @@
 		7B1BBD3D1E2F657100995017 /* GuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1BBB931E2F657000995017 /* GuideView.m */; };
 		7B1BBD411E2F686C00995017 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7B1BBD401E2F686C00995017 /* TencentOpenApi_IOS_Bundle.bundle */; };
 		7B1BBD451E30924B00995017 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1BBD441E30924B00995017 /* MainViewController.m */; };
-		7B26B6A71EF77EE70090E7A6 /* DeviceLogViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B26B6A61EF77EE70090E7A6 /* DeviceLogViewModel.m */; };
 		7B26B6B81F05201D0090E7A6 /* bg-mine.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B26B6B71F05201D0090E7A6 /* bg-mine.png */; };
 		7B26B6FA1F0B436E0090E7A6 /* WatermarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B26B6F91F0B436E0090E7A6 /* WatermarkView.m */; };
 		7B2A0D761F1618C6001589EA /* photograph_label_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B2A0D731F1618C6001589EA /* photograph_label_left.png */; };
 		7B2A0D771F1618C6001589EA /* photograph_label_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B2A0D741F1618C6001589EA /* photograph_label_right.png */; };
 		7B57029F1E31F62200595107 /* binding3uzi_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B57029D1E31F62200595107 /* binding3uzi_icon.png */; };
 		7B5702A01E31F62200595107 /* binding3uzi_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B57029E1E31F62200595107 /* binding3uzi_icon@2x.png */; };
-		7B5702C11E32023A00595107 /* FeedBackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702AA1E32023A00595107 /* FeedBackManager.m */; };
 		7B5702C21E32023A00595107 /* HealthTipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702AC1E32023A00595107 /* HealthTipModel.m */; };
 		7B5702C31E32023A00595107 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702AE1E32023A00595107 /* LoginModel.m */; };
-		7B5702C51E32023A00595107 /* BabyStrollerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702B31E32023A00595107 /* BabyStrollerManager.m */; };
 		7B5702C61E32023A00595107 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702B51E32023A00595107 /* BaseModel.m */; };
 		7B5702C71E32023A00595107 /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702B71E32023A00595107 /* CacheManager.m */; };
 		7B5702C81E32023A00595107 /* MainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702B91E32023A00595107 /* MainModel.m */; };
@@ -533,7 +521,6 @@
 		7B5702CA1E32023A00595107 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702BD1E32023A00595107 /* UserModel.m */; };
 		7B5702CB1E32023A00595107 /* WNJsonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702BF1E32023A00595107 /* WNJsonModel.m */; };
 		7B5702CF1E3202E700595107 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702CE1E3202E700595107 /* LoginViewModel.m */; };
-		7B5702D21E32030E00595107 /* HomeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702D11E32030E00595107 /* HomeViewModel.m */; };
 		7B57B2AB1F0B7525009413DB /* BabyInfoMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B57B2AA1F0B7525009413DB /* BabyInfoMarkView.m */; };
 		7B61D2D51E69051C00385A67 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B61D2D41E69051C00385A67 /* libc++.tbd */; };
 		7B61D2D81E6914F300385A67 /* BaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B61D2D71E6914F300385A67 /* BaseListViewController.m */; };
@@ -543,22 +530,15 @@
 		7B6A52C91EA9EBBA00393D86 /* MusicLikeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A52C81EA9EBBA00393D86 /* MusicLikeViewModel.m */; };
 		7B6A52CC1EAB0FEC00393D86 /* MusicLikeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A52CB1EAB0FEC00393D86 /* MusicLikeModel.m */; };
 		7B6A52CF1EAB16B400393D86 /* MusicLikeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A52CE1EAB16B400393D86 /* MusicLikeViewController.m */; };
-		7B6A52D21EAB4C7300393D86 /* MusicLocalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A52D11EAB4C7300393D86 /* MusicLocalModel.m */; };
 		7B6A52DF1EAE1B2000393D86 /* MusicThemeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A52DE1EAE1B2000393D86 /* MusicThemeModel.m */; };
 		7B6A52E21EB1A3B900393D86 /* NetWorkStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A52E11EB1A3B900393D86 /* NetWorkStatus.m */; };
 		7B6D93561E5BED9C00668E99 /* BabyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D93551E5BED9C00668E99 /* BabyModel.m */; };
-		7B6D93591E5C1AD100668E99 /* HealthModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D93581E5C1AD100668E99 /* HealthModel.m */; };
 		7B6E549A1EC468270096297B /* DeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E54991EC468270096297B /* DeviceModel.m */; };
 		7B7EA9061E95F2710037138B /* MusicInfoListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7EA9051E95F2710037138B /* MusicInfoListView.m */; };
 		7B7EA9091E95F2A30037138B /* MusicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7EA9081E95F2A30037138B /* MusicListViewController.m */; };
 		7B7EA90C1E96442F0037138B /* MusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7EA90B1E96442F0037138B /* MusicListCell.m */; };
 		7B80163E1EA85F72006B7717 /* DataBaseEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B80163D1EA85F72006B7717 /* DataBaseEngine.m */; };
 		7BA775AB1E6AC44B00B644C9 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA775AA1E6AC44B00B644C9 /* WelcomeViewController.m */; };
-		7BAD2F5D1E9CD39F00956CA6 /* AVAResourceLoaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD2F521E9CD39F00956CA6 /* AVAResourceLoaderManager.m */; };
-		7BAD2F5E1E9CD39F00956CA6 /* BasePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD2F541E9CD39F00956CA6 /* BasePlayer.m */; };
-		7BAD2F5F1E9CD39F00956CA6 /* BLEMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD2F561E9CD39F00956CA6 /* BLEMusicPlayer.m */; };
-		7BAD2F621E9CD39F00956CA6 /* SDMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD2F5C1E9CD39F00956CA6 /* SDMusicPlayer.m */; };
-		7BAD2F651E9CD4BF00956CA6 /* MusicViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD2F641E9CD4BF00956CA6 /* MusicViewModel.m */; };
 		7BAD2F6B1E9CD60500956CA6 /* MusicListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD2F681E9CD60500956CA6 /* MusicListModel.m */; };
 		7BAD2FEC1E9F678600956CA6 /* MonitorCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD2FD91E9F678600956CA6 /* MonitorCrash.m */; };
 		7BAD2FED1E9F678600956CA6 /* NSArray+MonitorCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD2FDB1E9F678600956CA6 /* NSArray+MonitorCrash.m */; };
@@ -573,7 +553,6 @@
 		7BB6AAD41E9B2DF80026694E /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB6AAD31E9B2DF80026694E /* WaveView.m */; };
 		7BB830D61E724D1800E0CF4C /* DeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB830D51E724D1800E0CF4C /* DeviceViewController.m */; };
 		7BB84D221EBC4E6F0021ECE1 /* MusicVehicleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB84D211EBC4E6F0021ECE1 /* MusicVehicleViewModel.m */; };
-		7BC014481EB1DC5B00EEC82C /* MusicRecentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC014471EB1DC5B00EEC82C /* MusicRecentViewModel.m */; };
 		7BC990DB1EE00A9400EA377C /* CarA3HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC990D91EE00A9400EA377C /* CarA3HeaderView.m */; };
 		7BC990DE1EE00AE400EA377C /* CarA3BrakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC990DD1EE00AE400EA377C /* CarA3BrakeView.m */; };
 		7BC990E11EE00B1B00EA377C /* CarA3EnergyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC990E01EE00B1B00EA377C /* CarA3EnergyView.m */; };
@@ -679,8 +658,6 @@
 		4E5D929420A3EAF800EBD692 /* LanguageChangeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LanguageChangeViewController.m; sourceTree = "<group>"; };
 		4E5D929620A3F21600EBD692 /* languageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = languageTableViewCell.h; sourceTree = "<group>"; };
 		4E5D929720A3F21600EBD692 /* languageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = languageTableViewCell.m; sourceTree = "<group>"; };
-		4E5E2CAA1F4159CE00641C5C /* UserProtocolViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewModel.h; sourceTree = "<group>"; };
-		4E5E2CAB1F4159CE00641C5C /* UserProtocolViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewModel.m; sourceTree = "<group>"; };
 		4E5E7CE220D354DD00638CBA /* BlueToothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueToothManager.h; sourceTree = "<group>"; };
 		4E5E7CE320D354F600638CBA /* BlueToothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueToothManager.m; sourceTree = "<group>"; };
 		4E5E7CE520D36E8900638CBA /* MusicAlbumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicAlbumModel.h; sourceTree = "<group>"; };
@@ -750,10 +727,6 @@
 		4E7215B41F3D850A00672191 /* AYViewPager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AYViewPager.m; sourceTree = "<group>"; };
 		4E7215B61F3D85A200672191 /* AYInstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AYInstructionsViewController.h; sourceTree = "<group>"; };
 		4E7215B71F3D85A200672191 /* AYInstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AYInstructionsViewController.m; sourceTree = "<group>"; };
-		4E7215BC1F3D89C000672191 /* AYInstructionsViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AYInstructionsViewModel.h; sourceTree = "<group>"; };
-		4E7215BD1F3D89C000672191 /* AYInstructionsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AYInstructionsViewModel.m; sourceTree = "<group>"; };
-		4E7215BF1F3D8AAF00672191 /* AYInstructionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AYInstructionsModel.h; sourceTree = "<group>"; };
-		4E7215C01F3D8AAF00672191 /* AYInstructionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AYInstructionsModel.m; sourceTree = "<group>"; };
 		4E72EA78205A034C003CABFA /* TripPlanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TripPlanViewController.h; sourceTree = "<group>"; };
 		4E72EA79205A034C003CABFA /* TripPlanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TripPlanViewController.m; sourceTree = "<group>"; };
 		4E742ECE20A13B9500360849 /* BLEA4API.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEA4API.h; sourceTree = "<group>"; };
@@ -954,14 +927,10 @@
 		78A6D9BA1CEC5CFE006B4490 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		78D3E9991D02D8590071926E /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		78D3E99A1D02D96D0071926E /* CONSTS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CONSTS.h; sourceTree = "<group>"; };
-		7B0DC4321EC556A900CC1A50 /* DeviceViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceViewModel.h; sourceTree = "<group>"; };
-		7B0DC4331EC556A900CC1A50 /* DeviceViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceViewModel.m; sourceTree = "<group>"; };
 		7B0DC4381EC5B8BF00CC1A50 /* PreferenceDataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceDataBase.h; sourceTree = "<group>"; };
 		7B0DC4391EC5B8BF00CC1A50 /* PreferenceDataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceDataBase.m; sourceTree = "<group>"; };
 		7B0DC43B1EC5B8DB00CC1A50 /* DeviceDataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDataBase.h; sourceTree = "<group>"; };
 		7B0DC43C1EC5B8DB00CC1A50 /* DeviceDataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDataBase.m; sourceTree = "<group>"; };
-		7B0DC43E1EC9858C00CC1A50 /* AVRequestTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVRequestTask.h; sourceTree = "<group>"; };
-		7B0DC43F1EC9858C00CC1A50 /* AVRequestTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVRequestTask.m; sourceTree = "<group>"; };
 		7B0DC4411EC98BD600CC1A50 /* AVFileHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVFileHandle.h; sourceTree = "<group>"; };
 		7B0DC4421EC98BD600CC1A50 /* AVFileHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVFileHandle.m; sourceTree = "<group>"; };
 		7B0DC4441EC99A1D00CC1A50 /* NSURL+AVLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+AVLoader.h"; sourceTree = "<group>"; };
@@ -1361,16 +1330,8 @@
 		7B1BBA381E2F657000995017 /* KVCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVCHelper.m; sourceTree = "<group>"; };
 		7B1BBA391E2F657000995017 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		7B1BBA3A1E2F657000995017 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
-		7B1BBA3C1E2F657000995017 /* TrackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackManager.h; sourceTree = "<group>"; };
-		7B1BBA3D1E2F657000995017 /* TrackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackManager.m; sourceTree = "<group>"; };
-		7B1BBA3E1E2F657000995017 /* TrackRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackRecord.h; sourceTree = "<group>"; };
-		7B1BBA3F1E2F657000995017 /* TrackRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackRecord.m; sourceTree = "<group>"; };
-		7B1BBA401E2F657000995017 /* TripsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsManager.h; sourceTree = "<group>"; };
-		7B1BBA411E2F657000995017 /* TripsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsManager.m; sourceTree = "<group>"; };
 		7B1BBA431E2F657000995017 /* AlertActionSheetMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertActionSheetMgr.h; sourceTree = "<group>"; };
 		7B1BBA441E2F657000995017 /* AlertActionSheetMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertActionSheetMgr.m; sourceTree = "<group>"; };
-		7B1BBA451E2F657000995017 /* leanCloudMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = leanCloudMgr.h; sourceTree = "<group>"; };
-		7B1BBA461E2F657000995017 /* leanCloudMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = leanCloudMgr.m; sourceTree = "<group>"; };
 		7B1BBA471E2F657000995017 /* ScreenMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenMgr.h; sourceTree = "<group>"; };
 		7B1BBA481E2F657000995017 /* ScreenMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenMgr.m; sourceTree = "<group>"; };
 		7B1BBA651E2F657000995017 /* 93c9571febeeaabd.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 93c9571febeeaabd.txt; sourceTree = "<group>"; };
@@ -1494,8 +1455,6 @@
 		7B1BBD401E2F686C00995017 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		7B1BBD431E30924B00995017 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		7B1BBD441E30924B00995017 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		7B26B6A51EF77EE70090E7A6 /* DeviceLogViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceLogViewModel.h; sourceTree = "<group>"; };
-		7B26B6A61EF77EE70090E7A6 /* DeviceLogViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceLogViewModel.m; sourceTree = "<group>"; };
 		7B26B6B71F05201D0090E7A6 /* bg-mine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-mine.png"; sourceTree = "<group>"; };
 		7B26B6F81F0B436E0090E7A6 /* WatermarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatermarkView.h; sourceTree = "<group>"; };
 		7B26B6F91F0B436E0090E7A6 /* WatermarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatermarkView.m; sourceTree = "<group>"; };
@@ -1505,14 +1464,10 @@
 		7B2C46C31EF25A6F00A11EB8 /* BLESlaveUserOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLESlaveUserOrder.h; sourceTree = "<group>"; };
 		7B57029D1E31F62200595107 /* binding3uzi_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = binding3uzi_icon.png; sourceTree = "<group>"; };
 		7B57029E1E31F62200595107 /* binding3uzi_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "binding3uzi_icon@2x.png"; sourceTree = "<group>"; };
-		7B5702A91E32023A00595107 /* FeedBackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackManager.h; sourceTree = "<group>"; };
-		7B5702AA1E32023A00595107 /* FeedBackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackManager.m; sourceTree = "<group>"; };
 		7B5702AB1E32023A00595107 /* HealthTipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthTipModel.h; sourceTree = "<group>"; };
 		7B5702AC1E32023A00595107 /* HealthTipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthTipModel.m; sourceTree = "<group>"; };
 		7B5702AD1E32023A00595107 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		7B5702AE1E32023A00595107 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
-		7B5702B21E32023A00595107 /* BabyStrollerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyStrollerManager.h; sourceTree = "<group>"; };
-		7B5702B31E32023A00595107 /* BabyStrollerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyStrollerManager.m; sourceTree = "<group>"; };
 		7B5702B41E32023A00595107 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		7B5702B51E32023A00595107 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		7B5702B61E32023A00595107 /* CacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheManager.h; sourceTree = "<group>"; };
@@ -1527,8 +1482,6 @@
 		7B5702BF1E32023A00595107 /* WNJsonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WNJsonModel.m; sourceTree = "<group>"; };
 		7B5702CD1E3202E700595107 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
 		7B5702CE1E3202E700595107 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
-		7B5702D01E32030E00595107 /* HomeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewModel.h; sourceTree = "<group>"; };
-		7B5702D11E32030E00595107 /* HomeViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewModel.m; sourceTree = "<group>"; };
 		7B57B2A91F0B7525009413DB /* BabyInfoMarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyInfoMarkView.h; sourceTree = "<group>"; };
 		7B57B2AA1F0B7525009413DB /* BabyInfoMarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyInfoMarkView.m; sourceTree = "<group>"; };
 		7B61D2D41E69051C00385A67 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -1546,8 +1499,6 @@
 		7B6A52CB1EAB0FEC00393D86 /* MusicLikeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicLikeModel.m; sourceTree = "<group>"; };
 		7B6A52CD1EAB16B400393D86 /* MusicLikeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicLikeViewController.h; sourceTree = "<group>"; };
 		7B6A52CE1EAB16B400393D86 /* MusicLikeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicLikeViewController.m; sourceTree = "<group>"; };
-		7B6A52D01EAB4C7300393D86 /* MusicLocalModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicLocalModel.h; sourceTree = "<group>"; };
-		7B6A52D11EAB4C7300393D86 /* MusicLocalModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicLocalModel.m; sourceTree = "<group>"; };
 		7B6A52DD1EAE1B2000393D86 /* MusicThemeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicThemeModel.h; sourceTree = "<group>"; };
 		7B6A52DE1EAE1B2000393D86 /* MusicThemeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicThemeModel.m; sourceTree = "<group>"; };
 		7B6A52E01EB1A3B900393D86 /* NetWorkStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkStatus.h; sourceTree = "<group>"; };
@@ -1555,8 +1506,6 @@
 		7B6A833A1DD09D1900668069 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7B6D93541E5BED9C00668E99 /* BabyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyModel.h; sourceTree = "<group>"; };
 		7B6D93551E5BED9C00668E99 /* BabyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyModel.m; sourceTree = "<group>"; };
-		7B6D93571E5C1AD100668E99 /* HealthModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthModel.h; sourceTree = "<group>"; };
-		7B6D93581E5C1AD100668E99 /* HealthModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthModel.m; sourceTree = "<group>"; };
 		7B6E54981EC468270096297B /* DeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceModel.h; sourceTree = "<group>"; };
 		7B6E54991EC468270096297B /* DeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceModel.m; sourceTree = "<group>"; };
 		7B7EA9041E95F2710037138B /* MusicInfoListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicInfoListView.h; sourceTree = "<group>"; };
@@ -1569,16 +1518,6 @@
 		7B80163D1EA85F72006B7717 /* DataBaseEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseEngine.m; sourceTree = "<group>"; };
 		7BA775A91E6AC44B00B644C9 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		7BA775AA1E6AC44B00B644C9 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
-		7BAD2F511E9CD39F00956CA6 /* AVAResourceLoaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVAResourceLoaderManager.h; sourceTree = "<group>"; };
-		7BAD2F521E9CD39F00956CA6 /* AVAResourceLoaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVAResourceLoaderManager.m; sourceTree = "<group>"; };
-		7BAD2F531E9CD39F00956CA6 /* BasePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePlayer.h; sourceTree = "<group>"; };
-		7BAD2F541E9CD39F00956CA6 /* BasePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePlayer.m; sourceTree = "<group>"; };
-		7BAD2F551E9CD39F00956CA6 /* BLEMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEMusicPlayer.h; sourceTree = "<group>"; };
-		7BAD2F561E9CD39F00956CA6 /* BLEMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEMusicPlayer.m; sourceTree = "<group>"; };
-		7BAD2F5B1E9CD39F00956CA6 /* SDMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDMusicPlayer.h; sourceTree = "<group>"; };
-		7BAD2F5C1E9CD39F00956CA6 /* SDMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDMusicPlayer.m; sourceTree = "<group>"; };
-		7BAD2F631E9CD4BF00956CA6 /* MusicViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicViewModel.h; sourceTree = "<group>"; };
-		7BAD2F641E9CD4BF00956CA6 /* MusicViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicViewModel.m; sourceTree = "<group>"; };
 		7BAD2F671E9CD60500956CA6 /* MusicListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicListModel.h; sourceTree = "<group>"; };
 		7BAD2F681E9CD60500956CA6 /* MusicListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicListModel.m; sourceTree = "<group>"; };
 		7BAD2FD81E9F678600956CA6 /* MonitorCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorCrash.h; sourceTree = "<group>"; };
@@ -1607,8 +1546,6 @@
 		7BB830D51E724D1800E0CF4C /* DeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceViewController.m; path = ../DeviceViewController.m; sourceTree = "<group>"; };
 		7BB84D201EBC4E6F0021ECE1 /* MusicVehicleViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicVehicleViewModel.h; sourceTree = "<group>"; };
 		7BB84D211EBC4E6F0021ECE1 /* MusicVehicleViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicVehicleViewModel.m; sourceTree = "<group>"; };
-		7BC014461EB1DC5B00EEC82C /* MusicRecentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicRecentViewModel.h; sourceTree = "<group>"; };
-		7BC014471EB1DC5B00EEC82C /* MusicRecentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicRecentViewModel.m; sourceTree = "<group>"; };
 		7BC990D81EE00A9400EA377C /* CarA3HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarA3HeaderView.h; sourceTree = "<group>"; };
 		7BC990D91EE00A9400EA377C /* CarA3HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarA3HeaderView.m; sourceTree = "<group>"; };
 		7BC990DC1EE00AE400EA377C /* CarA3BrakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarA3BrakeView.h; sourceTree = "<group>"; };
@@ -1773,8 +1710,6 @@
 				7BAD2F681E9CD60500956CA6 /* MusicListModel.m */,
 				7B6A52CA1EAB0FEC00393D86 /* MusicLikeModel.h */,
 				7B6A52CB1EAB0FEC00393D86 /* MusicLikeModel.m */,
-				7B6A52D01EAB4C7300393D86 /* MusicLocalModel.h */,
-				7B6A52D11EAB4C7300393D86 /* MusicLocalModel.m */,
 				7B6A52DD1EAE1B2000393D86 /* MusicThemeModel.h */,
 				7B6A52DE1EAE1B2000393D86 /* MusicThemeModel.m */,
 				4E7F7BC520CFE88300280674 /* MusicBannerModel.h */,
@@ -3216,7 +3151,6 @@
 			children = (
 				7B1BBA321E2F657000995017 /* Comment */,
 				7B1BBA2B1E2F657000995017 /* BLEManager */,
-				7B1BBA3B1E2F657000995017 /* TrackManager */,
 				7BAD2F4F1E9CD36E00956CA6 /* MusicPalyerManager */,
 				7B6A52D61EADB03200393D86 /* RelocateManager(浮动图标) */,
 				4E6BE144218FE38A002BF803 /* NetWorkManager */,
@@ -3252,27 +3186,11 @@
 			path = Systom;
 			sourceTree = "<group>";
 		};
-		7B1BBA3B1E2F657000995017 /* TrackManager */ = {
-			isa = PBXGroup;
-			children = (
-				7B1BBA3C1E2F657000995017 /* TrackManager.h */,
-				7B1BBA3D1E2F657000995017 /* TrackManager.m */,
-				7B1BBA3E1E2F657000995017 /* TrackRecord.h */,
-				7B1BBA3F1E2F657000995017 /* TrackRecord.m */,
-				7B1BBA401E2F657000995017 /* TripsManager.h */,
-				7B1BBA411E2F657000995017 /* TripsManager.m */,
-			);
-			name = TrackManager;
-			path = "轨迹";
-			sourceTree = "<group>";
-		};
 		7B1BBA421E2F657000995017 /* PublicManager */ = {
 			isa = PBXGroup;
 			children = (
 				7B1BBA431E2F657000995017 /* AlertActionSheetMgr.h */,
 				7B1BBA441E2F657000995017 /* AlertActionSheetMgr.m */,
-				7B1BBA451E2F657000995017 /* leanCloudMgr.h */,
-				7B1BBA461E2F657000995017 /* leanCloudMgr.m */,
 				7B1BBA471E2F657000995017 /* ScreenMgr.h */,
 				7B1BBA481E2F657000995017 /* ScreenMgr.m */,
 			);
@@ -3633,8 +3551,6 @@
 		7B5702A61E32023A00595107 /* PrivateModel */ = {
 			isa = PBXGroup;
 			children = (
-				7B5702A91E32023A00595107 /* FeedBackManager.h */,
-				7B5702AA1E32023A00595107 /* FeedBackManager.m */,
 				7B5702AB1E32023A00595107 /* HealthTipModel.h */,
 				7B5702AC1E32023A00595107 /* HealthTipModel.m */,
 				7B5702AD1E32023A00595107 /* LoginModel.h */,
@@ -3654,18 +3570,12 @@
 				7B5702BD1E32023A00595107 /* UserModel.m */,
 				7B6D93541E5BED9C00668E99 /* BabyModel.h */,
 				7B6D93551E5BED9C00668E99 /* BabyModel.m */,
-				7B6D93571E5C1AD100668E99 /* HealthModel.h */,
-				7B6D93581E5C1AD100668E99 /* HealthModel.m */,
-				7B5702B21E32023A00595107 /* BabyStrollerManager.h */,
-				7B5702B31E32023A00595107 /* BabyStrollerManager.m */,
 				7B5702B61E32023A00595107 /* CacheManager.h */,
 				7B5702B71E32023A00595107 /* CacheManager.m */,
 				7B5702BA1E32023A00595107 /* ParentsManager.h */,
 				7B5702BB1E32023A00595107 /* ParentsManager.m */,
 				7B5702BE1E32023A00595107 /* WNJsonModel.h */,
 				7B5702BF1E32023A00595107 /* WNJsonModel.m */,
-				4E7215BF1F3D8AAF00672191 /* AYInstructionsModel.h */,
-				4E7215C01F3D8AAF00672191 /* AYInstructionsModel.m */,
 			);
 			path = PublicModel;
 			sourceTree = "<group>";
@@ -3675,26 +3585,12 @@
 			children = (
 				7B5702CD1E3202E700595107 /* LoginViewModel.h */,
 				7B5702CE1E3202E700595107 /* LoginViewModel.m */,
-				7B5702D01E32030E00595107 /* HomeViewModel.h */,
-				7B5702D11E32030E00595107 /* HomeViewModel.m */,
-				7BAD2F631E9CD4BF00956CA6 /* MusicViewModel.h */,
-				7BAD2F641E9CD4BF00956CA6 /* MusicViewModel.m */,
 				7B6A52C71EA9EBBA00393D86 /* MusicLikeViewModel.h */,
 				7B6A52C81EA9EBBA00393D86 /* MusicLikeViewModel.m */,
-				7BC014461EB1DC5B00EEC82C /* MusicRecentViewModel.h */,
-				7BC014471EB1DC5B00EEC82C /* MusicRecentViewModel.m */,
 				7BB84D201EBC4E6F0021ECE1 /* MusicVehicleViewModel.h */,
 				7BB84D211EBC4E6F0021ECE1 /* MusicVehicleViewModel.m */,
-				7B0DC4321EC556A900CC1A50 /* DeviceViewModel.h */,
-				7B0DC4331EC556A900CC1A50 /* DeviceViewModel.m */,
 				7BED53261ED95F0500C4610D /* CarDetailsViewModel.h */,
 				7BED53271ED95F0500C4610D /* CarDetailsViewModel.m */,
-				7B26B6A51EF77EE70090E7A6 /* DeviceLogViewModel.h */,
-				7B26B6A61EF77EE70090E7A6 /* DeviceLogViewModel.m */,
-				4E7215BC1F3D89C000672191 /* AYInstructionsViewModel.h */,
-				4E7215BD1F3D89C000672191 /* AYInstructionsViewModel.m */,
-				4E5E2CAA1F4159CE00641C5C /* UserProtocolViewModel.h */,
-				4E5E2CAB1F4159CE00641C5C /* UserProtocolViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3744,12 +3640,6 @@
 				4E783E39206CBCD200C65162 /* MusicManager.h */,
 				4E783E3A206CBCDC00C65162 /* MusicManager.m */,
 				7BAD2F501E9CD39F00956CA6 /* AVResourceManager */,
-				7BAD2F531E9CD39F00956CA6 /* BasePlayer.h */,
-				7BAD2F541E9CD39F00956CA6 /* BasePlayer.m */,
-				7BAD2F551E9CD39F00956CA6 /* BLEMusicPlayer.h */,
-				7BAD2F561E9CD39F00956CA6 /* BLEMusicPlayer.m */,
-				7BAD2F5B1E9CD39F00956CA6 /* SDMusicPlayer.h */,
-				7BAD2F5C1E9CD39F00956CA6 /* SDMusicPlayer.m */,
 				7B6A52E01EB1A3B900393D86 /* NetWorkStatus.h */,
 				7B6A52E11EB1A3B900393D86 /* NetWorkStatus.m */,
 				7B0DC44A1ECC02A200CC1A50 /* AVLeanCloudCache */,
@@ -3760,10 +3650,6 @@
 		7BAD2F501E9CD39F00956CA6 /* AVResourceManager */ = {
 			isa = PBXGroup;
 			children = (
-				7BAD2F511E9CD39F00956CA6 /* AVAResourceLoaderManager.h */,
-				7BAD2F521E9CD39F00956CA6 /* AVAResourceLoaderManager.m */,
-				7B0DC43E1EC9858C00CC1A50 /* AVRequestTask.h */,
-				7B0DC43F1EC9858C00CC1A50 /* AVRequestTask.m */,
 				7B0DC4411EC98BD600CC1A50 /* AVFileHandle.h */,
 				7B0DC4421EC98BD600CC1A50 /* AVFileHandle.m */,
 				7B0DC4441EC99A1D00CC1A50 /* NSURL+AVLoader.h */,
@@ -4210,14 +4096,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Buggy/Pods-Buggy-resources.sh",
-				"${PODS_ROOT}/AMap2DMap/MAMapKit.framework/AMap.bundle",
-				"${PODS_ROOT}/AVOSCloud/AVOS/AVOSCloud/AVOSCloud_Art.inc",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AVOSCloud_Art.inc",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4283,7 +4165,6 @@
 				7BCB36BE1EE810B200B40120 /* CarOldDetailViewController.m in Sources */,
 				7B1BBC101E2F657000995017 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				4E3CA84B1F34095C00C40ED0 /* AYReSetPasswordVC.m in Sources */,
-				7B0DC4401EC9858C00CC1A50 /* AVRequestTask.m in Sources */,
 				4E5E915A20EA2E0600B26220 /* FloatTools.m in Sources */,
 				7B1BBC351E2F657000995017 /* LocalPushCenter.m in Sources */,
 				7B1BBBCB1E2F657000995017 /* UIButton+TouchAreaInsets.m in Sources */,
@@ -4299,7 +4180,6 @@
 				7B1BBBE11E2F657000995017 /* UINavigationController+MAC.m in Sources */,
 				4E7F7BC720CFE88300280674 /* MusicBannerModel.m in Sources */,
 				4E70D42C2058FDCF00471A7F /* TripAndMusicViewController.m in Sources */,
-				7B1BBC5C1E2F657000995017 /* TrackManager.m in Sources */,
 				7BCB36B91EE8107B00B40120 /* CarA3SetTableViewCell.m in Sources */,
 				4E603CBD20D21A5E007F9EA7 /* AnimationTools.m in Sources */,
 				4EA7EB4D219ABBE200D09454 /* musicModel.m in Sources */,
@@ -4365,14 +4245,11 @@
 				7B5702CF1E3202E700595107 /* LoginViewModel.m in Sources */,
 				7B1BBC581E2F657000995017 /* CalendarHelper.m in Sources */,
 				4EBF6B971F331E510061FAAA /* AYMessage.m in Sources */,
-				7B1BBC5E1E2F657000995017 /* TripsManager.m in Sources */,
 				7B1BBBF91E2F657000995017 /* MGSwipeButton.m in Sources */,
 				7B1BBBEC1E2F657000995017 /* UITableView+HYBCacheHeight.m in Sources */,
 				787BB6721C7B0ECF0057C151 /* AppDelegate.m in Sources */,
 				7B5702CB1E32023A00595107 /* WNJsonModel.m in Sources */,
 				7B1BBBB21E2F657000995017 /* NSObject+JKReflection.m in Sources */,
-				4E7215BE1F3D89C000672191 /* AYInstructionsViewModel.m in Sources */,
-				7B6D93591E5C1AD100668E99 /* HealthModel.m in Sources */,
 				7B1BBBDF1E2F657000995017 /* UINavigationController+KMNavigationBarTransition.m in Sources */,
 				7BAD2FF01E9F678600956CA6 /* NSMutableArray+MonitorCrash.m in Sources */,
 				7B1BBC161E2F657000995017 /* UIViewController+MAC.m in Sources */,
@@ -4409,7 +4286,6 @@
 				7B1BBBA01E2F657000995017 /* NSDictionary+JKMerge.m in Sources */,
 				7B1BBBA21E2F657000995017 /* NSDictionary+MAC.m in Sources */,
 				4E794E51207CADA2003903CA /* MusicListCollectionCell.m in Sources */,
-				4E5E2CAC1F4159CF00641C5C /* UserProtocolViewModel.m in Sources */,
 				4EA1F825207B74F900DEE10B /* MusicListTableViewCell.m in Sources */,
 				7B1BBC4D1E2F657000995017 /* ShareItemView.m in Sources */,
 				7B1BBB961E2F657000995017 /* NSBundle+JKAppIcon.m in Sources */,
@@ -4434,7 +4310,6 @@
 				7B7EA9061E95F2710037138B /* MusicInfoListView.m in Sources */,
 				4EFC2F6A20BD311A00A08A9C /* rankTableViewCell.m in Sources */,
 				7B1BBBD21E2F657000995017 /* UIImage+Additions.m in Sources */,
-				7BAD2F5E1E9CD39F00956CA6 /* BasePlayer.m in Sources */,
 				7B1BBBF71E2F657000995017 /* CellDataAdapter.m in Sources */,
 				7B1BBC4E1E2F657000995017 /* shareManager.m in Sources */,
 				7B1BBC001E2F657000995017 /* UITextView+Placeholder.m in Sources */,
@@ -4446,7 +4321,6 @@
 				4E693F67209D4B2800C86688 /* BabyInfoViewController.m in Sources */,
 				7B1BBBED1E2F657000995017 /* UITableViewCell+HYBMasonryAutoCellHeight.m in Sources */,
 				7BAD2FED1E9F678600956CA6 /* NSArray+MonitorCrash.m in Sources */,
-				7BAD2F5D1E9CD39F00956CA6 /* AVAResourceLoaderManager.m in Sources */,
 				7B1BBBE51E2F657000995017 /* UIResponder+Chain.m in Sources */,
 				4E744AB02066011000BCBC7C /* animationTools.m in Sources */,
 				4E75992F21992CAE00F3A0A6 /* homeDataModel.m in Sources */,
@@ -4458,7 +4332,6 @@
 				7B1BBBFC1E2F657000995017 /* UITextField+JKBlocks.m in Sources */,
 				7B1BBD281E2F657100995017 /* BLEDataParserAPI.m in Sources */,
 				7B1BBC4A1E2F657000995017 /* WNImagePicker.m in Sources */,
-				7B5702D21E32030E00595107 /* HomeViewModel.m in Sources */,
 				7B1BBC441E2F657000995017 /* DYImagePickerVC.m in Sources */,
 				7B1BBC071E2F657000995017 /* UIView+GestureCallback.m in Sources */,
 				4E2052A1219D857700D6937B /* userTravelInfoModel.m in Sources */,
@@ -4467,10 +4340,8 @@
 				4E6055DB20D0BD3D00A2BC8B /* lrcTableViewCell.m in Sources */,
 				4E5D929520A3EAF800EBD692 /* LanguageChangeViewController.m in Sources */,
 				7B1BBBBE1E2F657000995017 /* ChineseToPinyin.m in Sources */,
-				7BAD2F5F1E9CD39F00956CA6 /* BLEMusicPlayer.m in Sources */,
 				7B1BBBBF1E2F657000995017 /* NSTimer+MAC.m in Sources */,
 				7B1BBBF81E2F657000995017 /* MACBaseCell.m in Sources */,
-				7BC014481EB1DC5B00EEC82C /* MusicRecentViewModel.m in Sources */,
 				7B1BBC1E1E2F657000995017 /* UIColor+Additions.m in Sources */,
 				7B1BBC231E2F657000995017 /* UIView+Additions.m in Sources */,
 				4ECECDCA213E29D000B1940A /* CLKeyChain.m in Sources */,
@@ -4497,12 +4368,10 @@
 				7B1BBC1A1E2F657000995017 /* NSObject+Block.m in Sources */,
 				7B1BBC061E2F657000995017 /* UIView+Find.m in Sources */,
 				7B1BBBE71E2F657000995017 /* UIResponder+UIAdapt.m in Sources */,
-				7B6A52D21EAB4C7300393D86 /* MusicLocalModel.m in Sources */,
 				7B1BBB9B1E2F657000995017 /* NSData+JKGzip.m in Sources */,
 				7B1BBBE91E2F657000995017 /* MACScrollView.m in Sources */,
 				7B1BBC591E2F657000995017 /* Check.m in Sources */,
 				7B1BBBEB1E2F657000995017 /* UISearchBar+Blocks.m in Sources */,
-				7B1BBC5D1E2F657000995017 /* TrackRecord.m in Sources */,
 				4E586E01206E24650010D60D /* tripTotalModel.m in Sources */,
 				7B1BBC4C1E2F657000995017 /* ShareAnimationView.m in Sources */,
 				7B1BBC0A1E2F657000995017 /* UIView+MAC.m in Sources */,
@@ -4532,7 +4401,6 @@
 				7B1BBD3A1E2F657100995017 /* MONActivityIndicatorView.m in Sources */,
 				4EBF6B8F1F331D470061FAAA /* AYView.m in Sources */,
 				7B1BBC391E2F657000995017 /* SearchCoreManager.mm in Sources */,
-				4E7215C11F3D8AAF00672191 /* AYInstructionsModel.m in Sources */,
 				4E51C51C213D43D900942C46 /* NSNull+addtion.m in Sources */,
 				7B1BBC201E2F657000995017 /* UIImage+COSAdtions.m in Sources */,
 				7B1BBC3F1E2F657000995017 /* PickerView.m in Sources */,
@@ -4551,7 +4419,6 @@
 				7B1BBB991E2F657000995017 /* NSData+Encrypt.m in Sources */,
 				7B1BBBC61E2F657000995017 /* UIButton+Indicator.m in Sources */,
 				4E53748D218801A500D5E66F /* GSNetworkSpeed.m in Sources */,
-				7B0DC4341EC556A900CC1A50 /* DeviceViewModel.m in Sources */,
 				7BB84D221EBC4E6F0021ECE1 /* MusicVehicleViewModel.m in Sources */,
 				7B1BBBDC1E2F657000995017 /* UIUnderLineLabelLabel.m in Sources */,
 				7BC990DB1EE00A9400EA377C /* CarA3HeaderView.m in Sources */,
@@ -4563,20 +4430,17 @@
 				4E5E7CE420D354F600638CBA /* BlueToothManager.m in Sources */,
 				7BC990E11EE00B1B00EA377C /* CarA3EnergyView.m in Sources */,
 				7B61D2D81E6914F300385A67 /* BaseListViewController.m in Sources */,
-				7B1BBC601E2F657000995017 /* leanCloudMgr.m in Sources */,
 				7B1BBC191E2F657000995017 /* MBProgressHUD+DLTips.m in Sources */,
 				7B6D93561E5BED9C00668E99 /* BabyModel.m in Sources */,
 				7B6A52CF1EAB16B400393D86 /* MusicLikeViewController.m in Sources */,
 				4E6C9C3D20A2DB2000CE5B9A /* brakeView.m in Sources */,
 				7BB830D61E724D1800E0CF4C /* DeviceViewController.m in Sources */,
-				7B26B6A71EF77EE70090E7A6 /* DeviceLogViewModel.m in Sources */,
 				4E74826420844B310031042B /* MusicPlayNewController.m in Sources */,
 				7BA775AB1E6AC44B00B644C9 /* WelcomeViewController.m in Sources */,
 				7B57B2AB1F0B7525009413DB /* BabyInfoMarkView.m in Sources */,
 				7B1BBBDD1E2F657000995017 /* UINavigationBar+Awesome.m in Sources */,
 				7B1BBBB11E2F657000995017 /* NSObject+JKKVOBlocks.m in Sources */,
 				4E2BF9FF1F458AD800BAAFB9 /* CALayer+Transition.m in Sources */,
-				7B5702C11E32023A00595107 /* FeedBackManager.m in Sources */,
 				4EF4DAF221A24B0D00103DC6 /* deviceTypeModel.m in Sources */,
 				7BD10FF51ED541C0009ABA8C /* DeviceTableViewCell.m in Sources */,
 				4E744AA72065FA4C00BCBC7C /* histogramCollectionView.m in Sources */,
@@ -4588,7 +4452,6 @@
 				7B0DC44D1ECC02DF00CC1A50 /* NSString+AVLeanCloud.m in Sources */,
 				7B1BBC0F1E2F657000995017 /* UIView+ViewController.m in Sources */,
 				7B1BBCF71E2F657100995017 /* AboutUSViewController.m in Sources */,
-				7B5702C51E32023A00595107 /* BabyStrollerManager.m in Sources */,
 				7B1BBC5B1E2F657000995017 /* Theme.m in Sources */,
 				7B1BBBFD1E2F657000995017 /* UITextField+JKShake.m in Sources */,
 				4E48C7361F33205D004D8553 /* AYCulture.m in Sources */,
@@ -4638,7 +4501,6 @@
 				7B61D2DC1E69155300385A67 /* DataStatusView.m in Sources */,
 				7B1BBC281E2F657000995017 /* CoreAnimationEffect.m in Sources */,
 				7B0DC43A1EC5B8BF00CC1A50 /* PreferenceDataBase.m in Sources */,
-				7BAD2F621E9CD39F00956CA6 /* SDMusicPlayer.m in Sources */,
 				4E742ED020A13B9500360849 /* BLEA4API.m in Sources */,
 				7B1BBC2E1E2F657000995017 /* WXSPercentDrivenInteractiveTransition.m in Sources */,
 				7B1BBC181E2F657000995017 /* UIWebView+Blocks.m in Sources */,
@@ -4670,7 +4532,6 @@
 				7B1BBBCF1E2F657000995017 /* UIControl+ActionBlocks.m in Sources */,
 				4E75993B21995F4F00F3A0A6 /* userHistoryPunchModel.m in Sources */,
 				7B1BBBB71E2F657000995017 /* NSString+Emoji.m in Sources */,
-				7BAD2F651E9CD4BF00956CA6 /* MusicViewModel.m in Sources */,
 				7B1BBBA31E2F657000995017 /* XMLDictionary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4921,10 +4782,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-l\"AFNetworking\"",
-					"-l\"AVOSCloud\"",
-					"-l\"AVOSCloudCrashReporting\"",
-					"-l\"AVOSCloudIM\"",
-					"-l\"LeanCloudSocial\"",
 					"-l\"MBProgressHUD\"",
 					"-l\"MagicalRecord\"",
 					"-l\"TMCache\"",
@@ -4960,10 +4817,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-l\"AFNetworking\"",
-					"-l\"AVOSCloud\"",
-					"-l\"AVOSCloudCrashReporting\"",
-					"-l\"AVOSCloudIM\"",
-					"-l\"LeanCloudSocial\"",
 					"-l\"MBProgressHUD\"",
 					"-l\"MagicalRecord\"",
 					"-l\"TMCache\"",
@@ -5038,10 +4891,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-l\"AFNetworking\"",
-					"-l\"AVOSCloud\"",
-					"-l\"AVOSCloudCrashReporting\"",
-					"-l\"AVOSCloudIM\"",
-					"-l\"LeanCloudSocial\"",
 					"-l\"MBProgressHUD\"",
 					"-l\"MagicalRecord\"",
 					"-l\"TMCache\"",

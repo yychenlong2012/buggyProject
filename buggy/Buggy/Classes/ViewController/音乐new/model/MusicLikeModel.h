@@ -14,10 +14,10 @@
 
 @property (nonatomic ,copy) NSString *musicName;
 
-@property (nonatomic ,strong) AVFile  *musicFiles;
+//@property (nonatomic ,strong) AVFile  *musicFiles;
 
 @property (nonatomic ,copy) NSString *url;
 
-@property (nonatomic ,strong) AVFile *musicImage;
+//@property (nonatomic ,strong) AVFile *musicImage;
 
 @end

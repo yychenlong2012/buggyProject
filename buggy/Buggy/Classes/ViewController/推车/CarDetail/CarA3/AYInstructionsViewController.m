@@ -5,8 +5,7 @@
 //  Created by goat on 2017/8/11.
 //  Copyright © 2017年 ningwu. All rights reserved.
 //
-#import "AYInstructionsViewModel.h"
-#import "AYInstructionsModel.h"
+//#import "AYInstructionsModel.h"
 #import "AYInstructionsViewController.h"
 #import "CLImageView.h"
 
@@ -67,20 +66,20 @@
 }
 //加载数据
 - (void) loadData{
-    [AYInstructionsViewModel requestInstructions:^(NSArray *list, NSError *error) {
-        
-        for (AYInstructionsModel *model in list) {
-            
-            if ([model.function isEqualToString:@"C"]) {
-                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:model.instruction_File.url]];
-                [self->_changjianWebView loadRequest:request];
-            }else{
-                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:model.instruction_File.url]];
-                [self->_shiYongWebView loadRequest:request];
-            }
-            
-        }
-    }];
+//    [AYInstructionsViewModel requestInstructions:^(NSArray *list, NSError *error) {
+//
+//        for (AYInstructionsModel *model in list) {
+//
+//            if ([model.function isEqualToString:@"C"]) {
+//                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:model.instruction_File.url]];
+//                [self->_changjianWebView loadRequest:request];
+//            }else{
+//                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:model.instruction_File.url]];
+//                [self->_shiYongWebView loadRequest:request];
+//            }
+//
+//        }
+//    }];
 }
 #pragma mark - webViewDelegate
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation{

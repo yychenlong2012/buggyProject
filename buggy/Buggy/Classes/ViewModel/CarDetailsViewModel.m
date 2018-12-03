@@ -7,130 +7,130 @@
 //
 
 #import "CarDetailsViewModel.h"
-#import <AVOSCloud.h>
+//#import <AVOSCloud.h>
 #import "NSDate+Mac.h"
 #import "MainModel.h"
 @implementation CarDetailsViewModel
 
-+ (void)getCarKcalType:(FETCHTABLENAMETYPE)type UUID:(NSString *)UUID Model:(void(^)(CarKcalModel *carKcalModel ,NSError *error))finish{
-    
-//    NSString *tableName;
-//    switch (type) {
-//        case FETCHTABLENAME_A1:
-//        {
-//            tableName = @"TravelInfo";
+//+ (void)getCarKcalType:(FETCHTABLENAMETYPE)type UUID:(NSString *)UUID Model:(void(^)(CarKcalModel *carKcalModel ,NSError *error))finish{
+//
+////    NSString *tableName;
+////    switch (type) {
+////        case FETCHTABLENAME_A1:
+////        {
+////            tableName = @"TravelInfo";
+////        }
+////            break;
+////        case FETCHTABLENAME_A3:
+////        {
+////            tableName = @"TravelInfo";
+////        }
+////            break;
+////        default:
+////            break;
+////    }
+//
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        // 查询旅程
+//        AVUser *_user = [AVUser currentUser];
+//        NSError *error;
+//        CarKcalModel *model = [[CarKcalModel alloc] init];
+//        AVQuery *query;
+//
+//        query.cachePolicy = kAVCachePolicyNetworkElseCache;
+//        query.maxCacheAge = MAXFLOAT;
+//        query = [AVQuery queryWithClassName:@"TravelInfo"];
+//        [query whereKey:@"post" equalTo:_user];
+//        [query whereKey:@"bluetoothUUID" equalTo:UUID];
+//        [query orderByDescending:@"date"];
+//        AVObject *tralveObj = [query getFirstObject:&error];
+//        NSLog(@"%@",tralveObj);
+//        if (error) {
 //        }
-//            break;
-//        case FETCHTABLENAME_A3:
-//        {
-//            tableName = @"TravelInfo";
+//        // 在这里我将日期的判定有time 改为 date
+//        NSDate *today = [tralveObj objectForKey:@"date"];
+//        NSDate *dateF = [NSDate date];
+//        NSDateFormatter *dataFarmatter = [[NSDateFormatter alloc] init];
+//        [dataFarmatter setDateFormat:@"yyyy-MM-dd"];
+//
+//        BOOL isToday = [[dataFarmatter stringFromDate:today] isEqualToString:[dataFarmatter stringFromDate:dateF]];
+//        model.todayMilage = [NSString stringWithFormat:@"%0.2f",isToday? [[tralveObj objectForKey:@"todayMileage"] floatValue]:0];
+//        model.totalMilage = [tralveObj objectForKey:@"totalMileage"];
+//        model.todayVelocity = isToday? [tralveObj objectForKey:@"averageSpeed"]:@"0";
+//
+//        /* 今日卡路里 */
+//        model.parentsTodayKcal = isToday?[tralveObj objectForKey:@"calorieValue"] : @"0";
+//
+//        /* 查询父母体重(直接查询,查询到的是否为空，为空则变为零) */
+//        query = [AVQuery queryWithClassName:@"totalCalories"];
+//        [query whereKey:@"post" equalTo:_user];
+//
+//        NSArray *totalCalories = [query findObjects:&error];
+//        if (totalCalories.count > 0) {
+//            AVObject *object = totalCalories[0];
+//            model.parentsWeight = [object objectForKey:@"adultWeight"];
+//            /* 查询总的卡路里，查询是否为空，为空则默认为零 */
+//            model.parentsTotalKcal = [object objectForKey:@"totalCaloriesValue"];
+//        }else{
+//            model.parentsWeight = @"0";
+//            model.parentsTotalKcal = @"0";
 //        }
-//            break;
-//        default:
-//            break;
-//    }
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // 查询旅程
-        AVUser *_user = [AVUser currentUser];
-        NSError *error;
-        CarKcalModel *model = [[CarKcalModel alloc] init];
-        AVQuery *query;
-        
-        query.cachePolicy = kAVCachePolicyNetworkElseCache;
-        query.maxCacheAge = MAXFLOAT;
-        query = [AVQuery queryWithClassName:@"TravelInfo"];
-        [query whereKey:@"post" equalTo:_user];
-        [query whereKey:@"bluetoothUUID" equalTo:UUID];
-        [query orderByDescending:@"date"];
-        AVObject *tralveObj = [query getFirstObject:&error];
-        NSLog(@"%@",tralveObj);
-        if (error) {
-        }
-        // 在这里我将日期的判定有time 改为 date
-        NSDate *today = [tralveObj objectForKey:@"date"];
-        NSDate *dateF = [NSDate date];
-        NSDateFormatter *dataFarmatter = [[NSDateFormatter alloc] init];
-        [dataFarmatter setDateFormat:@"yyyy-MM-dd"];
-        
-        BOOL isToday = [[dataFarmatter stringFromDate:today] isEqualToString:[dataFarmatter stringFromDate:dateF]];
-        model.todayMilage = [NSString stringWithFormat:@"%0.2f",isToday? [[tralveObj objectForKey:@"todayMileage"] floatValue]:0];
-        model.totalMilage = [tralveObj objectForKey:@"totalMileage"];
-        model.todayVelocity = isToday? [tralveObj objectForKey:@"averageSpeed"]:@"0";
-        
-        /* 今日卡路里 */
-        model.parentsTodayKcal = isToday?[tralveObj objectForKey:@"calorieValue"] : @"0";
-        
-        /* 查询父母体重(直接查询,查询到的是否为空，为空则变为零) */
-        query = [AVQuery queryWithClassName:@"totalCalories"];
-        [query whereKey:@"post" equalTo:_user];
-        
-        NSArray *totalCalories = [query findObjects:&error];
-        if (totalCalories.count > 0) {
-            AVObject *object = totalCalories[0];
-            model.parentsWeight = [object objectForKey:@"adultWeight"];
-            /* 查询总的卡路里，查询是否为空，为空则默认为零 */
-            model.parentsTotalKcal = [object objectForKey:@"totalCaloriesValue"];
-        }else{
-            model.parentsWeight = @"0";
-            model.parentsTotalKcal = @"0";
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-//            DLog(@"今日里程 :%.2lf 总里程：%@ 今日平均速度：%@ 父母体重：%@ 父母今日卡路里：%@ 父母总卡路里：%@",model.todayMilage,model.totalMilage,model.todayVelocity,model.parentsWeight,model.parentsTodayKcal,model.parentsTotalKcal);
-            if (finish) {
-                finish(model,error);
-            }
-        });
-    });
-}
+//        dispatch_async(dispatch_get_main_queue(), ^{
+////            DLog(@"今日里程 :%.2lf 总里程：%@ 今日平均速度：%@ 父母体重：%@ 父母今日卡路里：%@ 父母总卡路里：%@",model.todayMilage,model.totalMilage,model.todayVelocity,model.parentsWeight,model.parentsTodayKcal,model.parentsTotalKcal);
+//            if (finish) {
+//                finish(model,error);
+//            }
+//        });
+//    });
+//}
 
 + (void)postTravel:(NSDictionary *)param tableType:(FETCHTABLENAMETYPE )tableType complete:(CompleteHander )success{
     
-    NSString *date = param[@"time"];
-    NSString *bluetoothUUID = param[@"bluetoothUUID"];
-    [[NSUserDefaults standardUserDefaults] setObject:bluetoothUUID forKey:BLUETOOTHUUID];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    //    date = [self getFormatString:date];
-    NSDate *dateD = [self getDateWithDateString:[NSString stringWithFormat:@"%@ 00:00:00",date]];
-    AVUser *_user = [AVUser currentUser];
-    AVQuery *query = [AVQuery queryWithClassName:@"TravelInfo"];
-    if (_user == nil) return;
-    [query whereKey:@"post" equalTo:_user];
-    [query whereKey:@"date" equalTo:dateD];
-    [query whereKey:@"bluetoothUUID" equalTo:bluetoothUUID];
-    __block AVObject *travelInfo;
-    NSError *error;
-    NSArray *objects =[query findObjects:&error];
-    if (objects.count > 0) {
-        travelInfo = objects[0];
-    }else{
-        travelInfo = [AVObject objectWithClassName:@"TravelInfo"];
-    }
-    NSInteger deviceType = 0;
-    if (tableType == FETCHTABLENAME_A1) {
-        deviceType = 0;
-    }else if (deviceType == FETCHTABLENAME_A3){
-        deviceType = 1;
-    }
-    NSMutableDictionary *muDic = [[NSMutableDictionary alloc]initWithDictionary:param];
-    [muDic setValue:date forKey:@"time"];
-    NSArray *keys = muDic.allKeys;
-    NSArray *values = muDic.allValues;
-    for (int i = 0; i < keys.count; i ++) {
-        [travelInfo setObject:values[i] forKey:keys[i]];
-    }
-    [travelInfo setObject:_user forKey:@"post"];
-    [travelInfo setObject:dateD forKey:@"date"];
-    [travelInfo setObject:bluetoothUUID forKey:@"bluetoothUUID"];
-    [travelInfo setObject:@(deviceType)  forKey:@"deviceType"];
-    [travelInfo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            success(param,YES);
-        }else{
-            DLog(@"Error:------%@",error);
-            success(param,NO);
-        }
-    }];
+//    NSString *date = param[@"time"];
+//    NSString *bluetoothUUID = param[@"bluetoothUUID"];
+//    [[NSUserDefaults standardUserDefaults] setObject:bluetoothUUID forKey:BLUETOOTHUUID];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    //    date = [self getFormatString:date];
+//    NSDate *dateD = [self getDateWithDateString:[NSString stringWithFormat:@"%@ 00:00:00",date]];
+//    AVUser *_user = [AVUser currentUser];
+//    AVQuery *query = [AVQuery queryWithClassName:@"TravelInfo"];
+//    if (_user == nil) return;
+//    [query whereKey:@"post" equalTo:_user];
+//    [query whereKey:@"date" equalTo:dateD];
+//    [query whereKey:@"bluetoothUUID" equalTo:bluetoothUUID];
+//    __block AVObject *travelInfo;
+//    NSError *error;
+//    NSArray *objects =[query findObjects:&error];
+//    if (objects.count > 0) {
+//        travelInfo = objects[0];
+//    }else{
+//        travelInfo = [AVObject objectWithClassName:@"TravelInfo"];
+//    }
+//    NSInteger deviceType = 0;
+//    if (tableType == FETCHTABLENAME_A1) {
+//        deviceType = 0;
+//    }else if (deviceType == FETCHTABLENAME_A3){
+//        deviceType = 1;
+//    }
+//    NSMutableDictionary *muDic = [[NSMutableDictionary alloc]initWithDictionary:param];
+//    [muDic setValue:date forKey:@"time"];
+//    NSArray *keys = muDic.allKeys;
+//    NSArray *values = muDic.allValues;
+//    for (int i = 0; i < keys.count; i ++) {
+//        [travelInfo setObject:values[i] forKey:keys[i]];
+//    }
+//    [travelInfo setObject:_user forKey:@"post"];
+//    [travelInfo setObject:dateD forKey:@"date"];
+//    [travelInfo setObject:bluetoothUUID forKey:@"bluetoothUUID"];
+//    [travelInfo setObject:@(deviceType)  forKey:@"deviceType"];
+//    [travelInfo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        if (succeeded) {
+//            success(param,YES);
+//        }else{
+//            DLog(@"Error:------%@",error);
+//            success(param,NO);
+//        }
+//    }];
 }
 + (NSDate*)getDateWithDateString:(NSString*) dateString{
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];

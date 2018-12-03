@@ -7,14 +7,13 @@
 //
 
 #import "RegisterVC.h"
-#import <AVOSCloud.h>
 #import "UIColor+Additions.h"
 #import "AYReSetPasswordVC.h" //修改密码
 //#import "AddBirthdayVC.h"
 #import "setBabyBirthdayVC.h"
 #import "CLImageView.h"
 @interface RegisterVC (){
-    AVUser *_user;
+//    AVUser *_user;
     NSTimer *timer;
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnTopConstraint;   //确定按钮顶部约束
@@ -30,12 +29,12 @@
     NSLog(@"%@",[self class]);
     [self.view addSubview:self.naviView];
     self.contentTop.constant = navigationH + 30;
-    _user = [AVUser user];
+//    _user = [AVUser user];
     if (self.isRePwd) {
         self.view3.alpha = 0;
         [self.commitbtn setTitle:NSLocalizedString(@"确定修改", nil) forState:UIControlStateNormal];
     }
-    [leanCloudMgr event:YOUZI_Register];
+//    [leanCloudMgr event:YOUZI_Register];
     self.view1.layer.borderColor = KHexRGB(0xE04E63).CGColor;
     self.view1.layer.borderWidth = 0.5;
     self.view2.layer.borderColor = KHexRGB(0xE04E63).CGColor;
@@ -112,34 +111,34 @@
             timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerloop) userInfo:nil repeats:YES];
             
             //获取验证码
-            [AVUser requestPasswordResetWithPhoneNumber:self.tfPhoneNum.text
-                                                  block:^(BOOL succeeded,
-                                                          NSError *error) {
-                NSLog(@"%@",error);
-                if (succeeded) {
-                    [MBProgressHUD showToast:NSLocalizedString(@"验证短信已发送，请注意查收", nil)];
-                }else{
-                    //网络中断：-1005
-                    //无网络连接：-1009
-                    //请求超时：-1001
-                    //服务器内部错误：-1004
-                    //找不到服务器：-1003
-                    NSLog(@"error = %@",error);
-                    if (error.code == 601) {
-                        [MBProgressHUD showToast:NSLocalizedString(@"发送短信过快，或超过每日上限", nil)];
-                    }else if (error.code == -1009) {
-                        [MBProgressHUD showToast:NSLocalizedString(@"无网络连接", nil)];
-                    }else if (error.code == 213) {
-                        [MBProgressHUD showToast:NSLocalizedString(@"手机号对应的用户不存在", nil)];
-                    }else if (error.code == -1005){
-                        [MBProgressHUD showToast:NSLocalizedString(@"网络中断", nil)];
-                    }else if (error.code == -1001){
-                        [MBProgressHUD showToast:NSLocalizedString(@"请求超时", nil)];
-                    }else{
-                        [MBProgressHUD showToast:[NSString stringWithFormat:@"%@%ld",NSLocalizedString(@"未知的错误", nil),(long)error.code]];
-                    }
-                }
-            }];
+//            [AVUser requestPasswordResetWithPhoneNumber:self.tfPhoneNum.text
+//                                                  block:^(BOOL succeeded,
+//                                                          NSError *error) {
+//                NSLog(@"%@",error);
+//                if (succeeded) {
+//                    [MBProgressHUD showToast:NSLocalizedString(@"验证短信已发送，请注意查收", nil)];
+//                }else{
+//                    //网络中断：-1005
+//                    //无网络连接：-1009
+//                    //请求超时：-1001
+//                    //服务器内部错误：-1004
+//                    //找不到服务器：-1003
+//                    NSLog(@"error = %@",error);
+//                    if (error.code == 601) {
+//                        [MBProgressHUD showToast:NSLocalizedString(@"发送短信过快，或超过每日上限", nil)];
+//                    }else if (error.code == -1009) {
+//                        [MBProgressHUD showToast:NSLocalizedString(@"无网络连接", nil)];
+//                    }else if (error.code == 213) {
+//                        [MBProgressHUD showToast:NSLocalizedString(@"手机号对应的用户不存在", nil)];
+//                    }else if (error.code == -1005){
+//                        [MBProgressHUD showToast:NSLocalizedString(@"网络中断", nil)];
+//                    }else if (error.code == -1001){
+//                        [MBProgressHUD showToast:NSLocalizedString(@"请求超时", nil)];
+//                    }else{
+//                        [MBProgressHUD showToast:[NSString stringWithFormat:@"%@%ld",NSLocalizedString(@"未知的错误", nil),(long)error.code]];
+//                    }
+//                }
+//            }];
         }else{
             [MBProgressHUD showToast:NSLocalizedString(@"输入正确的手机号", nil)];
         }
@@ -153,18 +152,18 @@
             timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerloop) userInfo:nil repeats:YES];
             
             //获取验证码
-            [AVSMS requestShortMessageForPhoneNumber:self.tfPhoneNum.text options:nil callback:^(BOOL succeeded, NSError * _Nullable error) {
-              
-                if (succeeded) {
-                    [MBProgressHUD showToast:NSLocalizedString(@"验证短信已发送，请注意查收", nil)];
-                }else{
-                    if (error.code == 1) {
-                        [MBProgressHUD showToast:NSLocalizedString(@"次数已达今日上限", nil)];
-                    }else{
-                        [MBProgressHUD showToast:error.localizedDescription];
-                    }
-                }
-            }];
+//            [AVSMS requestShortMessageForPhoneNumber:self.tfPhoneNum.text options:nil callback:^(BOOL succeeded, NSError * _Nullable error) {
+//
+//                if (succeeded) {
+//                    [MBProgressHUD showToast:NSLocalizedString(@"验证短信已发送，请注意查收", nil)];
+//                }else{
+//                    if (error.code == 1) {
+//                        [MBProgressHUD showToast:NSLocalizedString(@"次数已达今日上限", nil)];
+//                    }else{
+//                        [MBProgressHUD showToast:error.localizedDescription];
+//                    }
+//                }
+//            }];
 
         }else{
             [MBProgressHUD showToast:NSLocalizedString(@"输入正确的手机号", nil)];

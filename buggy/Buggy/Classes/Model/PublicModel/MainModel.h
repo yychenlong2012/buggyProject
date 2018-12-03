@@ -7,7 +7,6 @@
 //
 
 #import "BaseModel.h"
-#import <AVOSCloud.h>
 #import "UserModel.h"
 
                 /*************************************用户管理类*************************************/
@@ -16,7 +15,7 @@
 @interface MainModel : BaseModel
 
 @property (nonatomic, strong)UIViewController *rootVC;
-@property (nonatomic, strong) AVUser *user;                   //该模型所属的用户
+//@property (nonatomic, strong) AVUser *user;                   //该模型所属的用户
 @property (nonatomic) BOOL isLogin;                           //是否登录
 @property (nonatomic, strong)UserModel *userModel;            //用户信息模型
 @property (nonatomic, strong)UIImage *userImage;

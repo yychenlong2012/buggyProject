@@ -97,27 +97,27 @@
       {
 //         [ShareManager shareToWeChatMoment];
          self.block(index);
-          [leanCloudMgr event:YOUZI_ShareWeChatMoments];
+//          [leanCloudMgr event:YOUZI_ShareWeChatMoments];
       }
          break;
       case 2:
       {
 //         [ShareManager shareToWeChatFriends];
          self.block(index);
-          [leanCloudMgr event:YOUZI_ShareWeChatFriends];
+//          [leanCloudMgr event:YOUZI_ShareWeChatFriends];
       }
          break;
       case 3:
       {
 //         [ShareManager shareToQQFriends];
          self.block(index);
-          [leanCloudMgr event:YOUZI_ShareQQ];
+//          [leanCloudMgr event:YOUZI_ShareQQ];
       }
          break;
       case 4:
       {
 //         [ShareManager shareToWeibo];
-          [leanCloudMgr event:YOUZI_ShareSina];
+//          [leanCloudMgr event:YOUZI_ShareSina];
          self.block(index);
       }
          break;

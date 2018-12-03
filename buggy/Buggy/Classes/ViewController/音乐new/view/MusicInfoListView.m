@@ -8,7 +8,6 @@
 
 #import "MusicInfoListView.h"
 #import "WNJsonModel.h"
-#import "MusicViewModel.h"
 #import "UIImage+Additions.h"
 #import "NetWorkStatus.h"
 #import "MusicAlbumModel.h"
@@ -88,34 +87,34 @@
     _detailLB.top = 117 + 27.5;
 }
 
-- (void)setModel:(MusicThemeModel *)model{
-    _model = model;
-    _titleLB.text = model.themeTitle;
-    _detailLB.text = model.themeDetails;
-
-    if (model.themeImage != nil && ![model.themeImage isKindOfClass:[NSNull class]]) {
-        
-        NSString *urlStr;
-        if ([model.themeImage isKindOfClass:[NSString class]]) {
-            urlStr = (NSString *)model.themeImage;
-        }
-        
-        if ([model.themeImage isKindOfClass:[AVFile class]]) {
-            urlStr = model.themeImage.url;
-        }
-        
-        NSURL *url = [NSURL URLWithString:urlStr];
-        if (url) {
-            [[[SDWebImageManager sharedManager] imageDownloader] downloadImageWithURL:url options:0 progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
-                if (image) {
-                    self->_imageView.image = image;
-                    self->_bgImageView.image = image;
-                }
-            }];
-        }
-    }
-    _bgView.backgroundColor = [COLOR_HEXSTRING(model.themeColor) colorWithAlphaComponent:(float)(model.themeColorOpacity/100.00)];
-}
+//- (void)setModel:(MusicThemeModel *)model{
+//    _model = model;
+//    _titleLB.text = model.themeTitle;
+//    _detailLB.text = model.themeDetails;
+//
+//    if (model.themeImage != nil && ![model.themeImage isKindOfClass:[NSNull class]]) {
+//
+//        NSString *urlStr;
+//        if ([model.themeImage isKindOfClass:[NSString class]]) {
+//            urlStr = (NSString *)model.themeImage;
+//        }
+//
+//        if ([model.themeImage isKindOfClass:[AVFile class]]) {
+//            urlStr = model.themeImage.url;
+//        }
+//
+//        NSURL *url = [NSURL URLWithString:urlStr];
+//        if (url) {
+//            [[[SDWebImageManager sharedManager] imageDownloader] downloadImageWithURL:url options:0 progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+//                if (image) {
+//                    self->_imageView.image = image;
+//                    self->_bgImageView.image = image;
+//                }
+//            }];
+//        }
+//    }
+//    _bgView.backgroundColor = [COLOR_HEXSTRING(model.themeColor) colorWithAlphaComponent:(float)(model.themeColorOpacity/100.00)];
+//}
 
 -(void)setTopModel:(MusicAlbumModel *)topModel{
     if (![topModel isKindOfClass:[MusicAlbumModel class]]) {
@@ -137,13 +136,6 @@
         if (url) {
             [self->_imageView sd_setImageWithURL:url];
             [self->_bgImageView sd_setImageWithURL:url];
-            
-//            [[[SDWebImageManager sharedManager] imageDownloader] downloadImageWithURL:url options:0 progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
-//                if (image) {
-//                    self->_imageView.image = image;
-//                    self->_bgImageView.image = image;
-//                }
-//            }];
         }
     }
 
@@ -231,24 +223,25 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(musicDidSelectRowAtIndexPath:tableView:)]) {
         [self.delegate musicDidSelectRowAtIndexPath:indexPath tableView:tableView];
     }
-    [[BLEMusicPlayer shareManager] setCurrentIndex:indexPath.row];
+//    [[BLEMusicPlayer shareManager] setCurrentIndex:indexPath.row];
 }
 
 // 判断是否划到最后一行
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([MainModel model].musicTypeNumber == self.musicTypeNumber) {
-        NSInteger playingNum = [BLEMusicPlayer shareManager].currentIndex;
-        NSIndexPath *indexPathMusic = [NSIndexPath indexPathForRow:playingNum inSection:0];
-        if (playingNum >=0 && indexPathMusic == indexPath) {
+//        NSInteger playingNum = [BLEMusicPlayer shareManager].currentIndex;
+//        NSIndexPath *indexPathMusic = [NSIndexPath indexPathForRow:playingNum inSection:0];
+//        if (playingNum >=0 && indexPathMusic == indexPath) {
             // 判断是否正在播放
-            if ([BLEMusicPlayer shareManager].playing) {
-                cell.selected = YES;
-            }
-        }else{
-            cell.selected = NO;
-        }
+//            if ([BLEMusicPlayer shareManager].playing) {
+//                cell.selected = YES;
+//            }
+//        }else{
+//            cell.selected = NO;
+//        }
     }
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(musicwillDisplayCellForRowAtIndexPath:withTableView:)]) {
         [self.delegate musicwillDisplayCellForRowAtIndexPath:indexPath withTableView:tableView];
     }

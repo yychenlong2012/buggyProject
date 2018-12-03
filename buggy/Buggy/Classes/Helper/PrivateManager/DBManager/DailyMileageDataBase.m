@@ -46,7 +46,7 @@
     [self.dataBase open];
     NSError *error;
     
-    NSString *sql = [NSString stringWithFormat:@"select mileage, date from DailyMileageList where userId = '%@' and date < '%@' order by date %@ limit %@;",[AVUser currentUser].objectId,date,isDesc==YES ? @"desc":@"asc",limit];
+    NSString *sql = [NSString stringWithFormat:@"select mileage, date from DailyMileageList where userId = '%@' and date < '%@' order by date %@ limit %@;",KUserDefualt_Get(USER_ID_NEW),date,isDesc==YES ? @"desc":@"asc",limit];
 
     FMResultSet *datas = [self.dataBase executeQuery:sql];
     

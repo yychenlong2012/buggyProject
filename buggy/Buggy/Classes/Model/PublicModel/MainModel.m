@@ -8,7 +8,7 @@
 
 #import "MainModel.h"
 #import "ScreenMgr.h"
-#import <AVOSCloudSNS.h>
+//#import <AVOSCloudSNS.h>
 
 @implementation MainModel
 
@@ -25,8 +25,8 @@
     self.userModel = nil;
     self.userImage = nil;
     [SCREENMGR clear];
-    [AVUser logOut];  //清除缓存用户对象
-    [AVUser currentUser];
+//    [AVUser logOut];  //清除缓存用户对象
+//    [AVUser currentUser];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:kLoginToken];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

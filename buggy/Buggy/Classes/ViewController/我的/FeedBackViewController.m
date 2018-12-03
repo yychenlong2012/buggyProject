@@ -9,7 +9,6 @@
 #import "FeedBackViewController.h"
 #import "CostomFactory.h"
 #import "NSString+Bool.h"
-#import "FeedBackManager.h"
 #import "CLImageView.h"
 #define SIDE_GAP 20
 @interface FeedBackViewController ()<UITextViewDelegate>

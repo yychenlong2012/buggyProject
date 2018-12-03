@@ -19,7 +19,6 @@
 #import "CONSTS.h"
 #import "Theme.h"
 #import "Check.h"
-#import "leanCloudMgr.h"
 #import <Masonry.h>
 #import "Factory.h"
 #import "UIView+Additions.h"

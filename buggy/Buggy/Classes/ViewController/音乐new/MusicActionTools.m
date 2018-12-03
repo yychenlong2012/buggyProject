@@ -37,46 +37,46 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
         block([self musicLrcWithPath:path]);
     }else{  //不存在则网络请求
-        AVQuery *query = [AVQuery queryWithClassName:@"MusicList"];
-        [query whereKey:@"musicId" equalTo:musicId];
-        [query selectKeys:@[@"lyric"]];
-        [query getFirstObjectInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
-            if (error == nil && object) {
-                if (object[@"lyric"] != nil) {
-                    if ([object[@"lyric"] isKindOfClass:[AVFile class]]) {  //是否为AVFile类型
-                        
-                        AVFile *lyric = object[@"lyric"];
-                        [lyric getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-                            if (error == nil && data) {
-                                //获取到歌词data 存入沙盒
-                                NSString *path = [NSString lrcCachePath];
-                                path = [NSString stringWithFormat:@"%@/%@.lrc",path,musicId];
-                                if ([data writeToFile:path atomically:YES]) {
-                                    block([self musicLrcWithPath:path]);
-                                }
-                            }
-                        }];
-                        
-                    }else if ([object[@"lyric"] isKindOfClass:[NSString class]]) {  //是否为NSString类型  那就是歌词文件url
-                        
-                        NSURL *url = [NSURL URLWithString:object[@"lyric"]];
-                        if (url) {
-                            NSURLRequest *request = [NSURLRequest requestWithURL:url];
-                            [[[AFHTTPSessionManager manager] downloadTaskWithRequest:request progress:nil destination:nil completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
-                                NSLog(@"%@",filePath);
-                                NSData *data = [NSData dataWithContentsOfURL:filePath];
-                                //获取到歌词data 存入沙盒
-                                NSString *path = [NSString lrcCachePath];
-                                path = [NSString stringWithFormat:@"%@/%@.lrc",path,musicId];
-                                if ([data writeToFile:path atomically:YES]) {
-                                    block([self musicLrcWithPath:path]);
-                                }
-                            }] resume];
-                        }
-                    }
-                }
-            }
-        }];
+//        AVQuery *query = [AVQuery queryWithClassName:@"MusicList"];
+//        [query whereKey:@"musicId" equalTo:musicId];
+//        [query selectKeys:@[@"lyric"]];
+//        [query getFirstObjectInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
+//            if (error == nil && object) {
+//                if (object[@"lyric"] != nil) {
+//                    if ([object[@"lyric"] isKindOfClass:[AVFile class]]) {  //是否为AVFile类型
+//
+//                        AVFile *lyric = object[@"lyric"];
+//                        [lyric getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+//                            if (error == nil && data) {
+//                                //获取到歌词data 存入沙盒
+//                                NSString *path = [NSString lrcCachePath];
+//                                path = [NSString stringWithFormat:@"%@/%@.lrc",path,musicId];
+//                                if ([data writeToFile:path atomically:YES]) {
+//                                    block([self musicLrcWithPath:path]);
+//                                }
+//                            }
+//                        }];
+//
+//                    }else if ([object[@"lyric"] isKindOfClass:[NSString class]]) {  //是否为NSString类型  那就是歌词文件url
+//
+//                        NSURL *url = [NSURL URLWithString:object[@"lyric"]];
+//                        if (url) {
+//                            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//                            [[[AFHTTPSessionManager manager] downloadTaskWithRequest:request progress:nil destination:nil completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+//                                NSLog(@"%@",filePath);
+//                                NSData *data = [NSData dataWithContentsOfURL:filePath];
+//                                //获取到歌词data 存入沙盒
+//                                NSString *path = [NSString lrcCachePath];
+//                                path = [NSString stringWithFormat:@"%@/%@.lrc",path,musicId];
+//                                if ([data writeToFile:path atomically:YES]) {
+//                                    block([self musicLrcWithPath:path]);
+//                                }
+//                            }] resume];
+//                        }
+//                    }
+//                }
+//            }
+//        }];
     }
 }
 

@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AVFile.h>
+//#import <AVFile.h>
 #import "AVFileHandle.h"
 @interface NSString (AVLeanCloud)
 
 + (NSString *)downFileName:(NSString *)fileName extensionPath:(NSString *)extensionPath;
 
-+ (BOOL)fileExistsAccordingToLeanCloudCache:(AVFile *)leanCloudCacheFileName loadFile:(NSString *)loadFileName;
+//+ (BOOL)fileExistsAccordingToLeanCloudCache:(AVFile *)leanCloudCacheFileName loadFile:(NSString *)loadFileName;
 
 + (BOOL)fileExitsInDownloadWithFileName:(NSString *)fileName;
 

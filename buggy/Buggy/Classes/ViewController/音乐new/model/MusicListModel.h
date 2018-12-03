@@ -7,7 +7,6 @@
 //
 
 #import "BaseModel.h"
-#import <AVFile.h>
 
 @interface MusicListModel : BaseModel
 
@@ -17,11 +16,11 @@
 
 //@property (nonatomic ,copy) NSString *musicFileName;//歌曲文件名  兔小贝儿歌001春.mp3
 
-@property (nonatomic ,strong) AVFile  *musicFiles;
-    
+//@property (nonatomic ,strong) AVFile  *musicFiles;
+
 @property (nonatomic ,assign) int musicOrder;
 
-@property (nonatomic ,strong) AVFile *musicImage;
+//@property (nonatomic ,strong) AVFile *musicImage;
 
 #pragma mark - 3.0版本添加
 

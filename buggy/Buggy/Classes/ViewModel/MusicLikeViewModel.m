@@ -17,66 +17,65 @@
 #pragma mark --- LeanCloud
 
 //喜欢
-+ (void)selectMusicToLikeList:(MusicListModel *)musicModel finish:(Finish)finish{
-    
-    AVUser *user = [AVUser currentUser];
-    AVQuery *query = [AVQuery queryWithClassName:@"Music_relate_user"];
-    [query whereKey:@"post_user" equalTo:user];
-    [query whereKey:@"musicName" equalTo:musicModel.musicName];
-    
-    [query getFirstObjectInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
-        
-        @synchronized (self) {
-            if (object) {   //查到了说明已经有记录了
-                [object setObject:@"1" forKey:@"is_collected"];
-                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    
-                    if (finish) {
-                        finish(succeeded,error);
-                    }
-                }];
-            }else
-            {   //这下面绝大部分情况不会调用  因为能够点击收藏 那肯定有网 并且一定在播放界面  只有在收藏列表里面才可能运行下面的代码
-                if (error != nil && error.code == 101) {
-                    object = [AVObject objectWithClassName:@"Music_relate_user"];
-                    [object setObject:user forKey:@"post_user"];
-                    [object setObject:musicModel.musicName forKey:@"musicName"];
-                    [object setObject:@"1" forKey:@"is_collected"];
-                    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                        NSLog(@"上传操作 错误信息 = %@ 正确信息 = %d",error,succeeded);
-                        if (finish) {
-                            finish(succeeded,error);
-                        }
-                    }];
-
-                }
-            }
-
-        }
-    }];
-
-}
+//+ (void)selectMusicToLikeList:(MusicListModel *)musicModel finish:(Finish)finish{
+//
+//    AVUser *user = [AVUser currentUser];
+//    AVQuery *query = [AVQuery queryWithClassName:@"Music_relate_user"];
+//    [query whereKey:@"post_user" equalTo:user];
+//    [query whereKey:@"musicName" equalTo:musicModel.musicName];
+//
+//    [query getFirstObjectInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
+//
+//        @synchronized (self) {
+//            if (object) {   //查到了说明已经有记录了
+//                [object setObject:@"1" forKey:@"is_collected"];
+//                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//
+//                    if (finish) {
+//                        finish(succeeded,error);
+//                    }
+//                }];
+//            }else
+//            {   //这下面绝大部分情况不会调用  因为能够点击收藏 那肯定有网 并且一定在播放界面  只有在收藏列表里面才可能运行下面的代码
+//                if (error != nil && error.code == 101) {
+//                    object = [AVObject objectWithClassName:@"Music_relate_user"];
+//                    [object setObject:user forKey:@"post_user"];
+//                    [object setObject:musicModel.musicName forKey:@"musicName"];
+//                    [object setObject:@"1" forKey:@"is_collected"];
+//                    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//                        NSLog(@"上传操作 错误信息 = %@ 正确信息 = %d",error,succeeded);
+//                        if (finish) {
+//                            finish(succeeded,error);
+//                        }
+//                    }];
+//
+//                }
+//            }
+//
+//        }
+//    }];
+//}
 //之前的版本是直接移除那条记录  现在是直接更新是否收藏的那个字段   不喜欢
-+ (void)removeSelectedMusicFromLikeList:(MusicListModel *)musicModel finish:(Finish)finish{
-    
-    AVUser *user = [AVUser currentUser];
-    AVQuery *query = [AVQuery queryWithClassName:@"Music_relate_user"];
-    [query whereKey:@"post_user" equalTo:user];
-    [query whereKey:@"musicName" equalTo:musicModel.musicName];
-    NSError *error;
-    AVObject *object = nil;
-    object = [query getFirstObject:&error];
-    if (object) {
-        [object setObject:@"0" forKey:@"is_collected"];
-        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (error) {
-                finish(NO,error);
-            }else{
-                finish(YES,error);
-            }
-        }];
-    }
-}
+//+ (void)removeSelectedMusicFromLikeList:(MusicListModel *)musicModel finish:(Finish)finish{
+//
+//    AVUser *user = [AVUser currentUser];
+//    AVQuery *query = [AVQuery queryWithClassName:@"Music_relate_user"];
+//    [query whereKey:@"post_user" equalTo:user];
+//    [query whereKey:@"musicName" equalTo:musicModel.musicName];
+//    NSError *error;
+//    AVObject *object = nil;
+//    object = [query getFirstObject:&error];
+//    if (object) {
+//        [object setObject:@"0" forKey:@"is_collected"];
+//        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//            if (error) {
+//                finish(NO,error);
+//            }else{
+//                finish(YES,error);
+//            }
+//        }];
+//    }
+//}
 
 + (void)getLikelWithPage:(NSInteger)page List:(void(^)(NSArray *datas,NSError *error))finish{
     /* LocalData */

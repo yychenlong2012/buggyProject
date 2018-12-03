@@ -86,12 +86,13 @@ IMP_SINGLETON
     if (!isfirstLoadApp) {
         [self changeToWelcomeScreen];
     }else{
-        [self showMainScreen];
-        return;
+//        [self showMainScreen];
+//        return;
         NSString *token = KUserDefualt_Get(USER_LOGIN_TOKEN);
         if (token.length > 0) {  //有token
             //验证token有效性
 //            [NETWorkAPI checkLoginStatusWillRefreshToken:NO callback:nil];
+//            [self changeToLoginScreen];
             [NETWorkAPI checkToken];
         }else{                   //无token一定没有登录
             [self changeToLoginScreen];

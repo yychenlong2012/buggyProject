@@ -36,7 +36,7 @@
 //上传离线操作数据
 + (void)UploadOfflineOperationData{
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *fileName = [NSString stringWithFormat:@"%@isCollected.plist",[AVUser currentUser].username];
+    NSString *fileName = [NSString stringWithFormat:@"%@isCollected.plist",KUserDefualt_Get(USER_ID_NEW)];
     NSString *filePath = [cachePath stringByAppendingPathComponent:fileName];
     NSArray *array = [NSArray arrayWithContentsOfFile:filePath];
     

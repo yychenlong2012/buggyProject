@@ -14,30 +14,6 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AMap2DMap (4.2.0):
-    - AMapFoundation (~> 1.2)
-  - AMapFoundation (1.2.0)
-  - AMapSearch (4.2.0):
-    - AMapFoundation (~> 1.0)
-  - AVOSCloud (7.3.2)
-  - AVOSCloudCrashReporting (7.3.2):
-    - AVOSCloud (= 7.3.2)
-    - AVOSCloudCrashReporting/_ARC (= 7.3.2)
-    - AVOSCloudCrashReporting/_NOARC (= 7.3.2)
-  - AVOSCloudCrashReporting/_ARC (7.3.2):
-    - AVOSCloud (= 7.3.2)
-    - AVOSCloudCrashReporting/_NOARC (= 7.3.2)
-  - AVOSCloudCrashReporting/_NOARC (7.3.2):
-    - AVOSCloud (= 7.3.2)
-  - AVOSCloudIM (7.3.2):
-    - AVOSCloud (= 7.3.2)
-    - AVOSCloudIM/_ARC (= 7.3.2)
-    - AVOSCloudIM/_NOARC (= 7.3.2)
-  - AVOSCloudIM/_ARC (7.3.2):
-    - AVOSCloud (= 7.3.2)
-    - AVOSCloudIM/_NOARC (= 7.3.2)
-  - AVOSCloudIM/_NOARC (7.3.2):
-    - AVOSCloud (= 7.3.2)
   - DZNEmptyDataSet (1.7.3)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
@@ -47,8 +23,6 @@ PODS:
   - FreeStreamer (3.8.2):
     - Reachability (~> 3.0)
   - FSCalendar (2.7.9)
-  - LeanCloudSocial (1.0.0-beta3):
-    - AVOSCloud
   - lottie-ios (2.1.5)
   - MagicalRecord (2.3.2):
     - MagicalRecord/Core (= 2.3.2)
@@ -69,17 +43,11 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
-  - AMap2DMap
-  - AMapSearch
-  - AVOSCloud (~> 7.3.2)
-  - AVOSCloudCrashReporting (~> 7.3.2)
-  - AVOSCloudIM (~> 7.3.2)
   - DZNEmptyDataSet (~> 1.7.2)
   - FMDB
   - FMDBHelpers
   - FreeStreamer
   - FSCalendar
-  - LeanCloudSocial (~> 1.0.0-bate.3)
   - lottie-ios
   - MagicalRecord (~> 2.3.0)
   - Masonry
@@ -94,18 +62,11 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AMap2DMap: 82228a353bafa585f58c600bf7ee4687072b2e43
-  AMapFoundation: 8acc2bf4eed79aab4d21002ddb8b24a6f3f3621c
-  AMapSearch: 788020fca7ed18819e8bc2bfca716a6775a05ada
-  AVOSCloud: 8a18125408bac1fc73c19ceb897db4ec4e0e6044
-  AVOSCloudCrashReporting: 12f4677508eac413f6c80f53bc7172b4210de1a8
-  AVOSCloudIM: dc24560259042bb84dd318a31b71ca858fccb6fe
   DZNEmptyDataSet: dd7cca17c1d07dfa78956859b1e70a52505678ef
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   FMDBHelpers: c6bd06c59049d51d9072180f253b6ee53f695bf3
   FreeStreamer: 2847699abbdbd8fb1e2909fd13d5047972cb44d3
   FSCalendar: a04b09f16f811bc92e82f3cf852a15225233b9d5
-  LeanCloudSocial: 4dd54272a79c49412260522700a947f05bdac4b7
   lottie-ios: 836cdbba92f62f3c6a00e37a4ce485321fe317cf
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
@@ -119,6 +80,6 @@ SPEC CHECKSUMS:
   TMCache: 95ebcc9b3c7e90fb5fd8fc3036cba3aa781c9bed
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
-PODFILE CHECKSUM: 39e9f1b4f91772163a36aff168522434080ae79a
+PODFILE CHECKSUM: 936426e0c22ed60dadd69c1752a62c9ad0f7fdbe
 
 COCOAPODS: 1.4.0

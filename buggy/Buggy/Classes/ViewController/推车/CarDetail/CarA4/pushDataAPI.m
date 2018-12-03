@@ -157,7 +157,7 @@
 -(void)saveInLocal:(CarA4PushDataModel *)model{
     NSLog(@"上传失败 保存到本地");
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *fileName = [NSString stringWithFormat:@"%@_PushData.plist",[AVUser currentUser].username];
+    NSString *fileName = [NSString stringWithFormat:@"%@_PushData.plist",KUserDefualt_Get(USER_ID_NEW)];
     NSString *filePath = [cachePath stringByAppendingPathComponent:fileName];
     NSArray *array = [NSArray arrayWithContentsOfFile:filePath];
     
@@ -192,7 +192,7 @@
 //上传本地记录
 -(void)uploadLocalData{
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *fileName = [NSString stringWithFormat:@"%@_PushData.plist",[AVUser currentUser].username];
+    NSString *fileName = [NSString stringWithFormat:@"%@_PushData.plist",KUserDefualt_Get(USER_ID_NEW)];
     NSString *filePath = [cachePath stringByAppendingPathComponent:fileName];
     NSArray *array = [NSArray arrayWithContentsOfFile:filePath];
     NSDateFormatter *form = [[NSDateFormatter alloc] init];
