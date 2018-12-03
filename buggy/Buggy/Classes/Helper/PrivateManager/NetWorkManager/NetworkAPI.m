@@ -81,6 +81,7 @@ static NetworkAPI* _instance = nil;
     return _instance ;
 }
 
+//创建manager
 -(AFHTTPSessionManager *)manager{
     if (_manager == nil) {
         _manager = [AFHTTPSessionManager manager];
