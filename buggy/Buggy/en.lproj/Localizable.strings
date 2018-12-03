@@ -1,0 +1,423 @@
+/* 
+  Localizable.strings
+  Buggy
+
+  Created by goat on 2017/11/9.
+  Copyright © 2017年 ningwu. All rights reserved.
+*/
+
+"首页" = "home";
+"音乐" = "music";
+"健康" = "health";
+"我的" = "mine";
+
+//首页
+"身高" = "height";
+"体重" = "weight";
+"正常身高参考:" = "height reference:";
+"参考身高范围:" = "height reference:";
+"正常体重参考:" = "weight reference:";
+"参考体重范围:" = "weight reference:";
+"我的设备" = "My device";
+"添加推车" = "Add device";
+"小宝宝" = "baby";
+"身高 | cm" = "height | cm";
+"体重 | kg" = "weight | kg";
+"小王子" = "princekin";
+"您还没填呢" = "You haven't filled in yet";
+"是否解除绑定" = "Whether to unbind";
+"解绑失败" = "Unbundling failure";
+"未知的设备" = "Unknown equipment";
+"您还没有绑定设备" = "You have not yet bound the device";
+"推车已连接" = "The connected";
+"已断开连接" = "Disconnected connection";
+"当前接收的体重是" = "The current weight received is";
+"确认要保存么" = "Make sure you keep it";
+"提示" = "reminder";
+"取消" = "cancel";
+"确定" = "YES";
+"增加体重" = "add weight";
+"高景观车" = "High landscape car";
+"推车未连接" = "Unconnected";
+"推车已经连接" = "Connected";
+"歌单分类" = "Song classification";
+"大家都在听" = "Everybody's listening";
+"请打开蓝牙 并连接3Pomelos_A3" = "Please open bluetooth and connect to 3Pomelos_A3";
+"请到蓝牙列表连接3Pomelos_A3" = "Please connect the bluetooth list to 3Pomelos_A3";
+"去连接" = "To connect";
+"去看看" = "Go and see";
+"网络未连接" = "Network unconnected";
+
+//宝宝资料
+"宝宝资料" = "baby info";
+"上传图片失败" = "Upload image failure";
+"编辑昵称" = "Edit nickname";
+"请输入宝宝的昵称" = "Please enter your baby's nickname";
+"今日里程" = "Today's mileage";
+"平均时速" = "Average speed";
+"总里程" = "Total mileage";
+"性别" = "gender";
+"籍贯" = "native place";
+"生日" = "birthday";
+"年龄" = "age";
+"设置性别" = "Set the gender";
+"我的小宝身高已经" = "My little treasure is tall already";
+"我的小宝体重已经" = "My little treasure is already weight";
+"输入身高" = "Enter the height";
+"请输入宝宝身高" = "Please enter your baby's height";
+"输入体重" = "Input the weight";
+"请输入宝宝体重" = "Please enter your baby's weight";
+"宝宝身高" = "Baby height";
+"宝宝体重" = "Baby weight";
+"育儿小贴士" = "Parenting tips";
+"来自三爸育儿" = "From 三爸育儿";
+"标准身高" = "Reference";
+"标准体重" = "Reference";
+"为了准确计算你的卡路里值，请输入合理体重！" = "To accurately calculate your calorie count, please enter a reasonable weight!";
+"删除" = "deleting";
+"修改" = "modification";
+"日的体重是" = "weight is";
+"日的身高是" = "height is";
+"您可以删除或者修改" = "you can delete or modify it";
+
+
+//照片编辑
+"选择照片或拍照" = "Select photos or photos";
+"当前不能查看照片，请进入设置->隐私->照片->在XXX应用后面打开开关" = "Currently unable to view photos, please go to Settings -> privacy -> photo -> opens the switch after XXX application";
+"完成" = "complete";
+"年" = "year";
+"月" = "month";
+"日" = "day";
+"赞赞赞" = "praise";
+"好可耐" = "lovely";
+"妈妈棒" = "Mom nice";
+"自定义" = "custom";
+"编辑标签" = "Edit the label";
+"请输入标签内容" = "Please enter the content of the label";
+"微信朋友圈" = "WeChat friends";
+"微信好友" = "WeChat";
+"QQ好友" = "QQ";
+"新浪微博" = "Sina weibo";
+"保存图片失败" = "Save image failed";
+"保存图片成功" = "Save image succeed";
+"温馨提示" = "Warm tips";
+"编辑内容不能为空" = "Edit content cannot be empty";
+"宝宝" = "baby";
+"天啦" = "days";
+
+//搜索设备
+"搜索设备" = "Search Device";
+"长按电源键\n启动设备" = "Long press power button\nBoot device";
+"打开手机蓝牙" = "Open bluetooth";
+"搜索到的设备" = "The device to be searched";
+
+
+//提示信息
+"请开启手机蓝牙" = "Please turn on your bluetooth";
+"当前设备已连接" = "The current device is connected";
+"关闭成功" = "Closing success";
+"关闭失败" = "Close failure";
+"智能刹车开启" = "Smart brake open";
+"智能刹车关闭" = "Smart brake closing";
+"一键防盗开启" = "Guard against theft to open";
+"一键防盗关闭" = "Guard against theft to shut down";
+"按键背光调节" = "Key backlight adjustment";
+"一键防盗" = "Guard against theft";
+"智能刹车" = "Smart brake";
+"一键关机" = "shutdown";
+"智能刹车未开启" = "The smart brake does not start";
+"请刹车后调节灯光" = "Please adjust the light after braking";
+"设备电量过低，无法进行操作" = "The equipment is too low to operate";
+"蓝牙未连接无法操作" = "Bluetooth connection cannot be operated";
+"关闭一键防盗，才可一键修复哦" = "Close a key to prevent theft, only can one key repair";
+"您将解除手机与设备的绑定，将清空本次绑定记录" = "You will unbind the phone to the device and will empty the binding record";
+"设备新名称" = "New name of equipment";
+"修改成功" = "Successful modification";
+"修复完成" = "Repair complete";
+"暂时与母星失去联系" = "Lost contact with the parent star temporarily";
+"无网络" = "There is no network";
+"解除绑定成功" = "Successful unbinding";
+"你当前处于非wifi网络状态，为节省您的流量，请慎重选择！" = "You are currently in a non-wifi network state, to save your traffic, please choose carefully!";
+"关机前请确保推车处于安全状态！" = "Please ensure that the cart is in a safe condition before shutdown!";
+"网络中断" = "Network interruption";
+"请求超时" = "The request timeout";
+
+//A3
+"今日卡路里" = "Calories today";
+"总卡路里" = "Total calories";
+"请输入您的体重" = "Please enter your weight";
+"为了准确计算您的卡路里值，请输入合理体重" = "To accurately calculate your calorie count, enter a reasonable weight";
+"本人体重(10kg~200kg)" = "Weight(10kg~200kg)";
+"推车状态" = "Cart status";
+"推车控制" = "Cart control";
+"未刹车" = "No brakes";
+"已刹车" = "Has brake";
+"剩余电量0%" = "Residual power 0%";
+"剩余电量" = "Residual power";
+"推车将会自动关闭并断开蓝牙连接" = "The cart will automatically close and disconnect the bluetooth connection";
+"一键修复" = "repair";
+"修改设备名称" = "Modify device name";
+"固件版本" = "Firmware version";
+"使用说明" = "Instructions for use";
+"解除绑定" = "unbind";
+
+
+//高景观
+
+"今日平均时速" = "Average speed per hour";
+"车内温度" = "Cart's temperature";
+"" = "";
+"" = "";
+
+
+//combic餐椅
+"Combi 餐椅" = "Combi Dining chair";
+"默认" = "Default";
+"轻" = "slow";
+"强" = "strong";
+"摇晃次数统计" = "Number of wobbles";
+"音量调节" = "volume";
+"轻轻推一下摇椅" = "Push the rocking chair gently";
+"固件版本号" = "Firmware version number";
+"设置PID参数" = "Setting PID parameters";
+"系统状态报告" = "System status report";
+"提交" = "submit";
+"PID参数不能为空" = "The PID parameter cannot be empty";
+
+//音乐
+"音乐播放" = "Music";
+"已切换到车载播放模式" = "Switch to in-car playback mode";
+"请检查蓝牙是否连接" = "Please check whether the bluetooth is connected";
+"宝宝喜欢" = "Collect";
+"本地音乐" = "Local music";
+"最近播放" = "Recent play";
+"热门推荐" = "Recommend";
+"精品儿歌" = "Children's song";
+"经典古诗" = "Chinese poems";
+"儿童故事" = "Stories";
+"启蒙英语" = "Basics English";
+"三字经"  = "San Tzu Ching";
+"车载音乐" = "On-board music";
+"为宝宝收藏的歌曲\n都会放在这儿" = "The song for baby's collection \n will be put here";
+"为宝宝下载的歌曲\n都会放在这儿" = "The song for baby's download \n will be put here";
+"下载列表" = "Local music";
+"播放历史" = "Plays";
+"最近听过的歌曲\n都会出现在这儿" = "The songs that have been heard recently \n will appear here";
+"下载失败" = "Download failed";
+"正在播放车载音乐" = "We're playing music";
+"单曲循环" = "Single cycle";
+"顺序播放" = "Order of play";
+"随机播放" = "Random broadcast";
+"播放失败" = "Playback failed";
+"未连接网络" = "Unconnected network";
+"连接音箱" = "voice box";
+"童话故事的情节可以让孩子自由发挥想象力，帮助孩子建立更好地想象空间" = "The plot of a fairy tale allows children to use their imagination freely and to help their children build better imagination";
+"" = "";
+"" = "";
+
+//健康贴士
+"健康贴士" = "Health Tips";
+
+"发育要点" = "Development";
+"发育体征" = "Baby Signs";
+"科普提示" = "Science tips";
+"成长关注" = "Growing up";
+"亲子互动" = "Interact";
+"宝宝在不同时期需要不同的照顾哦" = "The baby needs different kinds of care at different times";
+"学会观察宝宝才能更好的照顾他(她)" = "Learn to watch the baby to take care of him better.";
+"我们在这里为您提供最专业的育儿指导" = "We are here to provide you with the most professional parenting advice";
+"照顾宝宝重点都在这里啦" = "Baby focus is here";
+"玩耍也是帮助宝宝成长" = "Play is also helping the baby grow";
+"宝宝生日" = "Birthday";
+"啦" = "！";
+"根据宝宝的年龄为您提供提示" = "Provide tips on the age of the baby";
+"" = "";
+"" = "";
+
+//我的
+"设置" = "Settings";
+"检查更新" = "Check the update";
+"用户协议" = "User agreement";
+"用户反馈" = "User feedback";
+"关于我们" = "About us";
+"确定要退出当前账号？" = "Are you sure you want to exit the current account?";
+"退出当前登录" = "Exit current login";
+"更新" = "update";
+"有新的版本" = "There's a new version";
+"我知道了" = "I see";
+"当前已是最新版本" = "The latest version is now available";
+"信息反馈成功" = "Information feedback success";
+"信息反馈失败，请稍后再试！" = "Information feedback failed, please try again later!";
+"你还没有发表任何意见哦！" = "You haven't made any comment yet!";
+"感谢你提出的宝贵意见,我们会尽快改善。" = "Thank you for your valuable advice. We will improve as soon as possible.";
+"当前版本" = "current version";
+"功能介绍" = "Function introduction";
+"公司简介" = "Company profile";
+"常见问题" = "FAQ";
+"蓝牙问题" = "Bluetooth problem";
+"其他问题" = "Other problems";
+"绑定设备方法" = "Binding device method";
+"蓝牙搜索不到" = "Bluetooth search";
+"绑定设备失败" = "Failed binding device";
+"同步数据失败" = "Synchronous data failure";
+"打开“三爸育儿”APP，点击首页【添加设备】或【+】跳转搜索界面，绑定名称为“3POMELOS_A3_BLE”的设备" = "Open the 三爸育儿 APP, click on the add device or + jump search interface, and bind the name 3POMELOS_A3_BLE";
+"每辆推车同时只能连接一部手机，且连接后其他手机无法搜索到此推车蓝牙，所以请检查是否该推车与其他手机连接或者将推车电源重启，然后重新搜索蓝牙" = "Each cart can only connect a mobile phone at the same time, after connect and other mobile phone can't search to this cart bluetooth, so please check whether the cart with other mobile phone connection or will push power restart, and then to search the bluetooth";
+"绑定推车时需要与系统后台服务器进行网络连接，因此请您保持网络顺畅，用4G信号可能更好哦" = "You need to connect with the system background server when you bind the cart, so please keep the network smooth and the 4G signal may be better";
+"请依次排查：电源是否开启，蓝牙是否进入睡眠状态（触碰感应区唤醒），蓝牙是否开启时间过长（重新开启）" = "Please check in order: whether the power is switched on, whether the bluetooth is in the sleep mode (the touch-sensitive zone wakes up), and whether the bluetooth is open for a long time (restart)";
+
+//登录注册
+"登录" = "Login";
+"手机号不正确" = "The phone number is incorrect";
+"用户名或密码不正确" = "User name or password is incorrect";
+"登录成功" = "Login successful";
+"次数已达今日上限" = "The number has reached today's maximum";
+"用户名或密码不正确" = "User name or password is incorrect";
+"设置生日" = "Set the birthday";
+"操作成功" = "Operation is successful";
+"设置宝宝户籍" = "Set up baby census";
+"小公举" = "Little Princess";
+"修改密码" = "Change the password";
+"确定修改" = "Sure to modify";
+"验证码错误" = "Verification code error";
+"密码格式不正确" = "Incorrect password format";
+"该手机号已被注册" = "The phone number has been registered";
+"验证短信已发送，请注意查收" = "Verify that the message has been sent, please check";
+"登录次数已达今日上限" = "The number of logins has been capped today";
+"输入正确的手机号" = "Enter the correct phone number";
+"验证码" = "VerifyCode";
+"发送" = "send";
+"缓存数据清除之后将无法恢复" = "Cached data will not be restored after it is cleared";
+"清除成功" = "Clear success";
+"清除失败" = "Removal of failure";
+"清除缓存" = "Clear the cache";
+"柚子号/手机号" = "Mobile phone number";
+"密码" = "password";
+"找回密码" = "Forget";
+"新用户注册" = "New user registration";
+"登录即同意用户协议" = "Login is to agree to user agreement";
+"输入手机号" = "Enter phone number";
+"输入验证码" = "Input verification code";
+"输入6-22位密码" = "Enter 6-22 passwords";
+"下一步" = "next";
+"注册" = "Register";
+"发送短信过快，或超过每日上限" = "Send text messages too fast, or exceed the daily limit";
+
+
+
+//出行
+"今日出行" = "Today's travel";
+"本周频率" = "Week frequency";
+"日里程" = "Daily mileage";
+"次" = "time";
+"周频率" = "Week frequency";
+"月频率" = "Month frequency";
+"出行管理" = "Travel management";
+"人打卡" = "peoples";
+"连接推车后打卡" = "Connect the cart and punch card";
+"出行" = "travel";
+"亲子" = "parenting";
+"出行分析" = "Travel analysis";
+"出行奖励" = "Travel rewards";
+"出行详情" = "Travel details";
+"米" = "m";
+"出行频率" = "Travel frequency";
+"出行距离" = "Travel distance";
+"周" = "week";
+
+//音乐新
+"热门歌单" = "HOT LIST";
+"全部歌单" = "All Playlists";
+"为宝宝推荐" = "Recommended";
+"羊水音" = "";
+"哄睡" = "sleep";
+"安抚" = "calm";
+"儿歌" = "song";
+"故事" = "story";
+
+
+
+"连接推车后打卡" = "Punch in after connecting the cart";
+"推车已连接" = "The cart is connected to";
+"正在连接..." = "Connecting... ";
+"空气质量" = "Air quality";
+"人打卡" = "sign in";
+"现在连接" = "connect";
+"推车连接失败" = "Trolley connection failed";
+"连接前请确认" = "Please confirm before connecting";
+"1、推车已经开启，手机蓝牙已开启" = "buggy and bluetooth open";
+"2、推车处于非休眠状态" = "buggy is wake up";
+"3、手机距离推车需小于10m" = "Less than 10 meters";
+"确定连接" = "Confirm connection";
+"开始体验" = "Start to experience";
+"连接过程应该一闪而过" = "The connection process should be short";
+"推车连接成功" = "Cart connected successfully";
+"连接成功，快开始体验吧！" = "The connection is successful！";
+"宝宝音乐" = "Baby music";
+"所有歌单" = "All songs";
+"热度" = "Heat";
+"类别" = "Category";
+"最新上架" = "Last on shelves";
+"最受欢迎" = "Most popular";
+"小宝贝的守护者" = "Little baby's keeper";
+"请输入昵称" = "Please enter nickname";
+"宝宝" = "Baby";
+"我的设备" = "My equipment";
+"我的音乐" = "My music";
+"使用帮助" = "Use help";
+"还没有添加宝宝哦..." = "No baby yet... ";
+"点击右上角添加设备" = "Click the upper right corner to add device";
+"收藏歌曲" = "Collect songs";
+"下载歌曲" = "Download the song";
+"使用说明" = "Instructions for use";
+"问题反馈" = "Problem feedback";
+"设置" = "Set";
+"删除信息" = "Delete information";
+"解绑" = "Unbind";
+"解除绑定成功" = "Unbind successfully";
+"刚刚出生" = "Just born";
+"头像" = "Heads";
+"乳名" = "Milk name";
+"宝宝资料" = "Baby information";
+"可更新" = "Updatable";
+"关于三爸" = "About the three dads";
+"暂时不添加宝宝" = "No baby added for the time being";
+"宝宝性别" = "Baby sex";
+"宝宝昵称" = "Baby nickname";
+"点击换头像" = "Click to change avatar";
+"人声" = "Voice of man";
+"滴答" = "Tick";
+"齿轮" = "Gear";
+"金属" = "Metal";
+"中文" = "Chinese";
+"英文" = "English";
+"电量" = "Electric quantity";
+"刹车" = "Brake";
+"安全" = "Safe";
+"提示音" = "Prompt tone";
+"更多操作" = "More operations";
+"智能刹车灵敏度调节" = "Intelligent brake sensitivity adjustment";
+"一键防盗" = "Guard against theft";
+"开启后推车将被锁住" = "The cart will be locked when opened";
+"是否关机？" = "Is it off？";
+"关机" = "Off";
+"刹车组电量" = "Brake battery";
+"手把组电量" = "Handlebar battery";
+"修改设备名称" = "Modify device name";
+"输入新的设备名" = "Enter the new device name";
+"语言选择" = "Language choice";
+"刹车提示音铃声" = "Brake alarm sound";
+"智能刹车灵敏度" = "Intelligent braking sensitivity";
+"手机号格式错误" = "Wrong cell phone number format";
+"手机号未注册" = "Mobile phone number not registered";
+"防盗锁" = "Anti-theft lock";
+"灯光" = "The light";
+
+
+
+
+
+
+
+
+
+

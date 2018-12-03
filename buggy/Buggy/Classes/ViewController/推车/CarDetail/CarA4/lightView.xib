@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="nB1-Za-PPk" customClass="lightView">
+            <rect key="frame" x="0.0" y="0.0" width="353" height="257"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="车灯开关" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUY-gf-Toc">
+                    <rect key="frame" x="20" y="25" width="100" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="shC-pE-Ra9"/>
+                        <constraint firstAttribute="width" constant="100" id="uOl-S6-DGw"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="48X-QE-uxr">
+                    <rect key="frame" x="286" y="19.5" width="49" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="bOh-FQ-0Uz"/>
+                        <constraint firstAttribute="width" constant="47" id="dzc-sG-9P9"/>
+                    </constraints>
+                    <color key="onTintColor" red="0.87843137250000003" green="0.30588235289999999" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <action selector="carLightSwitchClick:" destination="nB1-Za-PPk" eventType="valueChanged" id="RM9-jS-JWO"/>
+                    </connections>
+                </switch>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="选中icon" translatesAutoresizingMaskIntoConstraints="NO" id="lgP-iw-2WD">
+                    <rect key="frame" x="20" y="72.5" width="15" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="ZU8-7r-ehi"/>
+                        <constraint firstAttribute="width" constant="15" id="srg-DC-LL9"/>
+                    </constraints>
+                </imageView>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="选中icon" translatesAutoresizingMaskIntoConstraints="NO" id="msg-Ks-Ss5">
+                    <rect key="frame" x="20" y="114.5" width="15" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="2a0-zM-DrD"/>
+                        <constraint firstAttribute="width" constant="15" id="4re-cR-c2B"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="常亮模式" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OW-TF-WdU">
+                    <rect key="frame" x="50" y="70" width="283" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="hGe-Ux-APp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="呼吸灯模式" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVO-Xc-ODq">
+                    <rect key="frame" x="50" y="112" width="283" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="g3l-BA-X43"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xjz-Om-x0P">
+                    <rect key="frame" x="50" y="101" width="303" height="1"/>
+                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="DtN-Fd-rPk"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="msg-Ks-Ss5" firstAttribute="leading" secondItem="nB1-Za-PPk" secondAttribute="leading" constant="20" id="Aq4-WK-PRh"/>
+                <constraint firstItem="MVO-Xc-ODq" firstAttribute="leading" secondItem="nB1-Za-PPk" secondAttribute="leading" constant="50" id="Bbu-UM-seJ"/>
+                <constraint firstItem="8OW-TF-WdU" firstAttribute="top" secondItem="KUY-gf-Toc" secondAttribute="bottom" constant="25" id="EQN-dS-fBq"/>
+                <constraint firstItem="KUY-gf-Toc" firstAttribute="leading" secondItem="nB1-Za-PPk" secondAttribute="leading" constant="20" id="FZG-pf-WPq"/>
+                <constraint firstItem="Xjz-Om-x0P" firstAttribute="top" secondItem="8OW-TF-WdU" secondAttribute="bottom" constant="11" id="HFq-cq-Y1y"/>
+                <constraint firstAttribute="trailing" secondItem="Xjz-Om-x0P" secondAttribute="trailing" id="NKM-eZ-pn1"/>
+                <constraint firstItem="Xjz-Om-x0P" firstAttribute="leading" secondItem="nB1-Za-PPk" secondAttribute="leading" constant="50" id="Rd9-4u-jnV"/>
+                <constraint firstAttribute="trailing" secondItem="MVO-Xc-ODq" secondAttribute="trailing" constant="20" id="f1b-kz-1TW"/>
+                <constraint firstItem="8OW-TF-WdU" firstAttribute="leading" secondItem="nB1-Za-PPk" secondAttribute="leading" constant="50" id="gdQ-ij-tIa"/>
+                <constraint firstAttribute="trailing" secondItem="48X-QE-uxr" secondAttribute="trailing" constant="20" id="he5-Ab-HT3"/>
+                <constraint firstItem="lgP-iw-2WD" firstAttribute="leading" secondItem="nB1-Za-PPk" secondAttribute="leading" constant="20" id="kKl-Ew-Dce"/>
+                <constraint firstItem="lgP-iw-2WD" firstAttribute="centerY" secondItem="8OW-TF-WdU" secondAttribute="centerY" id="kyQ-ux-Cym"/>
+                <constraint firstItem="48X-QE-uxr" firstAttribute="centerY" secondItem="KUY-gf-Toc" secondAttribute="centerY" id="mQd-AU-qpz"/>
+                <constraint firstAttribute="trailing" secondItem="8OW-TF-WdU" secondAttribute="trailing" constant="20" id="r0H-fB-X96"/>
+                <constraint firstItem="MVO-Xc-ODq" firstAttribute="top" secondItem="8OW-TF-WdU" secondAttribute="bottom" constant="22" id="sHS-rM-veL"/>
+                <constraint firstItem="KUY-gf-Toc" firstAttribute="top" secondItem="nB1-Za-PPk" secondAttribute="top" constant="25" id="tF9-Zl-ggf"/>
+                <constraint firstItem="msg-Ks-Ss5" firstAttribute="centerY" secondItem="MVO-Xc-ODq" secondAttribute="centerY" id="x2B-RK-NQL"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="BreathingLampImage" destination="msg-Ks-Ss5" id="G78-8n-V9h"/>
+                <outlet property="NormallyOnImage" destination="lgP-iw-2WD" id="1lu-Wi-bbG"/>
+                <outlet property="breathingLampLabel" destination="MVO-Xc-ODq" id="xG1-q0-td1"/>
+                <outlet property="carLightSwitch" destination="48X-QE-uxr" id="tZI-qf-fPc"/>
+                <outlet property="normalOnLabel" destination="8OW-TF-WdU" id="vWr-dz-WHA"/>
+            </connections>
+            <point key="canvasLocation" x="410.5" y="-327.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="选中icon" width="16" height="16"/>
+    </resources>
+</document>

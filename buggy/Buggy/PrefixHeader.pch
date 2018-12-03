@@ -1,0 +1,330 @@
+//
+//  PrefixHeader.pch
+//  Buggy
+//
+//  Created by ningwu on 16/6/4.
+//  Copyright © 2016年 ningwu. All rights reserved.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_7_0
+#warning "This project uses features only available in iOS SDK 7.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+ 
+#import "CONSTS.h"
+#import "Theme.h"
+#import "Check.h"
+#import "leanCloudMgr.h"
+#import <Masonry.h>
+#import "Factory.h"
+#import "UIView+Additions.h"
+#import "MBProgressHUD+DLTips.h"
+#import "AFNetworking.h"
+#import "NetworkAPI.h"
+
+/*
+ 工具类
+ */
+#import "AYDeviceManager.h"
+#import "AYCulture.h"
+#import "AYMessage.h" 
+#import "AYView.h"
+#import "AYCommon.h"
+#import "MJRefresh.h"
+#import "Masonry.h"
+#import "AYViewPager.h"
+#import "UserInfoModel.h"
+#import "FileManager.h"
+#import <MJExtension.h>
+
+/*
+ 常用的扩展
+ */
+#import "NSString+MAC.h"
+#import "UIImageHeader.h"
+#import "NSArray+SafeAccess.h"
+#import "NSObjcet+MAC.h"
+#import "UIColor+Mac.h"
+#import "NSDate+Mac.h"
+#import "UIColor+MACProject.h"
+#import "UIViewHeader.h"
+#import "UIImageViewHeader.h"
+#import "UIImageView+WebCache.h"
+#import "UITableViewCell+MAC.h"
+#import "UIViewController+MAC.h"
+#import "UINavigationBar+Awesome.h"
+#import "UINavigationController+FDFullscreenPopGesture.h"
+#import "NSString+IsNull.h"
+#import "NSObject+ShowErrorMessage.h"
+#import "CALayer+Transition.h"
+
+//模型
+#import "homeDataModel.h"
+#import "punchListModel.h"
+#import "userHistoryPunchModel.h"
+#import "dayMileageModel.h"
+#import "travelFrequencyModel.h"
+#import "MusicBannerModel.h"
+#import "MusicAlbumModel.h"
+#import "musicModel.h"
+#import "babyInfoModel.h"
+#import "DeviceModel.h"
+#import "userTravelInfoModel.h"
+#import "userInfoModel.h"
+#import "deviceTypeModel.h"
+#import "frequencyWeekModel.h"
+#import "TravelInfoModel.h"
+
+#endif
+
+#define MAS_SHORTHAND
+#define MAS_SHORTHAND_GLOBAL
+
+/**
+ *   单例类的设置
+ */
+#define DEF_SINGLETON + (instancetype)sharedInstance;
+#define IMP_SINGLETON \
++ (instancetype)sharedInstance { \
+static id sharedObject = nil; \
+static dispatch_once_t onceToken; \
+dispatch_once(&onceToken, ^{ \
+sharedObject = [[self alloc] init]; \
+}); \
+return sharedObject; \
+}\
+- (id)copyWithZone:(NSZone*)zone{\
+return self;\
+}
+
+/**
+ *  DEBUG输出台
+ */
+#ifdef DEBUG
+#   define DLog(fmt, ...) NSLog((@"%s--%d \n " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define DLog(...) {}
+#define NSLog(...) {}
+#endif
+
+/**
+ *  归解档
+ */
+#define Archiverable - (void)encodeWithCoder:(NSCoder *)coder{\
+    unsigned int count = 0;\
+    Ivar *ivars = class_copyIvarList([Person class], &count);\
+    for (int i = 0; i<count; i++) {\
+        Ivar ivar = ivars[i];\
+        const char *name = ivar_getName(ivar);\
+        NSString *key = [NSString stringWithUTF8String:name];\
+        [coder encodeObject:[self valueForKey:key] forKey:key];\
+    }\
+    free(ivars);\
+}\
+- (instancetype)initWithCoder:(NSCoder *)coder{\
+    self = [super init];\
+    if (self) {\
+        unsigned int count = 0;\
+        Ivar *ivars = class_copyIvarList([Person class], &count);\
+        for (int i = 0; i<count; i++) {\
+            Ivar ivar = ivars[i];\
+            const char *name = ivar_getName(ivar);\
+            NSString *key = [NSString stringWithUTF8String:name];\
+            id value = [coder decodeObjectForKey:key];\
+            [self setValue:value forKey:key];\
+        }\
+        free(ivars);\
+    }\
+    return self;\
+}
+
+/**
+ *  设备号
+ */
+#define __IOS_V        ([[[UIDevice currentDevice] systemVersion] floatValue])
+#define __IOS_LESS_7   (([[[UIDevice currentDevice] systemVersion] floatValue]) < 7)
+#define __IOS_LESS_8   (([[[UIDevice currentDevice] systemVersion] floatValue]) < 8)
+#define __IOS_BIGGER_7 (([[[UIDevice currentDevice] systemVersion] floatValue]) >= 7)
+#define __IOS_BIGGER_8 (([[[UIDevice currentDevice] systemVersion] floatValue]) >= 8)
+
+/**
+ *  屏幕尺寸
+ */
+#define __SCREEN_IS_3_5   ([[UIScreen mainScreen] bounds].size.height==480.0?YES:NO)
+#define _MAIN_TABBAR_HEIGHT 49
+#define _MAIN_HEIGHT_64 ([[UIScreen mainScreen] bounds].size.height - 64)
+#define _MAIN_HEIGHT_64_TABBAR ([[UIScreen mainScreen] bounds].size.height - __MAIN_TABBAR_HEIGHT - 64)
+#define _MAIN_RATIO_320      (([[UIScreen mainScreen] bounds].size.width)/320)
+#define _MAIN_RATIO_375      (([[UIScreen mainScreen] bounds].size.width)/375)
+#define _MAIN_RATIO_H_667      (([[UIScreen mainScreen] bounds].size.height)/667)
+#define _NAV_HEIGHT (__IOS_BIGGER_7?64.f:44.f)
+
+#define USER_DEFAULT [NSUserDefaults standardUserDefaults] //UserDefault
+#define STRING_INT(value) [NSString stringWithFormat:@"%zd",(value)]
+#define LOCSTRING(key) (NSLocalizedString(key, nil))
+
+
+
+//获取设备物理高度
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height
+
+//获取设备物理宽度
+#define ScreenWidth ([UIScreen mainScreen].bounds.size.width)
+
+//状态栏高度
+#define statusBarH ([UIApplication sharedApplication].statusBarFrame.size.height)   //(44/20)  z状态栏高度
+
+//是否为全面屏  iPhone X和后面的产品
+#define kIsFullScreen ((statusBarH == 44.0) ? YES : NO)
+
+//导航栏高度
+#define navigationH (statusBarH + 44.0)
+
+//bottom安全区高度
+#define bottomSafeH (kIsFullScreen ? 34 : 0)
+
+//tabber高度 包括底部安全区
+#define tabbarH (bottomSafeH + 49)
+
+
+
+//适配后的真实高度 和宽度  以iphone6为基准
+//#define RealHeight(value) (((value)/667.0f)*[UIScreen mainScreen].bounds.size.height)
+#define RealHeight(value) (RealWidth(value))
+#define RealWidth(value) (((value)/375.0f)*[UIScreen mainScreen].bounds.size.width)
+
+
+#define kWidth  [AYDeviceManager currentScreenSize].width
+#define kHeight [AYDeviceManager currentScreenSize].height
+#define kStringByInt(i)              [NSString stringWithFormat:@"%ld",i]
+#define kStringByFloat(f)            [NSString stringWithFormat:@"%.0lf",f]
+#define kStringByObject(o)           [NSString stringWithFormat:@"%@",o]
+#define kStringByCharString(s)       [NSString stringWithFormat:@"%s",c]
+#define kStringByChar(c)             [NSString stringWithFormat:@"%c",c]
+#define kStringConvertNull(str)      [NSString convertNull:str]
+
+//----------------------------十六进制色值-----------------------------//
+#define KHexRGB(rgbValue)    [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+//-----------------------------字体颜色-------------------------------//
+#define KLabelColor_white [UIColor whiteColor]
+#define KLabelColor_black KHexRGB(212121)
+#define KLabelColor_ligthGray [UIColor lightGrayColor]
+#define KLabelColor_darkLabel [UIColor darkGrayColor]
+
+// 颜色相关
+// 1.获得RGB颜色
+#define kRGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+#define kRGBAColor(r, g, b, alphaNum) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:alphaNum]
+#define kWhiteColor [UIColor whiteColor]      // 白色
+#define kBlackColor [UIColor blackColor]
+#define kRedColor   [UIColor redColor]
+#define kOrangeColor [UIColor orangeColor]
+#define kYellowColor [UIColor yellowColor]
+#define kGreenColor [UIColor greenColor]
+#define kBlueColor [UIColor blueColor]
+#define kCyanColor [UIColor cyanColor]        //青色
+#define kPurpleColor [UIColor purpleColor]
+#define kClearColor [UIColor clearColor]
+#define kGrayColor [UIColor grayColor]
+#define kLightGrayColor [UIColor lightGrayColor]
+#define kLightTextColor [UIColor lightTextColor]
+//随机颜色
+#define kRandomColor  [UIColor colorWithRed:(random()%255)/255.0 green:(random()%255)/255.0 blue:(random()%255)/255.0 alpha:1.0]
+
+// 字体颜色
+#define kCWTextBlackColor KHexRGB(0x212121)
+#define kCWTextRedColor KHexRGB(0xd32f2f)
+#define kCWTextGreenColor KHexRGB(0x4ad32f)
+#define kCWTabBarTextColor KHexRGB(0x797979)
+#define kCWTabBarTextSelectedColor KHexRGB(0xd3d3d3)
+
+
+//-----------------------NSUserDefualt 数据操作-----------------------//
+#define KUserDefualt [NSUserDefaults standardUserDefaults]
+#define KUserDefualt_Get(key) [KUserDefualt objectForKey:key]
+#define KUserDefualt_Set(obejct,key) [KUserDefualt setObject:obejct forKey:key]
+//------------------------------字符串相等----------------------------//
+#define K_IsEqual(str1,str2) [str1 isEqualToString:str2]
+#define K_IsContain(str1,str2) [str1 myContainsString:str2]
+ 
+#define kWindow [[[UIApplication sharedApplication] delegate] window]
+
+//播放状态
+typedef NS_ENUM(NSInteger, FYPlayerCycle) {
+    theSong = 1,
+    nextSong = 2,
+    isRandom = 3
+};
+#pragma mark -- end 郑仁根
+
+//combic餐椅
+#define CombicRadius RealWidth(100)
+
+//计算代码运行时间
+#define StartTheime NSDate* tmpStartData = [NSDate date];
+#define StopTimingAndLog double deltaTime = [[NSDate date] timeIntervalSinceDate:tmpStartData];\
+                                         NSLog(@"cost time = %f", deltaTime);
+
+
+#define image(imageName) [UIImage imageNamed:@#imageName]
+#define integerToStr(number) [NSString stringWithFormat:@"%ld",number]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

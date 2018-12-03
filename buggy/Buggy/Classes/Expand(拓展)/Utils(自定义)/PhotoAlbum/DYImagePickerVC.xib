@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DYImagePickerVC">
+            <connections>
+                <outlet property="collectionLayout" destination="XJJ-id-lpM" id="FG1-8p-pJk"/>
+                <outlet property="collectionPhotos" destination="Kcj-rq-K6C" id="NEs-s5-XPM"/>
+                <outlet property="imageSelected" destination="lgF-eg-Ftd" id="qTU-86-pbM"/>
+                <outlet property="photoBgView" destination="KFp-rV-gul" id="eWt-EC-Plg"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KFp-rV-gul">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lgF-eg-Ftd">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="KFp-rV-gul" secondAttribute="height" multiplier="1:1" id="16p-kb-zIL"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Kcj-rq-K6C">
+                    <rect key="frame" x="0.0" y="375" width="375" height="292"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <collectionViewLayout key="collectionViewLayout" id="XJJ-id-lpM" customClass="MutiCollectionLayout"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="poB-gu-YWr"/>
+                        <outlet property="delegate" destination="-1" id="yX6-eE-vc7"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Kcj-rq-K6C" secondAttribute="trailing" id="CB8-SX-Ipx"/>
+                <constraint firstAttribute="trailing" secondItem="KFp-rV-gul" secondAttribute="trailing" id="Ddo-iP-XnX"/>
+                <constraint firstItem="KFp-rV-gul" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="HmK-rd-T15"/>
+                <constraint firstItem="KFp-rV-gul" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Sc0-I5-lMG"/>
+                <constraint firstItem="Kcj-rq-K6C" firstAttribute="top" secondItem="KFp-rV-gul" secondAttribute="bottom" id="WRG-h8-0mu"/>
+                <constraint firstItem="Kcj-rq-K6C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gj2-Sy-FC4"/>
+                <constraint firstAttribute="bottom" secondItem="Kcj-rq-K6C" secondAttribute="bottom" id="o7a-ch-j5V"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <point key="canvasLocation" x="368.5" y="274.5"/>
+        </view>
+    </objects>
+</document>
