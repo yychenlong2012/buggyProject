@@ -585,6 +585,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+## UMCCommon
+
+Copyright 2011 - 2018 umeng.com. All rights reserved.
+
+
+## UMCSecurityPlugins
+
+Copyright 2011 - 2018 umeng.com. All rights reserved.
+
+
+## UMCShare
+
+Copyright 2011 - 2018 umeng.com. All rights reserved.
+
+
 ## lottie-ios
 
                                  Apache License

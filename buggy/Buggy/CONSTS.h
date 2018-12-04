@@ -29,6 +29,9 @@
 #define XinZhiAPIKey @"1limijcgcsj4vjqd"
 #define XinZhiUserID @"U7054AA301"
 
+//友盟APPKey
+#define UMAppKey @"5c06431bb465f51edc000022"
+
 
 // 微博
 #define WEIBOAPPKEY @"3074598193"

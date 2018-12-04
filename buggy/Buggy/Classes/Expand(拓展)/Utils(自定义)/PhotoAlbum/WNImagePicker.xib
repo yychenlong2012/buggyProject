@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,6 +14,7 @@
                 <outlet property="collectionLayout" destination="4ry-FB-8TX" id="3bd-0p-cB7"/>
                 <outlet property="collectionPhotos" destination="8UZ-JZ-Me2" id="MvZ-Lw-T5J"/>
                 <outlet property="imageSelected" destination="Rt7-vI-P3o" id="0dj-yT-vCx"/>
+                <outlet property="imageviewTopMargin" destination="SPH-Of-EH1" id="fKa-Sd-BR8"/>
                 <outlet property="photoBgView" destination="MpC-Jg-cA0" id="JZ8-IH-nLH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -50,13 +50,13 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="MpC-Jg-cA0" secondAttribute="trailing" id="7Q9-GR-jKo"/>
-                <constraint firstItem="8UZ-JZ-Me2" firstAttribute="top" secondItem="MpC-Jg-cA0" secondAttribute="bottom" id="94Y-OK-Kob"/>
-                <constraint firstAttribute="trailing" secondItem="8UZ-JZ-Me2" secondAttribute="trailing" id="L7F-VN-HLg"/>
+                <constraint firstAttribute="trailing" secondItem="8UZ-JZ-Me2" secondAttribute="trailing" id="7yp-qI-aVG"/>
                 <constraint firstItem="MpC-Jg-cA0" firstAttribute="width" secondItem="MpC-Jg-cA0" secondAttribute="height" multiplier="1:1" id="R9M-UC-VTL"/>
-                <constraint firstAttribute="bottom" secondItem="8UZ-JZ-Me2" secondAttribute="bottom" id="S3w-8w-C7N"/>
                 <constraint firstItem="MpC-Jg-cA0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="SPH-Of-EH1"/>
+                <constraint firstItem="8UZ-JZ-Me2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="VZb-zA-spd"/>
+                <constraint firstItem="8UZ-JZ-Me2" firstAttribute="top" secondItem="MpC-Jg-cA0" secondAttribute="bottom" id="Zgx-yn-Ds5"/>
                 <constraint firstItem="MpC-Jg-cA0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mgk-bP-GJb"/>
-                <constraint firstItem="8UZ-JZ-Me2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="u5g-YL-UYO"/>
+                <constraint firstAttribute="bottom" secondItem="8UZ-JZ-Me2" secondAttribute="bottom" id="rqb-kh-7gO"/>
             </constraints>
         </view>
     </objects>

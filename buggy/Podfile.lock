@@ -40,6 +40,19 @@ PODS:
   - SDWebImage/Core (4.0.0)
   - TMCache (2.1.0)
   - UICountingLabel (1.2.0)
+  - UMCCommon (1.4.1)
+  - UMCSecurityPlugins (1.0.6)
+  - UMCShare/Core (6.8.1):
+    - UMCCommon
+  - UMCShare/Social/ReducedQQ (6.8.1):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/Social/ReducedSina (6.8.1):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/Social/ReducedWeChat (6.8.1):
+    - UMCCommon
+    - UMCShare/Core
 
 DEPENDENCIES:
   - AFNetworking
@@ -59,6 +72,11 @@ DEPENDENCIES:
   - SDWebImage
   - TMCache (~> 2.1.0)
   - UICountingLabel (~> 1.2.0)
+  - UMCCommon
+  - UMCSecurityPlugins
+  - UMCShare/Social/ReducedQQ
+  - UMCShare/Social/ReducedSina
+  - UMCShare/Social/ReducedWeChat
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -79,7 +97,10 @@ SPEC CHECKSUMS:
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   TMCache: 95ebcc9b3c7e90fb5fd8fc3036cba3aa781c9bed
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
+  UMCCommon: ed0b882a939c45850f6803a5837698572a3e9b96
+  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
+  UMCShare: d63008fcea9b2e1e52bc62816b1611ee7d5af50e
 
-PODFILE CHECKSUM: 936426e0c22ed60dadd69c1752a62c9ad0f7fdbe
+PODFILE CHECKSUM: 3bbda860b56c2f857a360aa0789a1564b983bfef
 
 COCOAPODS: 1.4.0

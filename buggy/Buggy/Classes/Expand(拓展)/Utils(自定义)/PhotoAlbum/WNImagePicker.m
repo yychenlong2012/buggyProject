@@ -32,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet MutiCollectionLayout *collectionLayout;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionPhotos;
 @property (weak, nonatomic) IBOutlet UIImageView *imageSelected;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageviewTopMargin;
+
 @property (nonatomic,strong) UIView *naviView;             //自定义导航栏背景view
 @end
 
@@ -39,6 +41,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (@available(iOS 11.0, *)) {
+        self.collectionPhotos.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
     [self.view addSubview:self.naviView];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     _assetsLibrary = [[ALAssetsLibrary alloc] init];
@@ -48,6 +57,19 @@
     
     _assets = [[NSMutableArray alloc] init];
     [self addGestureRecognizerToView:self.imageSelected];
+    self.imageviewTopMargin.constant = navigationH;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.collectionPhotos registerNib:[UINib nibWithNibName:@"AlbumPhotoCell" bundle:nil] forCellWithReuseIdentifier:@"AlbumPhotoCell"];
+    self.collectionLayout.widthHeightScale = 1;
+    self.collectionLayout.lineSpacing = 0;
+    self.collectionLayout.interitemSpacing = 0;
+    self.collectionLayout.numberOfItemForLine = 4;
+    self.collectionLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 //- (void)viewWillAppear:(BOOL)animated
@@ -364,74 +386,19 @@
                                                        scale:[assetRepresentation scale]
                                                  orientation:(int)[assetRepresentation orientation]];
         [self setCoverImage:fullScreenImage];   //刷新封面大图
-        [UIView animateWithDuration:0.25 animations:^{
-            self.collectionPhotos.frame = CGRectMake(0, self.photoBgView.height, self.view.width, self.view.height - self.photoBgView.height);
-            self.photoBgView.originY = 0;
-            [self.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            
-        }];
+//        [UIView animateWithDuration:0.25 animations:^{
+////            self.collectionPhotos.frame = CGRectMake(0, self.photoBgView.height, self.view.width, self.view.height - self.photoBgView.height);
+//            self.photoBgView.originY = navigationH;
+//            [self.view layoutIfNeeded];
+//        } completion:^(BOOL finished) {
+//
+//        }];
     }
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
     return YES;
 }
-
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    
-////    DLog(@"--------   %f  ----  %f",scrollView.contentOffset.y,self.photoBgView.originY);
-//    NSLog(@"--------   %f  ----  %f",scrollView.contentOffset.y,self.photoBgView.originY);
-//    if (scrollView == self.collectionPhotos) {
-//        if (scrollView.contentOffset.y > 0 && self.photoBgView.originY == 0) {
-////            [UIView animateWithDuration:0.25 animations:^{
-//                self.collectionPhotos.frame = self.view.bounds;
-//                self.photoBgView.originY = self.photoBgView.height * -1;
-//                [self.view layoutIfNeeded];
-////            } completion:^(BOOL finished) {
-////            }];
-//        }
-//        
-//        if (scrollView.contentOffset.y < -5  && self.photoBgView.originY == -self.photoBgView.height) {
-////            [UIView animateWithDuration:0.25 animations:^{
-//                self.collectionPhotos.frame = CGRectMake(0, self.photoBgView.height, self.view.width, self.view.height - self.photoBgView.height);
-//                self.photoBgView.originY = 0;
-//                [self.view layoutIfNeeded];
-////            } completion:^(BOOL finished) {
-////                
-////            }];
-//        }
-//    }
-//    
-//}
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    DLog(@"--------%f  ----  %f",scrollView.contentOffset.y,self.photoBgView.originY);
-//    if (scrollView == self.collectionPhotos) {
-//        if (scrollView.contentOffset.y > 20  && self.photoBgView.originY == 0) {
-//            [UIView animateWithDuration:0.25 animations:^{
-////                self.collectionPhotos.frame = self.view.bounds;
-//                 self.collectionPhotos.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight - (self.tabBarController?49:0));
-//                self.photoBgView.originY = self.photoBgView.height * -1;
-//                [self.view layoutIfNeeded];
-//            } completion:^(BOOL finished) {
-// 
-//            }];
-//        }
-//        
-//        if (scrollView.contentOffset.y < -20  && self.photoBgView.originY == -self.photoBgView.height) {
-//            [UIView animateWithDuration:0.25 animations:^{
-//                self.collectionPhotos.frame = CGRectMake(0, self.photoBgView.height, self.view.width, self.view.height - self.photoBgView.height);
-//                self.photoBgView.originY = 0;
-//                [self.view layoutIfNeeded];
-//            } completion:^(BOOL finished) {
-//                
-//            }];
-//        }
-//    }
-//}
 
 #pragma mark -- GestureMethod
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
@@ -476,12 +443,12 @@
 //完成
 - (void)rightBarAction{
     CGFloat scraled = self.imageSelected.image.size.width / self.imageSelected.frame.size.width;
-    
+
     CGFloat imgX;
     CGFloat imgY;
     CGFloat imgW;
     CGFloat imgH;
-    
+
     if (self.imageSelected.width <= ScreenWidth){
         imgX = 0;
         imgW = self.imageSelected.width;
@@ -489,7 +456,7 @@
         imgX = -self.imageSelected.originX;
         imgW = ScreenWidth;
     }
-    
+
     if (self.imageSelected.height <= ScreenWidth) {
         imgY = 0;
         imgH = self.imageSelected.height;
@@ -497,18 +464,40 @@
         imgY = - self.imageSelected.originY;
         imgH = ScreenWidth;
     }
+
+//    CGFloat imageW = self.imageSelected.image.size.width;
+//    CGFloat imageH = self.imageSelected.image.size.height;
+//    CGRect rect;
+//    if (self.imageSelected.image.size.width < self.imageSelected.image.size.height) {
+//        rect = CGRectMake(0, (imageH-imageW)/2, imageW, imageH);
+//    }else{
+//        rect = CGRectMake((imageW-imageH)/2, 0, imageW, imageH);
+//    }
     
     CGRect rect = CGRectMake(imgX*scraled, imgY*scraled, imgW*scraled, imgH*scraled);
-    
     UIImage *imageCut = [self.imageSelected.image getSubImage:rect];
+//    [self setCoverImage:imageCut];   //刷新封面大图
     
-    ImageEditVC *imageVC = [[ImageEditVC alloc]init];
-    imageVC.image = imageCut;
+    //图片压缩
+    //质量压缩
+    NSData *data = UIImageJPEGRepresentation(imageCut, 0.05);
+    UIImage * resultImage = [UIImage imageWithData:data];
     
-    [self.navigationController pushViewController:imageVC animated:YES];
+    //尺寸压缩
+//    CGSize imageSize = CGSizeMake(100, 100);
+//    UIGraphicsBeginImageContext(imageSize);
+//    [resultImage drawInRect:CGRectMake(0, 0, imageSize.width, imageSize.height)];
+//    resultImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+
+    //跳转图片编辑view
+//    ImageEditVC *imageVC = [[ImageEditVC alloc]init];
+//    imageVC.image = imageCut;
+//
+//    [self.navigationController pushViewController:imageVC animated:YES];
 
     if ([self.delegate respondsToSelector:@selector(getCutImage:controller:)]) {
-        [self.delegate getCutImage:imageCut controller:self];
+        [self.delegate getCutImage:resultImage controller:self];
     }
 }
 
@@ -570,14 +559,5 @@
     BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
     [self.navigationController setNavigationBarHidden:isShowHomePage animated:NO];
 }
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [self.collectionPhotos registerNib:[UINib nibWithNibName:@"AlbumPhotoCell" bundle:nil] forCellWithReuseIdentifier:@"AlbumPhotoCell"];
-    self.collectionLayout.widthHeightScale = 1;
-    self.collectionLayout.lineSpacing = 0;
-    self.collectionLayout.interitemSpacing = 0;
-    self.collectionLayout.numberOfItemForLine = 4;
-    self.collectionLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-}
+
 @end

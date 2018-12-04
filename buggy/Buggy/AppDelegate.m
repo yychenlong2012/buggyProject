@@ -25,6 +25,9 @@
 #import "CLKeyChain.h"
 #import <mach-o/dyld.h>
 #import "LoginVC.h"
+#import <UMShare/UMShare.h>
+#import <UMCommon/UMCommon.h>
+//#import <UMAnalytics/MobClick.h>
 
 @interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate>
 @property (strong, nonatomic) NSDictionary *infoDic;
@@ -71,12 +74,11 @@ long calculate(void) {
 //    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 //    [AVOSCloud registerForRemoteNotification];//注册推送通知
     self.infoDic = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
-    [self configureAPIKey];        //第三方key
+//    [self configureAPIKey];        //第三方key
+    // U-Share 平台设置
+    [UMConfigure initWithAppkey:UMAppKey channel:@"App Store"];
+    [self configUSharePlatforms];
     [SCREENMGR showRightScreen];   //初始界面
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(initHomeVC)
-                                                 name:kTURNTOHOMEVC
-                                               object:nil];
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     [self.window makeKeyAndVisible];
     
@@ -215,78 +217,27 @@ void handleException(NSException *exception){
     //清空数据
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
     [[NSFileManager defaultManager] removeItemAtPath:imagePath error:nil];
-    
-//    [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
-//        //是否有图片
-//        AVFile *file;
-//        NSError *error;
-//        NSString *imageName = dict[@"finalPicture"];
-//        NSString *imagePath = [[NSHomeDirectory( ) stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
-//        if (imageName!=nil && ![imageName isEqualToString:@""]) {
-//            //上传图片
-//            UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
-//            if (image) {
-//                NSData *imageData = [image compressImageWithImage:image aimWidth:414*2 aimLength:1024*1024 accuracyOfLength:1024];
-//                file = [AVFile fileWithData:imageData];
-//                [file save:&error];
-//            }
-//        }
-//
-//        //为什么不用userid作为查询条件？可能是在登录之前的崩溃
-//        AVQuery *query = [AVQuery queryWithClassName:@"Crash_Log"];
-//        [query whereKey:@"crashTime" equalTo:dict[@"crashTime"]];
-//        [query whereKey:@"deviceName" equalTo:dict[@"deviceName"]];
-//        [query whereKey:@"OSVersion" equalTo:dict[@"OSVersion"]];
-//        [query whereKey:@"exceptionName" equalTo:dict[@"exceptionName"]];
-//        [query whereKey:@"AppVersion" equalTo:dict[@"AppVersion"]];
-//        [query getFirstObjectInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
-//            if (error == nil && object) {
-//                //补全崩溃信息
-//                if ([AVUser currentUser]) {
-//                    [object setObject:[AVUser currentUser] forKey:@"userId"];
-//                }
-//                [object setObject:dict[@"reason"] forKey:@"reason"];
-//                if (error == nil && file != nil) {
-//                    [object setObject:file forKey:@"finalPicture"];
-//                }
-//                [object setObject:dict[@"networkType"] forKey:@"networkType"];
-//                [object setObject:dict[@"bluetooth"] forKey:@"bluetooth"];
-//                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//                    if (succeeded && error == nil) {  //清空数据
-//                        [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-//                        [[NSFileManager defaultManager] removeItemAtPath:imagePath error:nil];
-//                    }
-//                }];
-//            }else if (error.code == 101){
-//                //上传完整崩溃信息
-//                AVObject *object = [AVObject objectWithClassName:@"Crash_Log"];
-//                if ([AVUser currentUser]) {
-//                    [object setObject:[AVUser currentUser] forKey:@"userId"];
-//                }
-//                [object setObject:dict[@"deviceName"] forKey:@"deviceName"];
-//                [object setObject:dict[@"OSVersion"] forKey:@"OSVersion"];
-//                [object setObject:dict[@"exceptionName"] forKey:@"exceptionName"];
-//                [object setObject:dict[@"reason"] forKey:@"reason"];
-//                [object setObject:dict[@"callStackSymbols"] forKey:@"callStackSymbols"];
-//                if (error == nil && file != nil) {
-//                    [object setObject:file forKey:@"finalPicture"];
-//                }
-//                [object setObject:dict[@"networkType"] forKey:@"networkType"];
-//                [object setObject:dict[@"bluetooth"] forKey:@"bluetooth"];
-//                [object setObject:dict[@"crashTime"] forKey:@"crashTime"];
-//                [object setObject:dict[@"AppVersion"] forKey:@"AppVersion"];
-//                [object setObject:dict[@"uniqueIdentifier"] forKey:@"uniqueIdentifier"];
-//                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//                    if (succeeded && error == nil) {  //清空数据
-//                        [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-//                        [[NSFileManager defaultManager] removeItemAtPath:imagePath error:nil];
-//                    }
-//                }];
-//            }
-//        }];
-//
-//    }];
 }
+
+
+- (void)configUSharePlatforms
+{
+   
+    /* 设置微信的appKey和appSecret */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WEIXINAPPID appSecret:WEIXINSECRET redirectURL:@"http://mobile.umeng.com/social"];
+    /*
+     * 移除相应平台的分享，如微信收藏
+     */
+    //[[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite)]];
+    /* 设置分享到QQ互联的appID
+     * U-Share SDK为了兼容大部分平台命名，统一用appKey和appSecret进行参数设置，而QQ平台仅需将appID作为U-Share的appKey参数传进即可。
+     */
+    /*设置QQ平台的appID*/
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:QQAPPID appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+    /* 设置新浪的appKey和appSecret */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:WEIBOAPPKEY  appSecret:WEIBOAPPSECREAT redirectURL:WEIBOREDIRECTURI];
+}
+
 
 #pragma mark === 处理推送和注册第三方
 - (void)initHomeVC{
@@ -306,17 +257,42 @@ void handleException(NSException *exception){
 
 #pragma mark - 第三方回调url
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
-    return [self openURLTypeWithUrl:url];
+//    return [self openURLTypeWithUrl:url];
+    
+    //友盟
+    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
 }
 
 // iOS9.0及其以下版本
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    return [self openURLTypeWithUrl:url];
+//    return [self openURLTypeWithUrl:url];
+    
+    //友盟
+    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
 }
 
 // 大于iOS9.0版本
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
-    return [self openURLTypeWithUrl:url];
+    
+//    return [self openURLTypeWithUrl:url];
+    
+    //友盟
+    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url options:options];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
 }
 
 - (BOOL)openURLTypeWithUrl:(NSURL *)url{

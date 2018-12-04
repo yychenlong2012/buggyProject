@@ -35,7 +35,8 @@
     UIGraphicsBeginImageContext(smallBounds.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextDrawImage(context, smallBounds, subImageRef);
-    UIImage* smallImage = [UIImage imageWithCGImage:subImageRef];
+//    UIImage* smallImage = [UIImage imageWithCGImage:subImageRef];
+    UIImage* smallImage = [[UIImage alloc] initWithCGImage:subImageRef scale:1 orientation:self.imageOrientation];     //用上面的方法 在截图后会改变图片的显示方向
     UIGraphicsEndImageContext();
     
     return smallImage;

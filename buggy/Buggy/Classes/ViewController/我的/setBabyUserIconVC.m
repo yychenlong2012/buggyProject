@@ -12,6 +12,8 @@
 #import "UIImage+COSAdtions.h"
 #import "BabyInfoViewController.h"
 #import "BabyModel.h"
+#import "MineNewViewController.h"
+
 @interface setBabyUserIconVC ()<WNImagePickerDelegate>
 @property (nonatomic,strong) UIView *naviView;
 @property (nonatomic,strong) UIButton *button;
@@ -33,7 +35,7 @@
     [self.view addSubview:self.skip];
 }
 -(void)dealloc{
-    NSLog(@"11");
+    NSLog(@"setBabyUserIconVC-dealloc");
 }
 #pragma mark -- WNImagePickerDelegate
 - (void)getCutImage:(UIImage *)image controller:(WNImagePicker *)vc{
@@ -47,7 +49,9 @@
     if (self.babyId != nil) {
         [NETWorkAPI updateBabyInfoWithId:self.babyId optionType:UPLOAD_BABY_HEADER optionValue:imageData callback:^(BOOL success, NSError * _Nullable error) {
             if (success) {
-                
+                [MBProgressHUD showToast:NSLocalizedString(@"头像上传成功", nil)];
+            }else{
+                [MBProgressHUD showToast:NSLocalizedString(@"头像上传失败", nil)];
             }
         }];
     }
@@ -100,6 +104,7 @@
     return _babyIcon;
 }
 
+//完成按钮
 -(UIButton *)button{
     if (_button == nil) {
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -113,9 +118,17 @@
         [_button addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
             //添加宝贝
             if (wself.addBabyModel != nil) {
-                [NETWorkAPI addBabyInfoWithModel:wself.addBabyModel header:wself.imageData callback:^(BOOL success, NSError * _Nullable error) {
-                    if (success) {
-                        
+                [NETWorkAPI addBabyInfoWithModel:wself.addBabyModel header:wself.imageData callback:^(NSArray * _Nullable modelArray, NSInteger currentPage, NSError * _Nullable error) {
+                    if (![modelArray isKindOfClass:[NSArray class]]) {
+                        return ;
+                    }
+                    if ([wself.sourceVC isKindOfClass:[MineNewViewController class]]) {
+                        MineNewViewController *mine = (MineNewViewController *)wself.sourceVC;
+                        [mine.babyArray removeAllObjects];
+                        [mine.babyArray addObjectsFromArray:modelArray];
+                        [mine.tableview reloadData];
+//                        [mine.babyArray insertObject:wself.addBabyModel atIndex:0];
+//                        [mine.tableview reloadData];
                     }
                 }];
             }

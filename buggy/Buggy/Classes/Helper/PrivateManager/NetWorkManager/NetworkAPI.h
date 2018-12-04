@@ -12,6 +12,7 @@
 #import "babyInfoModel.h"
 #import "userInfoModel.h"
 #import "DeviceModel.h"
+#import <UMShare/UMShare.h>
 
 
 #define NETWorkAPI [NetworkAPI shareInstance]
@@ -87,6 +88,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)loginWithQQ;
 #pragma mark - 微博登录
 -(void)loginWithWeiBo;
+//第三方登录
+- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType homeDataCallback:(HomeDataBlock _Nonnull)homeDataCallback;
 #pragma mark - 上传天气
 -(void)uploadWeahter:(NSString *)weather airQuality:(NSString *)airQuality callback:(statusBlock _Nonnull)callback;
 
@@ -141,7 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)updateUserInfoWithOptionType:(USER_INFO_TYPE)optionType optionValue:(id)optionValue callback:(statusBlock _Nonnull)callback;
 
 //添加宝贝
--(void)addBabyInfoWithModel:(babyInfoModel *)model header:(NSData *)headerData callback:(statusBlock _Nonnull)callback;
+-(void)addBabyInfoWithModel:(babyInfoModel *)model header:(NSData *)headerData callback:(DataListBlock _Nonnull)callback;
 
 //baby信息
 -(void)requestBabyInfoWithId:(NSString *)Id callback:(ModelBlock _Nonnull)callback;

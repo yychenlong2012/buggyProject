@@ -14,6 +14,7 @@
 #import "WeiboSDK.h"
 #import "CarA4PushDataModel.h"
 #import "NetWorkStatus.h"
+#import <UMShare/UMShare.h>
 
 //开发版
 #define API_HEADER @"http://192.168.10.106"
@@ -62,6 +63,7 @@
 #define RESET_PASSWORD @""API_HEADER"/Tp/index.php/App/Login/reset_passwd.html"      //修改密码
 #define LOGOUT @""API_HEADER"/Tp/index.php/App/Login/loginout.html"                  //退出登录
 #define CRASH_LOG @""API_HEADER"/Tp/index.php/App/public/add_crash.html"             //崩溃信息
+#define THIRD_PART_LOGIN @""API_HEADER"/Tp/index.php/app/login/qq_weixin_login"      //第三方登录
 
 
 #define NSLog(format,...) printf("%s",[[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String])
@@ -84,13 +86,14 @@ static NetworkAPI* _instance = nil;
 //创建manager
 -(AFHTTPSessionManager *)manager{
     if (_manager == nil) {
+        NSLog(@"%@,%@",KUserDefualt_Get(USER_LOGIN_TOKEN),KUserDefualt_Get(USER_REFRESH_TOKEN));
         _manager = [AFHTTPSessionManager manager];
         [_manager.requestSerializer setValue:KUserDefualt_Get(USER_LOGIN_TOKEN)==nil?@"":KUserDefualt_Get(USER_LOGIN_TOKEN) forHTTPHeaderField:@"Token"];
         _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         _manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
         _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain",@"image/jpg",@"application/x-javascript",@"keep-alive", nil];
 //        [_manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
-        _manager.requestSerializer.timeoutInterval = 10.f;
+        _manager.requestSerializer.timeoutInterval = 20.f;
 //        [_manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         //允许不进行证书验证
 //        AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];
@@ -157,7 +160,6 @@ static NetworkAPI* _instance = nil;
                 KUserDefualt_Set(@"", USER_LOGIN_TOKEN);                 //需要重新登录
                 KUserDefualt_Set(@"", USER_REFRESH_TOKEN);
                 KUserDefualt_Set(@"", USER_ID_NEW);
-                [self resetHTTPHeader];
                 [MBProgressHUD showSuccess:dict[@"msg"]];
                 [SCREENMGR changeToLoginScreen];
             }break;
@@ -184,6 +186,8 @@ static NetworkAPI* _instance = nil;
                 [SCREENMGR changeToLoginScreen];
             }
         }
+        //刷新头部token
+        [self resetHTTPHeader];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [MBProgressHUD showError:@"网络错误！"];
     }];
@@ -372,6 +376,82 @@ static NetworkAPI* _instance = nil;
     [WeiboSDK sendRequest:request];
 }
 
+//第三方登录
+- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType homeDataCallback:(HomeDataBlock _Nonnull)homeDataCallback{
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:platformType currentViewController:nil completion:^(id result, NSError *error) {
+        UMSocialUserInfoResponse *resp = result;
+        // 第三方登录数据(为空表示平台未提供)
+        // 授权数据
+//        NSLog(@" uid: %@", resp.uid);
+//        NSLog(@" openid: %@", resp.openid);
+//        NSLog(@" accessToken: %@", resp.accessToken);
+//        NSLog(@" refreshToken: %@", resp.refreshToken);
+//        NSLog(@" expiration: %@", resp.expiration);
+        // 用户数据
+//        NSLog(@" name: %@", resp.name);
+//        NSLog(@" iconurl: %@", resp.iconurl);
+//        NSLog(@" gender: %@", resp.unionGender);
+        // 第三方平台SDK原始数据
+//        NSLog(@" originalResponse: %@", resp.originalResponse);
+        
+        //登录
+        NSString *openID;
+        NSString *platform;
+        switch (platformType) {
+            case 0:       //新浪
+                openID = resp.uid;
+                platform = @"weibo";
+                break;
+            case 1:       //微信
+                openID = resp.openid;
+                platform = @"weixin";
+                break;
+            case 4:       //qq
+                openID = resp.openid;
+                platform = @"qq";
+                break;
+            default:
+                //平台错误
+                return ;
+        }
+        NSDictionary *parma = @{   @"openid":openID,
+                                  @"nickName":resp.name,
+                                  @"platform":platform,
+                                  @"header":resp.iconurl   };
+        [self.manager POST:THIRD_PART_LOGIN parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
+            NSLog(@"第三方登录：%@ 类型：%@\n",dict[@"msg"],dict);
+            if ([dict[@"status"] integerValue] == 7) {
+                [MBProgressHUD showSuccess:dict[@"msg"]];    //登录成功
+                //保存token
+                NSDictionary *data = dict[@"data"];
+                if ([data isKindOfClass:[NSDictionary class]]) {
+                    KUserDefualt_Set(data[@"token"], USER_LOGIN_TOKEN);
+                    KUserDefualt_Set(data[@"refresh_token"], USER_REFRESH_TOKEN);
+                    [self resetHTTPHeader];
+                    //保存用户id
+                    NSDictionary *userInfo = data[@"userinfo"];
+                    if ([userInfo isKindOfClass:[NSDictionary class]]) {
+                        KUserDefualt_Set(userInfo[@"uid"]==nil?@"":userInfo[@"uid"], USER_ID_NEW);
+                    }
+                    //保存用户信息
+                    self.userInfo = [userInfoModel mj_objectWithKeyValues:data[@"userinfo"]];
+                    //主页数据
+                    homeDataModel *model = [homeDataModel mj_objectWithKeyValues:data[@"data"]];
+                    homeDataCallback(model,nil);
+                }
+                
+            }else{
+                [MBProgressHUD showError:@"登录失败"];
+            }
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            homeDataCallback(nil,error);
+            [MBProgressHUD showError:@"网络错误!"];
+        }];
+    }];
+}
+
 #pragma mark - 上传天气
 -(void)uploadWeahter:(NSString *)weather airQuality:(NSString *)airQuality callback:(statusBlock _Nonnull)callback{
     NSDictionary *parma = @{  @"weather":weather==nil?@"":weather,
@@ -456,8 +536,7 @@ static NetworkAPI* _instance = nil;
 
 //日里程
 -(void)requestDayMileageWithPage:(NSString *)page pageNum:(NSString *)pageNum callback:(DataListBlock _Nonnull)listData{
-    NSDictionary *parma = @{ @"page":page,
-                            @"page_num":pageNum };
+    NSDictionary *parma = @{ @"page":page,  @"page_num":pageNum };
     [self.manager POST:DAY_MILEAGE parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"日里程：%@ 类型：%@\n",dict[@"msg"],dict);
@@ -471,9 +550,7 @@ static NetworkAPI* _instance = nil;
 
 //日里程分段数据 @"2018-11-03"
 -(void)requestDayMileageSubsWithPage:(NSString *)page pageNum:(NSString *)pageNum date:(NSString *)date callback:(DataListBlock _Nonnull)listData{
-    NSDictionary *parma = @{  @"travelDate":date,
-                             @"page":page,
-                             @"page_num":pageNum  };
+    NSDictionary *parma = @{  @"travelDate":date,  @"page":page,  @"page_num":pageNum  };
     [self.manager POST:DAY_MILEAGE_SUBS parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"日里程分段数据：%@ 类型：%@\n",dict[@"msg"],dict);
@@ -519,18 +596,8 @@ static NetworkAPI* _instance = nil;
         NSLog(@"请求轮播图数据：%@ 类型：%@\n",dict[@"msg"],dict);
         NSArray *array = [MusicBannerModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         callback(array,0,nil);
-        //保存数据
-//        NSArray *dictarray = [MusicBannerModel mj_keyValuesArrayWithObjectArray:array];
-//        [dictarray writeToFile:[CACHE_PATH stringByAppendingPathComponent:@"banner.plist"] atomically:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSString *path = [CACHE_PATH stringByAppendingPathComponent:@"banner.plist"];
-//        NSArray *dictarray = [NSArray arrayWithContentsOfFile:path];
-//        if (dictarray != nil) {
-//            NSArray *array = [MusicBannerModel mj_objectArrayWithKeyValuesArray:dictarray];
-//            callback(array,0,nil);
-//        }else{
-            callback(nil,0,error);
-//        }
+        callback(nil,0,error);
     }];
 }
 
@@ -538,23 +605,11 @@ static NetworkAPI* _instance = nil;
 -(void)requestHotMusiccallback:(DataListBlock _Nonnull)callback{
     [self.manager GET:HOT_MUSIC parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict = [NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSHTTPURLResponse *re = (NSHTTPURLResponse *)task.response;
-//        NSLog(@"%@",re.allHeaderFields);
         NSLog(@"热门歌单：%@ 类型：%@\n",dict[@"msg"],dict);
         NSArray *array = [MusicAlbumModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         callback(array,0,nil);
-        //保存数据
-//        NSArray *dictarray = [MusicAlbumModel mj_keyValuesArrayWithObjectArray:array];
-//        [dictarray writeToFile:[CACHE_PATH stringByAppendingPathComponent:@"hotMusic.plist"] atomically:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSString *path = [CACHE_PATH stringByAppendingPathComponent:@"hotMusic.plist"];
-//        NSArray *dictarray = [NSArray arrayWithContentsOfFile:path];
-//        if (dictarray != nil) {
-//            NSArray *array = [MusicAlbumModel mj_objectArrayWithKeyValuesArray:dictarray];
-//            callback(array,0,nil);
-//        }else{
-            callback(nil,0,error);
-//        }
+        callback(nil,0,error);
     }];
 }
 
@@ -566,18 +621,8 @@ static NetworkAPI* _instance = nil;
         NSDictionary *data = dict[@"data"];
         NSArray *array = [MusicAlbumModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
         callback(array,0,nil);
-        //保存数据
-//        NSArray *dictarray = [MusicAlbumModel mj_keyValuesArrayWithObjectArray:array];
-//        [dictarray writeToFile:[CACHE_PATH stringByAppendingPathComponent:@"recommendMusic.plist"] atomically:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSString *path = [CACHE_PATH stringByAppendingPathComponent:@"recommendMusic.plist"];
-//        NSArray *dictarray = [NSArray arrayWithContentsOfFile:path];
-//        if (dictarray != nil) {
-//            NSArray *array = [MusicAlbumModel mj_objectArrayWithKeyValuesArray:dictarray];
-//            callback(array,0,nil);
-//        }else{
-            callback(nil,0,error);
-//        }
+        callback(nil,0,error);
     }];
 }
 
@@ -591,18 +636,8 @@ static NetworkAPI* _instance = nil;
         NSDictionary *data = dict[@"data"];
         NSArray *array = [MusicAlbumModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
         callback(array,[data[@"page"]integerValue],nil);
-        //保存数据
-//        NSArray *dictarray = [MusicAlbumModel mj_keyValuesArrayWithObjectArray:array];
-//        [dictarray writeToFile:[CACHE_PATH stringByAppendingPathComponent:[NSString stringWithFormat:@"allMusic%@.plist",data[@"page"]]] atomically:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSString *path = [CACHE_PATH stringByAppendingPathComponent:[NSString stringWithFormat:@"allMusic%@.plist",page]];
-//        NSArray *dictarray = [NSArray arrayWithContentsOfFile:path];
-//        if (dictarray != nil) {
-//            NSArray *array = [MusicAlbumModel mj_objectArrayWithKeyValuesArray:dictarray];
-//            callback(array,[page integerValue],nil);
-//        }else{
-            callback(nil,-1,error);
-//        }
+        callback(nil,-1,error);
     }];
 }
 
@@ -617,18 +652,8 @@ static NetworkAPI* _instance = nil;
         NSDictionary *data = dict[@"data"];
         NSArray *array = [musicModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
         callback(array,[data[@"page"] integerValue],nil);
-        //保存数据
-//        NSArray *dictarray = [musicModel mj_keyValuesArrayWithObjectArray:array];
-//        [dictarray writeToFile:[CACHE_PATH stringByAppendingPathComponent:[NSString stringWithFormat:@"sceneMusic%ld_%@.plist",(long)musicType,data[@"page"]]] atomically:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSString *path = [CACHE_PATH stringByAppendingPathComponent:[NSString stringWithFormat:@"sceneMusic%ld_%@.plist",(long)musicType,page]];
-//        NSArray *dictarray = [NSArray arrayWithContentsOfFile:path];
-//        if (dictarray != nil) {
-//            NSArray *array = [musicModel mj_objectArrayWithKeyValuesArray:dictarray];
-//            callback(array,[page integerValue],nil);
-//        }else{
-            callback(nil,-1,error);
-//        }
+        callback(nil,-1,error);
     }];
 }
 
@@ -644,18 +669,8 @@ static NetworkAPI* _instance = nil;
         NSDictionary *data = dict[@"data"];
         NSArray *array = [musicModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
         callback(array,[data[@"page"] integerValue],nil);
-        //保存数据
-//        NSArray *dictarray = [musicModel mj_keyValuesArrayWithObjectArray:array];
-//        [dictarray writeToFile:[CACHE_PATH stringByAppendingPathComponent:[NSString stringWithFormat:@"albumMusic%@_%@_%@.plist",musicType,data[@"page"],album]] atomically:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSString *path = [CACHE_PATH stringByAppendingPathComponent:[NSString stringWithFormat:@"albumMusic%@_%@_%@.plist",musicType,page,album]];
-//        NSArray *dictarray = [NSArray arrayWithContentsOfFile:path];
-//        if (dictarray != nil) {
-//            NSArray *array = [musicModel mj_objectArrayWithKeyValuesArray:dictarray];
-//            callback(array,[page integerValue],nil);
-//        }else{
-            callback(nil,-1,error);
-//        }
+        callback(nil,-1,error);
     }];
 }
 
@@ -686,7 +701,6 @@ static NetworkAPI* _instance = nil;
 
 //修改用户信息   nickName或者header
 -(void)updateUserInfoWithOptionType:(USER_INFO_TYPE)optionType optionValue:(id)optionValue callback:(statusBlock _Nonnull)callback{
-
     NSMutableDictionary *parma = [NSMutableDictionary dictionary];
     switch (optionType) {
         case UPLOAD_USER_NAME:
@@ -698,26 +712,15 @@ static NetworkAPI* _instance = nil;
         case UPLOAD_USER_HEADER:
             break;
     }
-    
     [self.manager POST:UPDATE_USER_INFO parameters:parma constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         //如果是上传头像 则添加图片data
         if (optionType == UPLOAD_USER_HEADER) {
-            
             // 在网络开发中，上传文件时，是文件不允许被覆盖，文件重名  要解决此问题， 可以在上传时使用当前的系统事件作为文件名
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             // 设置时间格式
             formatter.dateFormat = @"yyyyMMddHHmmss";
             NSString *str = [formatter stringFromDate:[NSDate date]];
             NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
-            
-            //上传
-            /*
-             此方法参数
-             1. 要上传的[二进制数据]
-             2. 对应网站上[upload.php中]处理文件的[字段"file"]
-             3. 要保存在服务器上的[文件名]
-             4. 上传文件的[mimeType]
-             */
             [formData appendPartWithFileData:optionValue name:@"header" fileName:fileName mimeType:@"image/png"];
         }
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -730,11 +733,10 @@ static NetworkAPI* _instance = nil;
 }
 
 //添加宝贝
--(void)addBabyInfoWithModel:(babyInfoModel *)model header:(NSData *)headerData callback:(statusBlock _Nonnull)callback{
+-(void)addBabyInfoWithModel:(babyInfoModel *)model header:(NSData *)headerData callback:(DataListBlock _Nonnull)callback{
     NSDictionary *parma = @{ @"sex":model.sex == nil? @"小公主" : model.sex,
                              @"name":model.name == nil? @"小宝贝" : model.name,
                              @"birthday":model.birthday == nil? @"" : model.birthday };
-    
     [self.manager POST:ADD_BABY parameters:parma constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if ([headerData isKindOfClass:[NSData class]]) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -744,12 +746,13 @@ static NetworkAPI* _instance = nil;
             [formData appendPartWithFileData:headerData name:@"header" fileName:fileName mimeType:@"image/png"];
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
-        
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"添加宝贝：%@ 类型：%@\n",dict[@"msg"],dict);
+        NSArray *array = [babyInfoModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        callback(array,0,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        callback(NO,error);
+        callback(nil,0,error);
     }];
 }
 
@@ -840,18 +843,8 @@ static NetworkAPI* _instance = nil;
         NSLog(@"已绑定的推车列表：%@ 类型：%@\n",dict[@"msg"],dict);
         NSArray *array = [DeviceModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         callback(array,0,nil);
-        //保存数据
-//        NSArray *dictarray = [DeviceModel mj_keyValuesArrayWithObjectArray:array];
-//        [dictarray writeToFile:[CACHE_PATH stringByAppendingPathComponent:[NSString stringWithFormat:@"deviceInfoArray%@.plist",KUserDefualt_Get(USER_ID_NEW)]] atomically:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSString *path = [CACHE_PATH stringByAppendingPathComponent:[NSString stringWithFormat:@"deviceInfoArray%@.plist",KUserDefualt_Get(USER_ID_NEW)]];
-//        NSArray *dictarray = [NSArray arrayWithContentsOfFile:path];
-//        if (dictarray != nil) {
-//            NSArray *array = [DeviceModel mj_objectArrayWithKeyValuesArray:dictarray];
-//            callback(array,0,nil);
-//        }else{
-            callback(nil,0,error);
-//        }
+        callback(nil,0,error);
     }];
 }
 
@@ -1017,15 +1010,8 @@ static NetworkAPI* _instance = nil;
         if ([data isKindOfClass:[NSDictionary class]]) {
             callback(data[@"instruction_file"],nil);
         }
-        //保存数据
-//        KUserDefualt_Set(data[@"instruction_file"], @"instruction_file");
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSString *str = KUserDefualt_Get(@"instruction_file");
-//        if ([str isKindOfClass:[NSString class]]) {
-//            callback(str,nil);
-//        }else{
-            callback(nil,error);
-//        }
+        callback(nil,error);
     }];
 }
 
@@ -1039,15 +1025,8 @@ static NetworkAPI* _instance = nil;
         if ([data isKindOfClass:[NSDictionary class]]) {
             callback(data[@"userprotocol"],nil);
         }
-        //保存数据
-//        KUserDefualt_Set(data[@"userprotocol"], @"userprotocol");
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSString *str = KUserDefualt_Get(@"userprotocol");
-//        if ([str isKindOfClass:[NSString class]]) {
-//            callback(str,nil);
-//        }else{
-            callback(nil,error);
-//        }
+        callback(nil,error);
     }];
 }
 

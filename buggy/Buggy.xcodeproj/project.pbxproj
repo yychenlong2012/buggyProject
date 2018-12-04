@@ -4097,10 +4097,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Buggy/Pods-Buggy-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/UMCShare/UMShare/UMSocialSDKPlugin/UMSocialSDKPromptResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKPromptResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4813,41 +4815,7 @@
 					"\"UIKit\"",
 					"-fobjc-arc",
 				);
-				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"AFNetworking\"",
-					"-l\"MBProgressHUD\"",
-					"-l\"MagicalRecord\"",
-					"-l\"TMCache\"",
-					"-l\"c++\"",
-					"-l\"icucore\"",
-					"-l\"sqlite3\"",
-					"-l\"z\"",
-					"-framework",
-					"\"CFNetwork\"",
-					"-framework",
-					"\"CoreData\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"CoreLocation\"",
-					"-framework",
-					"\"CoreTelephony\"",
-					"-framework",
-					"\"Foundation\"",
-					"-framework",
-					"\"MobileCoreServices\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-weak_framework",
-					"\"UIKit\"",
-					"-fobjc-arc",
-				);
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = "$(inherited) -ObjC -l\"AFNetworking\" -l\"MBProgressHUD\" -l\"MagicalRecord\" -l\"TMCache\" -l\"c++\" -l\"icucore\" -l\"sqlite3\" -l\"z\" -framework \"CFNetwork\" -framework \"CoreData\" -framework \"CoreGraphics\" -framework \"CoreLocation\" -framework \"CoreTelephony\" -framework \"Foundation\" -framework \"MobileCoreServices\" -framework \"QuartzCore\" -framework \"Security\" -framework \"SystemConfiguration\" -weak_framework \"UIKit\" -fobjc-arc";
 				PRODUCT_BUNDLE_IDENTIFIER = .com.sangeyouzi.buggy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "391d712c-7e9d-4728-91a0-7c367b4e4ae3";
