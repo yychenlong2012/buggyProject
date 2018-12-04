@@ -76,17 +76,16 @@
                     NSString *dateStr = [date componentsSeparatedByString:@" "].firstObject;
                     [self.travelDataDict setObject:@"1" forKey:[dateStr stringByReplacingOccurrencesOfString:@"-" withString:@""]];
                 }
-//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.calendar reloadData];
-//                });
-                
-                if (self.isFirstLoad) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self.calendar selectDate:[NSDate date] scrollToDate:YES];
-                    });
-                    self.isFirstLoad = NO;
-                }
+                [self.calendar reloadData];
             }
+        }
+        
+        //刷新日历界面UI
+        if (self.isFirstLoad) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.calendar selectDate:[NSDate date] scrollToDate:YES];
+            });
+            self.isFirstLoad = NO;
         }
     }];
 }

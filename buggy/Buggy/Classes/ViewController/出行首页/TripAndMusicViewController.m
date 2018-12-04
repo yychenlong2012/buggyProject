@@ -46,13 +46,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //根据当前网络状态设置缓存策略
-    if ([NetWorkStatus isNetworkEnvironment]) {
-        NETWorkAPI.manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
-    }else{
-        NETWorkAPI.manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
-    }
-    
     if (@available(iOS 11.0, *)) {
         self.tripTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }else {
