@@ -65,31 +65,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(instancetype)shareInstance;
 
-//重新设置token字段
--(void)resetHTTPHeader;
-
 #pragma mark - 登录注册
 //验证登录状态
 -(void)checkToken;
 //手机登录
--(void)loginWithMobilePhone:(NSString *)phone password:(NSString *)password callback:(statusBlock _Nonnull)callback;
+-(void)loginWithMobilePhone:(NSString *)phone password:(NSString *)password callback:(HomeDataBlock _Nonnull)callback;
 //手机注册
--(void)registerWithMobilePhone:(NSString *)phone password:(NSString *)password callback:(statusBlock _Nonnull)callback;
+-(void)registerWithMobilePhone:(NSString *)phone password:(NSString *)password callback:(HomeDataBlock _Nonnull)callback;
 //重置密码
 -(void)resetPassword:(NSString *)password mobilePhone:(NSString *)phone callback:(statusBlock _Nonnull)callback;
 //退出登录
 -(void)logoutWithCallback:(statusBlock _Nonnull)callback;
-
-#pragma mark - 微信登录
--(void)getWeiXInCode;
-//请求微信token
--(void)requestWeiXinTokenAndIdWithCode:(NSString *)code;
-#pragma mark - QQ登录
--(void)loginWithQQ;
-#pragma mark - 微博登录
--(void)loginWithWeiBo;
 //第三方登录
-- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType homeDataCallback:(HomeDataBlock _Nonnull)homeDataCallback;
+- (void)loginToGetUserInfoForPlatform:(UMSocialPlatformType)platformType callback:(HomeDataBlock _Nonnull)callback;
 #pragma mark - 上传天气
 -(void)uploadWeahter:(NSString *)weather airQuality:(NSString *)airQuality callback:(statusBlock _Nonnull)callback;
 

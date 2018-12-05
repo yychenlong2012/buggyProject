@@ -42,7 +42,7 @@
     [self.navigationController popToViewController:self animated:YES];
     self.icon.image = image;
     //上传baby头像
-    NSData *imageData = [image compressImageWithImage:image aimWidth:414*2 aimLength:1024*1024 accuracyOfLength:1024];
+    NSData *imageData = [image compressImageWithImage:image aimWidth:300 aimLength:300*1024 accuracyOfLength:1024];
     self.imageData = imageData;
     
     //id不为空说明是修改

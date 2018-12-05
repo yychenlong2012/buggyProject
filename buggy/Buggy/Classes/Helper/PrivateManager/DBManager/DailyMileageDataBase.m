@@ -12,7 +12,7 @@
 
 //日里程的数据库
 - (instancetype)init{
-    if (self == [super init]) {
+    if (self = [super init]) {
         [self createTable];
     }
     return self;
@@ -101,8 +101,8 @@
 
 -(void)deleteTable{
     [self.dataBase open];
-    BOOL isSeccess = [self.dataBase executeUpdate:@"delete from DailyMileageList;"];
-    NSLog(@"%d",isSeccess);
+//    BOOL isSeccess = [self.dataBase executeUpdate:@"delete from DailyMileageList;"];
+//    NSLog(@"%d",isSeccess);
     [self.dataBase close];
 }
 

@@ -158,8 +158,8 @@
                              textColor:(UIColor *)textColor
                                  click:(void (^)())click
                                 onView:(UIView *)view{
-    UIButton *button = [Factory buttonWithFrame:frame bgColor:bgColor title:title textColor:textColor click:click onView:view];
-    button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    UIButton *button = [Factory buttonWithFrame:frame bgColor:bgColor title:title textColor:textColor click:click onView:view];
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
     return button;
 }
 

@@ -84,8 +84,8 @@
             return;
         }
         
-        [NETWorkAPI registerWithMobilePhone:self.tfPhoneNum.text password:self.tfPassword.text callback:^(BOOL success, NSError * _Nullable error) {
-            if (success) {
+        [NETWorkAPI registerWithMobilePhone:self.tfPhoneNum.text password:self.tfPassword.text callback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
+            if (model != nil && error == nil) {
                 //添加宝宝信息
                 setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
                 birthday.isResetData = NO;

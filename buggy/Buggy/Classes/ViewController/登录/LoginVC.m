@@ -135,11 +135,8 @@
 }
 #pragma mark ===  手机号码登录
 - (IBAction)onLogin:(id)sender {
-    [NETWorkAPI loginWithMobilePhone:self.tfPhoneNum.text password:self.tfPassword.text callback:^(BOOL success, NSError * _Nullable error) {
-        if (success) {
-//            [self dismissViewControllerAnimated:YES completion:^{}];
-            [SCREENMGR showMainScreen];
-        }
+    [NETWorkAPI loginWithMobilePhone:self.tfPhoneNum.text password:self.tfPassword.text callback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
+        
     }];
 }
 
@@ -165,48 +162,56 @@
 #pragma mark ====  第三方登录
 - (IBAction)onLoginWeixin:(id)sender {
     [self resignNameAndPasswordFirstResponder];
-    [LoginViewModel loginWeiXincomplete:^(BOOL isNew) {
-        if (isNew) {  //如果是新用户则进入添加宝宝界面
-            //添加宝宝信息
-            setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
-            birthday.isResetData = NO;
-            birthday.sourceVC = self;
-            birthday.skip.hidden = NO;
-            birthday.view.backgroundColor = kWhiteColor;
-            [self.navigationController pushViewController:birthday animated:YES];
-        }
+    [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_WechatSession callback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
+        
     }];
+//    [LoginViewModel loginWeiXincomplete:^(BOOL isNew) {
+//        if (isNew) {  //如果是新用户则进入添加宝宝界面
+//            //添加宝宝信息
+//            setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
+//            birthday.isResetData = NO;
+//            birthday.sourceVC = self;
+//            birthday.skip.hidden = NO;
+//            birthday.view.backgroundColor = kWhiteColor;
+//            [self.navigationController pushViewController:birthday animated:YES];
+//        }
+//    }];
 }
 
 - (IBAction)onLoginWeibo:(id)sender {
     [self resignNameAndPasswordFirstResponder];
-    [LoginViewModel loginWeiBocomplete:^(BOOL isNew) {
-        if (isNew) {
-            //添加宝宝信息
-            setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
-            birthday.isResetData = NO;
-            birthday.sourceVC = self;
-            birthday.skip.hidden = NO;
-            birthday.view.backgroundColor = kWhiteColor;
-            [self.navigationController pushViewController:birthday animated:YES];
-        }
+    [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_Sina callback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
+        
     }];
-    
+//    [LoginViewModel loginWeiBocomplete:^(BOOL isNew) {
+//        if (isNew) {
+//            //添加宝宝信息
+//            setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
+//            birthday.isResetData = NO;
+//            birthday.sourceVC = self;
+//            birthday.skip.hidden = NO;
+//            birthday.view.backgroundColor = kWhiteColor;
+//            [self.navigationController pushViewController:birthday animated:YES];
+//        }
+//    }];
 }
 
 - (IBAction)onLoginQQ:(id)sender {
     [self resignNameAndPasswordFirstResponder];
-    [LoginViewModel loginQQcomplete:^(BOOL isNew) {
-        if (isNew) {
-            //添加宝宝信息
-            setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
-            birthday.isResetData = NO;
-            birthday.sourceVC = self;
-            birthday.skip.hidden = NO;
-            birthday.view.backgroundColor = kWhiteColor;
-            [self.navigationController pushViewController:birthday animated:YES];
-        }
+    [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_QQ callback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
+        
     }];
+//    [LoginViewModel loginQQcomplete:^(BOOL isNew) {
+//        if (isNew) {
+//            //添加宝宝信息
+//            setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
+//            birthday.isResetData = NO;
+//            birthday.sourceVC = self;
+//            birthday.skip.hidden = NO;
+//            birthday.view.backgroundColor = kWhiteColor;
+//            [self.navigationController pushViewController:birthday animated:YES];
+//        }
+//    }];
 }
 
 // 忘记密码

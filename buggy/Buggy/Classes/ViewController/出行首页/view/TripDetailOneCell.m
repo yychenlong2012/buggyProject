@@ -32,7 +32,7 @@
 @implementation TripDetailOneCell
 
 -(instancetype)init{
-    if (self == [super init]) {
+    if (self = [super init]) {
         self.isRunned = NO;
         [self setupUI];
     }

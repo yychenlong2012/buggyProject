@@ -92,14 +92,6 @@
     }];
 }
 
-//删除本地保存的推车信息
--(void)deleteDeviceOfLocalData{
-    NSString *path = [CACHE_PATH stringByAppendingPathComponent:[NSString stringWithFormat:@"deviceInfoArray%@.plist",KUserDefualt_Get(USER_ID_NEW)]];
-    NSArray *array = [NSArray arrayWithContentsOfFile:path];
-    
-    
-}
-
 //获取宝宝列表
 -(void)requestChildData{
     [NETWorkAPI requestBabyListcallback:^(NSArray * _Nullable modelArray, NSInteger currentPage, NSError * _Nullable error) {
@@ -231,7 +223,7 @@
     [self.navigationController popToViewController:self animated:YES];
     
     //上传用户头像
-    NSData *imageData = [image compressImageWithImage:image aimWidth:414*2 aimLength:1024*1024 accuracyOfLength:1024];
+    NSData *imageData = [image compressImageWithImage:image aimWidth:300 aimLength:300*1024 accuracyOfLength:1024];
     [NETWorkAPI updateUserInfoWithOptionType:UPLOAD_USER_HEADER optionValue:imageData callback:^(BOOL success, NSError * _Nullable error) {
         if (success) {
             self.userImageView.image = image;

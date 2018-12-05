@@ -502,7 +502,7 @@ void LoadMultiPYinWords(const char* multiPYinPath)
 			if( digital_16 > 0x1000 )
 				{
 				//汉字
-				word1 = *(buf+i+1);
+//                word1 = *(buf+i+1);
 				cur = (WordCode*)malloc(SIZEOF_WordCode);
 				cur->Word = digital_16;
 				cur->PyCodeNum = 0;

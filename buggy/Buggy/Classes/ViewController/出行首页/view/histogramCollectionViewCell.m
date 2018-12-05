@@ -13,7 +13,7 @@
 @implementation histogramCollectionViewCell
 
 -(instancetype)initWithFrame:(CGRect)frame{
-    if (self == [super initWithFrame:frame]) {
+    if (self = [super initWithFrame:frame]) {
         self.lineHeight = 0;
         self.contentView.clipsToBounds = NO;
 //        self.contentView.layer.borderWidth = 1;

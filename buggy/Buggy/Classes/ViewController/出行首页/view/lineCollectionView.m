@@ -20,7 +20,7 @@
 @implementation lineCollectionView
 
 -(instancetype)initWithFrame:(CGRect)frame{
-    if (self == [super initWithFrame:frame]) {
+    if (self = [super initWithFrame:frame]) {
         lineLayoutOne *layout = [[lineLayoutOne alloc] init];
         layout.minimumLineSpacing = 0;
         layout.minimumInteritemSpacing = 0;

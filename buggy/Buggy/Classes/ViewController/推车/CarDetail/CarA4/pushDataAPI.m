@@ -185,8 +185,8 @@
                                                   @"useTime":@(model.useTime) }]];
         array = temp;
     }
-    BOOL success = [array writeToFile:filePath atomically:YES];
-    NSLog(@"是否保存成功%d",success);
+//    BOOL success = [array writeToFile:filePath atomically:YES];
+//    NSLog(@"是否保存成功%d",success);
 }
 
 //上传本地记录

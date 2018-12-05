@@ -29,7 +29,7 @@
 #import <UMCommon/UMCommon.h>
 //#import <UMAnalytics/MobClick.h>
 
-@interface AppDelegate ()<WeiboSDKDelegate,WXApiDelegate>
+@interface AppDelegate ()
 @property (strong, nonatomic) NSDictionary *infoDic;
 
 @end
@@ -67,12 +67,6 @@ long calculate(void) {
 //    [MonitorCrash monitorCrash];
 //#endif
     [BLEMANAGER CL_initializeCentralManager];    //初始化蓝牙管理者
-//    [AVOSCloudCrashReporting enable];      //崩溃报告
-//    [AVOSCloud setAllLogsEnabled:NO];      //日志打印
-//    [AVOSCloud setApplicationId:LeanCloudID
-//                      clientKey:LeanCloudClientKey];
-//    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-//    [AVOSCloud registerForRemoteNotification];//注册推送通知
     self.infoDic = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
 //    [self configureAPIKey];        //第三方key
     // U-Share 平台设置
@@ -194,7 +188,7 @@ void handleException(NSException *exception){
     if (imageName!=nil && ![imageName isEqualToString:@""]) {
         UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
         if (image) {
-            imageData = [image compressImageWithImage:image aimWidth:414*2 aimLength:1024*1024 accuracyOfLength:1024];
+            imageData = [image compressImageWithImage:image aimWidth:414 aimLength:1024*200 accuracyOfLength:1024];
         }
     }
     NSDictionary *prame = @{  @"crash_log":@{
@@ -222,7 +216,6 @@ void handleException(NSException *exception){
 
 - (void)configUSharePlatforms
 {
-   
     /* 设置微信的appKey和appSecret */
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WEIXINAPPID appSecret:WEIXINSECRET redirectURL:@"http://mobile.umeng.com/social"];
     /*
@@ -314,36 +307,6 @@ void handleException(NSException *exception){
     }
 }
 
-#pragma mark - 微信登录回调
-//微信回调
--(void)onResp:(BaseResp *)resp{
-    /*
-          enum  WXErrCode {
-          WXSuccess           = 0,    成功
-          WXErrCodeCommon     = -1,  普通错误类型
-          WXErrCodeUserCancel = -2,    用户点击取消并返回
-          WXErrCodeSentFail   = -3,   发送失败
-          WXErrCodeAuthDeny   = -4,    授权失败
-          WXErrCodeUnsupport  = -5,   微信不支持
-          };
-          */
-
-    if(resp.errCode == 0) {  //成功。
-        SendAuthResp *resp2 = (SendAuthResp *)resp;
-        NSLog(@"%@",resp2.code);
-        [NETWorkAPI requestWeiXinTokenAndIdWithCode:resp2.code];
-    }else{ //失败
-//        SHOWHUDERR(@"授权失败");
-        [MBProgressHUD showError:@"授权失败"];
-    }
-}
-
-#pragma  WeiBo代理方法
--(void)didReceiveWeiboRequest:(WBBaseRequest *)request{}
-- (void)didReceiveWeiboResponse:(WBBaseResponse *)response{
-    NSDictionary *dic = (NSDictionary *) response.requestUserInfo;
-    NSLog(@"userinfo %@",dic);
-}
 
 #pragma mark === 处理推送
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{

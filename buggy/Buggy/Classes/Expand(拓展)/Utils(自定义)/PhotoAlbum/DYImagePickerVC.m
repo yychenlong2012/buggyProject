@@ -228,18 +228,18 @@
     ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
 //        headerView.hidden = YES;
         
-        NSString *errorMessage = nil;
+//        NSString *errorMessage = nil;
         switch ([error code]) {
             case ALAssetsLibraryAccessUserDeniedError:
             case ALAssetsLibraryAccessGloballyDeniedError:
             {
-                errorMessage = @"The user has declined access to it.";
+//                errorMessage = @"The user has declined access to it.";
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"当前不能查看照片，请进入设置->隐私->照片->在XXX应用后面打开开关", nil) message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil];
                 [alert show];
             }
                 break;
             default:
-                errorMessage = @"Reason unknown.";
+//                errorMessage = @"Reason unknown.";
                 break;
         }
     };

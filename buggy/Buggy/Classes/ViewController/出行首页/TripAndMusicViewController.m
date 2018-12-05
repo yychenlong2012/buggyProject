@@ -79,10 +79,6 @@
         //下载设备类型列表
         [tripAndMusicTools downloadDeviceTypeList];
     });
-    
-    [NETWorkAPI getUserInfoForPlatform:UMSocialPlatformType_QQ homeDataCallback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
-        
-    }];
 }
 
 

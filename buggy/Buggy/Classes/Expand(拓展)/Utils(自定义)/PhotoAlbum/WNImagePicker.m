@@ -104,17 +104,17 @@
     //失败的回调
     ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
         //        headerView.hidden = YES;
-        NSString *errorMessage = nil;
+//        NSString *errorMessage = nil;
         switch ([error code]) {
             case ALAssetsLibraryAccessUserDeniedError:
             case ALAssetsLibraryAccessGloballyDeniedError:
             {
-                errorMessage = @"The user has declined access to it.";
+//                errorMessage = @"The user has declined access to it.";
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"当前不能查看照片，请进入设置->隐私->照片->在XXX应用后面打开开关", nil) message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil];
                 [alert show];
             }break;
             default:
-                errorMessage = @"Reason unknown.";
+//                errorMessage = @"Reason unknown.";
                 break;
         }
     };
@@ -465,30 +465,27 @@
         imgH = ScreenWidth;
     }
 
-//    CGFloat imageW = self.imageSelected.image.size.width;
-//    CGFloat imageH = self.imageSelected.image.size.height;
-//    CGRect rect;
-//    if (self.imageSelected.image.size.width < self.imageSelected.image.size.height) {
-//        rect = CGRectMake(0, (imageH-imageW)/2, imageW, imageH);
-//    }else{
-//        rect = CGRectMake((imageW-imageH)/2, 0, imageW, imageH);
-//    }
-    
     CGRect rect = CGRectMake(imgX*scraled, imgY*scraled, imgW*scraled, imgH*scraled);
-    UIImage *imageCut = [self.imageSelected.image getSubImage:rect];
+    UIImage *imageCut = [self.imageSelected.image getSubImage:rect];    //裁剪
 //    [self setCoverImage:imageCut];   //刷新封面大图
-    
+
     //图片压缩
     //质量压缩
-    NSData *data = UIImageJPEGRepresentation(imageCut, 0.05);
-    UIImage * resultImage = [UIImage imageWithData:data];
-    
+//    NSData *data = UIImageJPEGRepresentation(imageCut, 0.05);
+//    UIImage * resultImage = [UIImage imageWithData:data];
+
+//    resultImage = [self compressImage:resultImage toByte:200000];
+//    self.imageSelected.image = resultImage;
+//    NSData *data = UIImageJPEGRepresentation(resultImage, 1);
+//    NSLog(@"%lu",(unsigned long)data.length);
     //尺寸压缩
-//    CGSize imageSize = CGSizeMake(100, 100);
+//    CGSize imageSize = CGSizeMake(300, 300);
 //    UIGraphicsBeginImageContext(imageSize);
 //    [resultImage drawInRect:CGRectMake(0, 0, imageSize.width, imageSize.height)];
 //    resultImage = UIGraphicsGetImageFromCurrentImageContext();
 //    UIGraphicsEndImageContext();
+//    NSLog(@"%f",UIImageJPEGRepresentation(resultImage, 1).length/1024.0);
+//    self.imageSelected.image = resultImage;
 
     //跳转图片编辑view
 //    ImageEditVC *imageVC = [[ImageEditVC alloc]init];
@@ -497,9 +494,10 @@
 //    [self.navigationController pushViewController:imageVC animated:YES];
 
     if ([self.delegate respondsToSelector:@selector(getCutImage:controller:)]) {
-        [self.delegate getCutImage:resultImage controller:self];
+        [self.delegate getCutImage:imageCut controller:self];
     }
 }
+
 
 -(void)useCamera{
     UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];

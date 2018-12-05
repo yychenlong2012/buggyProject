@@ -1795,7 +1795,7 @@
     
     UIViewController *fromVC = [_transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [_transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containView = [_transitionContext containerView];
+//    UIView *containView = [_transitionContext containerView];
 
     void (^RemoveDelegateBlock)(void) = ^(){
         
@@ -1812,12 +1812,12 @@
             if (self.isSysBackAnimation) {
                 RemoveDelegateBlock ? RemoveDelegateBlock() : nil;
             }
-            containView = nil;
+//            containView = nil;
         }
             break;
         default:{ //Back
             RemoveDelegateBlock ? RemoveDelegateBlock() : nil;
-            containView = nil;
+//            containView = nil;
         }
             break;
     }

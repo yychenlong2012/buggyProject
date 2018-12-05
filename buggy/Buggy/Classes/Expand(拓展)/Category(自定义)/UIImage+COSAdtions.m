@@ -30,7 +30,7 @@
 -(UIImage*)getSubImage:(CGRect)rect
 {
     CGImageRef subImageRef = CGImageCreateWithImageInRect(self.CGImage, rect);
-    CGRect smallBounds = CGRectMake(0, 0, CGImageGetWidth(subImageRef), CGImageGetHeight(subImageRef));
+    CGRect smallBounds = CGRectMake(0, 0, CGImageGetWidth(subImageRef)*0.5, CGImageGetHeight(subImageRef)*0.5);
     
     UIGraphicsBeginImageContext(smallBounds.size);
     CGContextRef context = UIGraphicsGetCurrentContext();

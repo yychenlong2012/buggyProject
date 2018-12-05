@@ -48,8 +48,8 @@
         [manager createDirectoryAtPath:cacheFolderPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
     NSString *cacheFilePath = [NSString stringWithFormat:@"%@/%@",cacheFolderPath,name];
-    BOOL success = [[NSFileManager defaultManager] copyItemAtPath:[NSString tempFilePath] toPath:cacheFilePath error:nil];
-    NSLog(@"cache file : %@", success ? @"success" : @"fail");
+    [[NSFileManager defaultManager] copyItemAtPath:[NSString tempFilePath] toPath:cacheFilePath error:nil];
+//    NSLog(@"cache file : %@", success ? @"success" : @"fail");
 }
 
 + (NSString *)cacheFileExistsWithURL:(NSURL *)url {

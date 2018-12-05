@@ -97,29 +97,11 @@
         [NETWorkAPI resetPassword:self.password2.text mobilePhone:self.userID callback:^(BOOL success, NSError * _Nullable error) {
             if (success) {  //密码修改成功
                 //自动登录
-                [NETWorkAPI loginWithMobilePhone:self.userID password:self.password2.text callback:^(BOOL success, NSError * _Nullable error) {
-                    if (success) {
-                        [SCREENMGR showMainScreen];
-                    }
+                [NETWorkAPI loginWithMobilePhone:self.userID password:self.password2.text callback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
+                    
                 }];
             }
         }];
-//        [[MainModel model].user setObject:self.password2 forKey:@"password"];
-//        [AVUser resetPasswordWithSmsCode:self.code
-//                             newPassword:self.password2.text
-//                                   block:^(BOOL succeeded, NSError *error) {
-//                                       if (succeeded) {
-//                                           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                                               [[NSNotificationCenter defaultCenter]
-//                                                postNotificationName:DIDLOGIN object:nil userInfo:nil];
-//                                               [LoginViewModel loginMobilePhoneWithNumber:self.userID passWord:self.password2.text complete:nil];
-//                                           });
-//                                           [MBProgressHUD showToast:@"找回成功"];
-//
-//                                         }else{
-//                                        [MBProgressHUD showToast:error.localizedDescription];
-//                                     }
-//        }];
     }else{
         [MBProgressHUD showToast:@"两次输入不一致"];
     }

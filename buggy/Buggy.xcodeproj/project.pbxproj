@@ -62,7 +62,6 @@
 		4E6B7F58209C3F56006F65E9 /* MineNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B7F57209C3F56006F65E9 /* MineNewViewController.m */; };
 		4E6B7F5B209C5435006F65E9 /* mineNewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B7F5A209C5435006F65E9 /* mineNewTableViewCell.m */; };
 		4E6B7F5E209C65F2006F65E9 /* MineDataTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B7F5D209C65F2006F65E9 /* MineDataTools.m */; };
-		4E6BE147218FE3E6002BF803 /* NetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6BE146218FE3E6002BF803 /* NetWorkManager.m */; };
 		4E6C9C3A20A2CD5F00CE5B9A /* electricityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9C3920A2CD5F00CE5B9A /* electricityView.m */; };
 		4E6C9C3D20A2DB2000CE5B9A /* brakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9C3C20A2DB2000CE5B9A /* brakeView.m */; };
 		4E6C9C4220A3032700CE5B9A /* promptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9C4120A3032600CE5B9A /* promptView.m */; };
@@ -703,8 +702,6 @@
 		4E6B7F5A209C5435006F65E9 /* mineNewTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mineNewTableViewCell.m; sourceTree = "<group>"; };
 		4E6B7F5C209C65F2006F65E9 /* MineDataTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineDataTools.h; sourceTree = "<group>"; };
 		4E6B7F5D209C65F2006F65E9 /* MineDataTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineDataTools.m; sourceTree = "<group>"; };
-		4E6BE145218FE3E6002BF803 /* NetWorkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetWorkManager.h; sourceTree = "<group>"; };
-		4E6BE146218FE3E6002BF803 /* NetWorkManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetWorkManager.m; sourceTree = "<group>"; };
 		4E6C9C3820A2CD5F00CE5B9A /* electricityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = electricityView.h; sourceTree = "<group>"; };
 		4E6C9C3920A2CD5F00CE5B9A /* electricityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = electricityView.m; sourceTree = "<group>"; };
 		4E6C9C3B20A2DB2000CE5B9A /* brakeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = brakeView.h; sourceTree = "<group>"; };
@@ -1917,8 +1914,6 @@
 		4E6BE144218FE38A002BF803 /* NetWorkManager */ = {
 			isa = PBXGroup;
 			children = (
-				4E6BE145218FE3E6002BF803 /* NetWorkManager.h */,
-				4E6BE146218FE3E6002BF803 /* NetWorkManager.m */,
 				4E9657D5219127E1004CC036 /* ClSessionManager.h */,
 				4E9657D6219127E1004CC036 /* ClSessionManager.m */,
 				4E75992A2199130E00F3A0A6 /* NetworkAPI.h */,
@@ -4356,7 +4351,6 @@
 				7B1BBC2B1E2F657000995017 /* POPNumberAnimation.m in Sources */,
 				7BCB36C71EE8137C00B40120 /* CarA1TemperatureView.m in Sources */,
 				4EA1F816207B130700DEE10B /* MusicMainViewController.m in Sources */,
-				4E6BE147218FE3E6002BF803 /* NetWorkManager.m in Sources */,
 				4E4804BA20DA088B00BF33EB /* CLView.m in Sources */,
 				7B1BBC511E2F657000995017 /* SNChartBar.m in Sources */,
 				7B1BBB981E2F657000995017 /* NSData+Base64.m in Sources */,
@@ -4754,6 +4748,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO;
 				CODE_SIGN_ENTITLEMENTS = Buggy/Buggy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -4815,7 +4810,41 @@
 					"\"UIKit\"",
 					"-fobjc-arc",
 				);
-				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = "$(inherited) -ObjC -l\"AFNetworking\" -l\"MBProgressHUD\" -l\"MagicalRecord\" -l\"TMCache\" -l\"c++\" -l\"icucore\" -l\"sqlite3\" -l\"z\" -framework \"CFNetwork\" -framework \"CoreData\" -framework \"CoreGraphics\" -framework \"CoreLocation\" -framework \"CoreTelephony\" -framework \"Foundation\" -framework \"MobileCoreServices\" -framework \"QuartzCore\" -framework \"Security\" -framework \"SystemConfiguration\" -weak_framework \"UIKit\" -fobjc-arc";
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MagicalRecord\"",
+					"-l\"TMCache\"",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-weak_framework",
+					"\"UIKit\"",
+					"-fobjc-arc",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = .com.sangeyouzi.buggy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "391d712c-7e9d-4728-91a0-7c367b4e4ae3";
@@ -4830,6 +4859,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO;
 				CODE_SIGN_ENTITLEMENTS = Buggy/Buggy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";

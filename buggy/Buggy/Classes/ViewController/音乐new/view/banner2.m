@@ -18,7 +18,7 @@
 @implementation banner2
 
 -(instancetype)initWithFrame:(CGRect)frame{
-    if ([super initWithFrame:frame]) {
+    if (self = [super initWithFrame:frame]) {
         self.scrollview = [[UIScrollView alloc] init];
         self.scrollview.pagingEnabled = YES;
         self.scrollview.delegate = self;

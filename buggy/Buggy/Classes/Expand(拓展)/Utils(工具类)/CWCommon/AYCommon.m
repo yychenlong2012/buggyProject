@@ -510,8 +510,6 @@ static AYCommon *common = nil;
 #pragma mark 图像处理
 + (UIImage *)clipImage:(UIImage *)sourceImage
 {
-    UIImage *resultImage;
-    
     //start
     UIGraphicsBeginImageContext(CGSizeMake(100, 100));
     CGContextRef ctx = UIGraphicsGetCurrentContext();
@@ -549,7 +547,8 @@ static AYCommon *common = nil;
     CGContextDrawImage(ctx, CGRectMake(0, 0, 100, 100), image);
     
     //output
-    resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    ctx = nil;
     UIGraphicsEndImageContext();
     return resultImage;
 }

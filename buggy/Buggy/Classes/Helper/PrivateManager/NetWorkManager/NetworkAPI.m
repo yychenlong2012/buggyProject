@@ -66,7 +66,7 @@
 #define THIRD_PART_LOGIN @""API_HEADER"/Tp/index.php/app/login/qq_weixin_login"      //第三方登录
 
 
-#define NSLog(format,...) printf("%s",[[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String])
+#define CLNSLog(format,...) printf("%s",[[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String])
 @interface NetworkAPI()
 
 @property (nonatomic,strong) TencentOAuth *tencent;
@@ -86,7 +86,7 @@ static NetworkAPI* _instance = nil;
 //创建manager
 -(AFHTTPSessionManager *)manager{
     if (_manager == nil) {
-        NSLog(@"%@,%@",KUserDefualt_Get(USER_LOGIN_TOKEN),KUserDefualt_Get(USER_REFRESH_TOKEN));
+        CLNSLog(@"%@,%@",KUserDefualt_Get(USER_LOGIN_TOKEN),KUserDefualt_Get(USER_REFRESH_TOKEN));
         _manager = [AFHTTPSessionManager manager];
         [_manager.requestSerializer setValue:KUserDefualt_Get(USER_LOGIN_TOKEN)==nil?@"":KUserDefualt_Get(USER_LOGIN_TOKEN) forHTTPHeaderField:@"Token"];
         _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -103,7 +103,7 @@ static NetworkAPI* _instance = nil;
         
         //设置response将要缓存时的回调 在这里修改响应头的缓存字段信息 系统将按照缓存缓存字段设置缓存
         [_manager setDataTaskWillCacheResponseBlock:^NSCachedURLResponse * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionDataTask * _Nonnull dataTask, NSCachedURLResponse * _Nonnull proposedResponse) {
-            NSLog(@"%@",[dataTask.currentRequest.URL absoluteString]);
+            CLNSLog(@"%@",[dataTask.currentRequest.URL absoluteString]);
             NSDictionary *dict = @{
 //                                   HOME_API:@"1",
 //                                    PUNCH_LIST:@"1",
@@ -128,7 +128,7 @@ static NetworkAPI* _instance = nil;
                 [modifiedHeaders setObject:@"max-age=604800" forKey:@"Cache-Control"];
                 NSHTTPURLResponse *modifiedResponse = [[NSHTTPURLResponse alloc] initWithURL:HTTPResponse.URL statusCode:HTTPResponse.statusCode HTTPVersion:@"HTTP/1.1" headerFields:modifiedHeaders];
                 cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:modifiedResponse data:proposedResponse.data userInfo:proposedResponse.userInfo storagePolicy:proposedResponse.storagePolicy];
-                NSLog(@"%@",modifiedHeaders);
+                CLNSLog(@"%@",modifiedHeaders);
                 return cachedResponse;
             }
             return nil;    //返回nil表示不缓存
@@ -154,7 +154,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *dict = @{ @"refresh_token":KUserDefualt_Get(USER_REFRESH_TOKEN) };
     [self.manager POST:CHECK_LOGIN parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"验证登录状态:%@  %@",dict[@"msg"],dict);
+        CLNSLog(@"验证登录状态:%@  %@",dict[@"msg"],dict);
         switch ([dict[@"status"] integerValue]) {
             case 8:{
                 KUserDefualt_Set(@"", USER_LOGIN_TOKEN);                 //需要重新登录
@@ -164,20 +164,7 @@ static NetworkAPI* _instance = nil;
                 [SCREENMGR changeToLoginScreen];
             }break;
             case 7:{
-                NSDictionary *data = dict[@"data"];                    //是刷新token之后到的登录成功则保存新token
-                KUserDefualt_Set(data[@"token"], USER_LOGIN_TOKEN);
-                KUserDefualt_Set(data[@"refresh_token"], USER_REFRESH_TOKEN);
-                [MBProgressHUD showSuccess:dict[@"msg"]];               //登录成功
-                [SCREENMGR showMainScreen];
-                //保存用户id
-                if ([data isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *userInfo = data[@"userinfo"];
-                    if ([userInfo isKindOfClass:[NSDictionary class]]) {
-                        KUserDefualt_Set(userInfo[@"uid"]==nil?@"":userInfo[@"uid"], USER_ID_NEW);
-                        //保存用户信息
-                        self.userInfo = [userInfoModel mj_objectWithKeyValues:data[@"userinfo"]];
-                    }
-                }
+                [self loginSeccessWithData:dict callback:nil];
             }break;
             default:{
                 KUserDefualt_Set(@"", USER_LOGIN_TOKEN);
@@ -197,14 +184,13 @@ static NetworkAPI* _instance = nil;
 -(void)checkToken{
     [self.manager POST:CHECK_LOGIN parameters:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"token检验%@%@",dict[@"msg"],dict);
+        CLNSLog(@"token检验%@%@",dict[@"msg"],dict);
         switch ([dict[@"status"] integerValue]) {
             case 9:
                 [self uploadRefreshToken];      //刷新token
                 break;
             case 7:{
-                [MBProgressHUD showSuccess:dict[@"msg"]];         //登录成功
-                [SCREENMGR showMainScreen];
+                [MBProgressHUD showSuccess:dict[@"msg"]];         //token未过期的登录成功不会返回token
                 //保存用户id
                 NSDictionary *data = dict[@"data"];
                 if ([data isKindOfClass:[NSDictionary class]]) {
@@ -215,6 +201,7 @@ static NetworkAPI* _instance = nil;
                         self.userInfo = [userInfoModel mj_objectWithKeyValues:data[@"userinfo"]];
                     }
                 }
+                [SCREENMGR showMainScreen];
             }break;
             default:{
                 KUserDefualt_Set(@"", USER_LOGIN_TOKEN);
@@ -229,59 +216,36 @@ static NetworkAPI* _instance = nil;
 }
 
 //手机登录
--(void)loginWithMobilePhone:(NSString *)phone password:(NSString *)password callback:(statusBlock _Nonnull)callback{
+-(void)loginWithMobilePhone:(NSString *)phone password:(NSString *)password callback:(HomeDataBlock _Nonnull)callback{
     NSDictionary *dict = @{  @"phoneNumber":phone==nil?@"":phone,
                             @"password":password==nil?@"":password };
     [self.manager POST:LOGIN parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
        id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-       NSLog(@"手机登录：%@ 类型：%@\n",dict[@"msg"],dict);
+       CLNSLog(@"手机登录：%@ 类型：%@\n",dict[@"msg"],dict);
        if ([dict[@"status"] integerValue] == 7) {
-           [MBProgressHUD showSuccess:dict[@"msg"]];    //登录成功
-           //保存token
-           NSDictionary *data = dict[@"data"];
-           if ([data isKindOfClass:[NSDictionary class]]) {
-               KUserDefualt_Set(data[@"token"], USER_LOGIN_TOKEN);
-               KUserDefualt_Set(data[@"refresh_token"], USER_REFRESH_TOKEN);
-               [self resetHTTPHeader];
-               //保存用户id
-               NSDictionary *userInfo = data[@"userinfo"];
-               if ([userInfo isKindOfClass:[NSDictionary class]]) {
-                   KUserDefualt_Set(userInfo[@"uid"]==nil?@"":userInfo[@"uid"], USER_ID_NEW);
-               }
-               //保存用户信息
-               self.userInfo = [userInfoModel mj_objectWithKeyValues:data[@"userinfo"]];
-           }
-           callback(YES,nil);
+           [self loginSeccessWithData:dict callback:callback];
        }else{
            [MBProgressHUD showError:dict[@"msg"]];
        }
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-          callback(NO,error);
+       callback(nil,error);
    }];
 }
 
 //手机注册
--(void)registerWithMobilePhone:(NSString *)phone password:(NSString *)password callback:(statusBlock _Nonnull)callback{
-    NSDictionary *dict = @{   @"phoneNumber":phone==nil?@"":phone,
-                             @"password":password==nil?@"":password  };
+-(void)registerWithMobilePhone:(NSString *)phone password:(NSString *)password callback:(HomeDataBlock _Nonnull)callback{
+    NSDictionary *dict = @{  @"phoneNumber":phone==nil?@"":phone,
+                            @"password":password==nil?@"":password  };
     [self.manager POST:REGISTER parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
        id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-       NSLog(@"手机注册：%@ 类型：%@\n",dict[@"msg"],dict);
+       CLNSLog(@"手机注册：%@ 类型：%@\n",dict[@"msg"],dict);
        if ([dict[@"status"] integerValue] == 7) {
-           [MBProgressHUD showSuccess:dict[@"msg"]];    //登录成功
-           //保存token
-           NSDictionary *data = dict[@"data"];
-           if ([data isKindOfClass:[NSDictionary class]]) {
-               KUserDefualt_Set(data[@"token"], USER_LOGIN_TOKEN);
-               KUserDefualt_Set(data[@"refresh_token"], USER_REFRESH_TOKEN);
-               [self resetHTTPHeader];
-           }
-            callback(YES,nil);
+           [self loginSeccessWithData:dict callback:callback];
        }else{
            [MBProgressHUD showError:dict[@"msg"]];
        }
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-           callback(NO,error);
+       callback(nil,error);
    }];
 }
 
@@ -291,10 +255,10 @@ static NetworkAPI* _instance = nil;
                              @"password":password==nil?@"":password  };
     [self.manager POST:RESET_PASSWORD parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"重置密码：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"重置密码：%@ 类型：%@\n",dict[@"msg"],dict);
         if ([dict[@"status"] integerValue] == 0) {
             [MBProgressHUD showSuccess:@"密码修改成功"];
-                callback(YES,nil);
+            callback(YES,nil);
         }else{
             [MBProgressHUD showError:dict[@"msg"]];
         }
@@ -308,7 +272,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *dict = @{ @"refresh_token":KUserDefualt_Get(USER_REFRESH_TOKEN)==nil?@"":KUserDefualt_Get(USER_REFRESH_TOKEN) };
     [self.manager POST:LOGOUT parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"退出登录：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"退出登录：%@ 类型：%@\n",dict[@"msg"],dict);
         if ([dict[@"status"] integerValue] == 0) {
             [MBProgressHUD showSuccess:@"退出登录成功"];
             KUserDefualt_Set(@"", USER_LOGIN_TOKEN);    //退出登录 清空token
@@ -324,79 +288,27 @@ static NetworkAPI* _instance = nil;
     }];
 }
 
-#pragma mark - 微信登录
--(void)getWeiXInCode{   //构造SendAuthReq结构体
-    KUserDefualt_Set(@"2", THIRD_PARTY_LOGIN_TYPE);
-    SendAuthReq* req = [[SendAuthReq alloc] init ];
-    req.scope = @"snsapi_userinfo";
-    req.state = @"123";
-    //第三方向微信终端发送一个SendAuthReq消息结构
-    [WXApi sendReq:req];
-}
-
-//请求微信token
--(void)requestWeiXinTokenAndIdWithCode:(NSString *)code{
-    NSString *urlstr = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",WEIXINAPPID,WEIXINSECRET,code];
-    [self.manager GET:urlstr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"%@",dict);
-        //这里可以获得openid  token  过期时间
-        //如果需要获取用户的相信信息 需要使用token调用以下接口  GET
-        //https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"111");
-    }];
-}
-
-#pragma mark - QQ登录
--(void)loginWithQQ{
-//    AppDelegate *d = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    KUserDefualt_Set(@"1", THIRD_PARTY_LOGIN_TYPE);
-    self.tencent = [[TencentOAuth alloc] initWithAppId:QQAPPID andDelegate:self];
-    [self.tencent authorize:@[@"get_user_info", @"get_simple_userinfo", @"add_t"] inSafari:NO];
-}
--(void)tencentDidLogin{
-    DLog(@"%@",self.tencent.accessToken);
-    DLog(@"%@",self.tencent.openId);
-}
--(void)tencentDidNotLogin:(BOOL)cancelled{
-    
-}
--(void)tencentDidNotNetWork{
-    //    _labelTitle.text=@"无网络连接，请设置网络";
-}
-
-#pragma mark - 微博登录
--(void)loginWithWeiBo{
-    KUserDefualt_Set(@"3", THIRD_PARTY_LOGIN_TYPE);
-    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
-    request.redirectURI = WEIBOREDIRECTURI;
-    request.scope = @"all";
-    request.userInfo = nil;
-    [WeiboSDK sendRequest:request];
-}
-
 //第三方登录
-- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType homeDataCallback:(HomeDataBlock _Nonnull)homeDataCallback{
+- (void)loginToGetUserInfoForPlatform:(UMSocialPlatformType)platformType callback:(HomeDataBlock _Nonnull)callback{
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:platformType currentViewController:nil completion:^(id result, NSError *error) {
         UMSocialUserInfoResponse *resp = result;
         // 第三方登录数据(为空表示平台未提供)
         // 授权数据
-//        NSLog(@" uid: %@", resp.uid);
-//        NSLog(@" openid: %@", resp.openid);
-//        NSLog(@" accessToken: %@", resp.accessToken);
-//        NSLog(@" refreshToken: %@", resp.refreshToken);
-//        NSLog(@" expiration: %@", resp.expiration);
+//        CLNSLog(@" uid: %@", resp.uid);
+//        CLNSLog(@" openid: %@", resp.openid);
+//        CLNSLog(@" accessToken: %@", resp.accessToken);
+//        CLNSLog(@" refreshToken: %@", resp.refreshToken);
+//        CLNSLog(@" expiration: %@", resp.expiration);
         // 用户数据
-//        NSLog(@" name: %@", resp.name);
-//        NSLog(@" iconurl: %@", resp.iconurl);
-//        NSLog(@" gender: %@", resp.unionGender);
+//        CLNSLog(@" name: %@", resp.name);
+//        CLNSLog(@" iconurl: %@", resp.iconurl);
+//        CLNSLog(@" gender: %@", resp.unionGender);
         // 第三方平台SDK原始数据
-//        NSLog(@" originalResponse: %@", resp.originalResponse);
+//        CLNSLog(@" originalResponse: %@", resp.originalResponse);
         
         //登录
-        NSString *openID;
-        NSString *platform;
+        NSString *openID = @"";
+        NSString *platform = @"";
         switch (platformType) {
             case 0:       //新浪
                 openID = resp.uid;
@@ -420,45 +332,53 @@ static NetworkAPI* _instance = nil;
                                   @"header":resp.iconurl   };
         [self.manager POST:THIRD_PART_LOGIN parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-            NSLog(@"第三方登录：%@ 类型：%@\n",dict[@"msg"],dict);
+            CLNSLog(@"第三方登录：%@ 类型：%@\n",dict[@"msg"],dict);
             if ([dict[@"status"] integerValue] == 7) {
-                [MBProgressHUD showSuccess:dict[@"msg"]];    //登录成功
-                //保存token
-                NSDictionary *data = dict[@"data"];
-                if ([data isKindOfClass:[NSDictionary class]]) {
-                    KUserDefualt_Set(data[@"token"], USER_LOGIN_TOKEN);
-                    KUserDefualt_Set(data[@"refresh_token"], USER_REFRESH_TOKEN);
-                    [self resetHTTPHeader];
-                    //保存用户id
-                    NSDictionary *userInfo = data[@"userinfo"];
-                    if ([userInfo isKindOfClass:[NSDictionary class]]) {
-                        KUserDefualt_Set(userInfo[@"uid"]==nil?@"":userInfo[@"uid"], USER_ID_NEW);
-                    }
-                    //保存用户信息
-                    self.userInfo = [userInfoModel mj_objectWithKeyValues:data[@"userinfo"]];
-                    //主页数据
-                    homeDataModel *model = [homeDataModel mj_objectWithKeyValues:data[@"data"]];
-                    homeDataCallback(model,nil);
-                }
-                
+                [self loginSeccessWithData:dict callback:callback];
             }else{
                 [MBProgressHUD showError:@"登录失败"];
             }
-            
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            homeDataCallback(nil,error);
+            callback(nil,error);
             [MBProgressHUD showError:@"网络错误!"];
         }];
     }];
 }
 
+//登录成功之后的数据设置
+-(void)loginSeccessWithData:(NSDictionary *)dict callback:(HomeDataBlock)callback{
+    
+    NSDictionary *data = dict[@"data"];
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        //保存token
+        KUserDefualt_Set(data[@"token"], USER_LOGIN_TOKEN);
+        KUserDefualt_Set(data[@"refresh_token"], USER_REFRESH_TOKEN);
+        //刷新请求头token
+        [self resetHTTPHeader];
+        //保存用户id
+        NSDictionary *userInfo = data[@"userinfo"];
+        if ([userInfo isKindOfClass:[NSDictionary class]]) {
+            KUserDefualt_Set(userInfo[@"uid"]==nil?@"":userInfo[@"uid"], USER_ID_NEW);
+        }
+        //保存用户信息
+        self.userInfo = [userInfoModel mj_objectWithKeyValues:data[@"userinfo"]];
+        //跳转主界面
+        [SCREENMGR showMainScreen];
+        [MBProgressHUD showSuccess:dict[@"msg"]];    //登录成功
+        //主页数据
+        homeDataModel *model = [homeDataModel mj_objectWithKeyValues:data[@"data"]];
+        if (callback) {
+            callback(model,nil);
+        }
+    }
+}
 #pragma mark - 上传天气
 -(void)uploadWeahter:(NSString *)weather airQuality:(NSString *)airQuality callback:(statusBlock _Nonnull)callback{
     NSDictionary *parma = @{  @"weather":weather==nil?@"":weather,
                               @"airQuality":airQuality==nil?@"":airQuality  };
     [self.manager POST:UPDATE_WEATHER parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"上传天气：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"上传天气：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -470,7 +390,7 @@ static NetworkAPI* _instance = nil;
 -(void)requestHomeData:(HomeDataBlock _Nonnull)homeData{
     [self.manager POST:HOME_API parameters:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"HomeData：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"HomeData：%@ 类型：%@\n",dict[@"msg"],dict);
         homeDataModel *model = [homeDataModel mj_objectWithKeyValues:dict[@"data"]];
         homeData(model,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -485,7 +405,7 @@ static NetworkAPI* _instance = nil;
     [self.manager POST:PUNCH_LIST parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         NSDictionary *data = dict[@"data"];
-        NSLog(@"打卡列表：%@ \n数据：%@",dict[@"msg"],dict);
+        CLNSLog(@"打卡列表：%@ \n数据：%@",dict[@"msg"],dict);
         if ([data isKindOfClass:[NSDictionary class]]) {
             NSArray *array = [punchListModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
             listData(array,[data[@"page"] integerValue],nil);
@@ -503,7 +423,7 @@ static NetworkAPI* _instance = nil;
                               @"month":month==nil?@"10":month  };
     [self.manager POST:HISTORY_PUNCH parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"用户历史打卡记录：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"用户历史打卡记录：%@ 类型：%@\n",dict[@"msg"],dict);
         NSDictionary *data = dict[@"data"];
         if ([data isKindOfClass:[NSDictionary class]]) {
         NSArray *array = data[@"traveldate"];
@@ -523,7 +443,7 @@ static NetworkAPI* _instance = nil;
     [self.manager POST:TRAVEL_ANALYZE parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         NSDictionary *data = dict[@"data"];
-        NSLog(@"周分析：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"周分析：%@ 类型：%@\n",dict[@"msg"],dict);
         if ([data isKindOfClass:[NSDictionary class]]) {
             callback(data[@"travelanalysis"],nil);
         }else{
@@ -539,7 +459,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *parma = @{ @"page":page,  @"page_num":pageNum };
     [self.manager POST:DAY_MILEAGE parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"日里程：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"日里程：%@ 类型：%@\n",dict[@"msg"],dict);
         NSDictionary *data = dict[@"data"];
         NSArray *array = [dayMileageModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
         listData(array,[data[@"page"] integerValue],nil);
@@ -553,7 +473,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *parma = @{  @"travelDate":date,  @"page":page,  @"page_num":pageNum  };
     [self.manager POST:DAY_MILEAGE_SUBS parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"日里程分段数据：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"日里程分段数据：%@ 类型：%@\n",dict[@"msg"],dict);
         NSDictionary *data = dict[@"data"];
         if ([data isKindOfClass:[NSDictionary class]]) {
             NSArray *array = [TravelInfoModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
@@ -579,7 +499,7 @@ static NetworkAPI* _instance = nil;
                               @"page_num":pageNum==nil?@"":pageNum  };
     [self.manager POST:MONTH_WEEK_FREQUENCY parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
           id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-          NSLog(@"周频率 月频率：%@ 类型：%@\n",dict[@"msg"],dict);
+          CLNSLog(@"周频率 月频率：%@ 类型：%@\n",dict[@"msg"],dict);
           NSDictionary *data = dict[@"data"];
           NSArray *array = [frequencyWeekModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
           listData(array,[data[@"page"] integerValue],nil);
@@ -593,7 +513,7 @@ static NetworkAPI* _instance = nil;
 -(void)requestBannerDatacallback:(DataListBlock _Nonnull)callback{
     [self.manager GET:BANNER_DATA parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"请求轮播图数据：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"请求轮播图数据：%@ 类型：%@\n",dict[@"msg"],dict);
         NSArray *array = [MusicBannerModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         callback(array,0,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -605,7 +525,7 @@ static NetworkAPI* _instance = nil;
 -(void)requestHotMusiccallback:(DataListBlock _Nonnull)callback{
     [self.manager GET:HOT_MUSIC parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict = [NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"热门歌单：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"热门歌单：%@ 类型：%@\n",dict[@"msg"],dict);
         NSArray *array = [MusicAlbumModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         callback(array,0,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -617,7 +537,7 @@ static NetworkAPI* _instance = nil;
 -(void)requestRecommendMusiccallback:(DataListBlock _Nonnull)callback{
     [self.manager GET:RECOMMEND_MUSIC parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"推荐歌单：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"推荐歌单：%@ 类型：%@\n",dict[@"msg"],dict);
         NSDictionary *data = dict[@"data"];
         NSArray *array = [MusicAlbumModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
         callback(array,0,nil);
@@ -632,7 +552,7 @@ static NetworkAPI* _instance = nil;
                              @"page_num":pageNum  };
     [self.manager GET:ALL_MUSIC parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"全部歌单：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"全部歌单：%@ 类型：%@\n",dict[@"msg"],dict);
         NSDictionary *data = dict[@"data"];
         NSArray *array = [MusicAlbumModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
         callback(array,[data[@"page"]integerValue],nil);
@@ -648,7 +568,7 @@ static NetworkAPI* _instance = nil;
                               @"musicType":[NSString stringWithFormat:@"%ld",(long)musicType]  };
     [self.manager GET:SCENE_MUSIC parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"场景音乐：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"场景音乐：%@ 类型：%@\n",dict[@"msg"],dict);
         NSDictionary *data = dict[@"data"];
         NSArray *array = [musicModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
         callback(array,[data[@"page"] integerValue],nil);
@@ -665,7 +585,7 @@ static NetworkAPI* _instance = nil;
                              @"albumAddress":album  };
     [self.manager GET:ALBUM_LIST parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"专辑音乐：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"专辑音乐：%@ 类型：%@\n",dict[@"msg"],dict);
         NSDictionary *data = dict[@"data"];
         NSArray *array = [musicModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
         callback(array,[data[@"page"] integerValue],nil);
@@ -679,7 +599,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *parma = @{  @"data":array };
     [self.manager POST:COLLECT_DOWN parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"收藏与下载操作：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"收藏与下载操作：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -691,7 +611,7 @@ static NetworkAPI* _instance = nil;
 -(void)requestUserDataCallback:(ModelBlock _Nonnull)callback{
     [self.manager POST:USER_INFO parameters:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"用户信息：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"用户信息：%@ 类型：%@\n",dict[@"msg"],dict);
         userInfoModel *model = [userInfoModel mj_objectWithKeyValues:dict[@"data"]];
         callback(model,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -725,7 +645,7 @@ static NetworkAPI* _instance = nil;
         }
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"修改用户信息：%@",dict);
+        CLNSLog(@"修改用户信息：%@",dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -748,7 +668,7 @@ static NetworkAPI* _instance = nil;
     } progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"添加宝贝：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"添加宝贝：%@ 类型：%@\n",dict[@"msg"],dict);
         NSArray *array = [babyInfoModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         callback(array,0,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -761,7 +681,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *parma = @{ @"objectId":Id };
     [self.manager POST:BABY_INFO parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"baby信息：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"baby信息：%@ 类型：%@\n",dict[@"msg"],dict);
         NSDictionary *data = dict[@"data"];
         babyInfoModel *model = [babyInfoModel mj_objectWithKeyValues:data];
         callback(model,nil);
@@ -774,7 +694,7 @@ static NetworkAPI* _instance = nil;
 -(void)requestBabyListcallback:(DataListBlock _Nonnull)callback{
     [self.manager POST:BABY_LIST parameters:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"baby列表：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"baby列表：%@ 类型：%@\n",dict[@"msg"],dict);
         NSArray *array = [babyInfoModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         callback(array,0,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -815,7 +735,7 @@ static NetworkAPI* _instance = nil;
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"修改baby信息：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"修改baby信息：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -827,7 +747,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *parma = @{ @"objectId":Id };
     [self.manager POST:DEL_BABY parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"删除baby信息：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"删除baby信息：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -840,7 +760,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *parme = @{ @"type":@"Ios" };
     [self.manager POST:DEVICE_LIST parameters:parme progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"已绑定的推车列表：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"已绑定的推车列表：%@ 类型：%@\n",dict[@"msg"],dict);
         NSArray *array = [DeviceModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         callback(array,0,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -854,7 +774,7 @@ static NetworkAPI* _instance = nil;
                              @"bluetoothName":name };
     [self.manager POST:UPDATE_DEVICE_NAME parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"修改设备名称：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"修改设备名称：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -865,7 +785,7 @@ static NetworkAPI* _instance = nil;
 -(void)bindDeviceWithDict:(NSDictionary *)dict callback:(statusBlock _Nonnull)callback{
     [self.manager POST:BIND_DEVICE parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"绑定设备：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"绑定设备：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -878,7 +798,7 @@ static NetworkAPI* _instance = nil;
                              @"type":@"Ios" };
     [self.manager POST:DEL_DEVICE parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"解除绑定：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"解除绑定：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -890,7 +810,7 @@ static NetworkAPI* _instance = nil;
 -(void)requestUserTravelInfoCallback:(ModelBlock _Nonnull)callback{
     [self.manager POST:USER_TRAVEL_INFO parameters:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"获取用户推行信息，推车界面：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"获取用户推行信息，推车界面：%@ 类型：%@\n",dict[@"msg"],dict);
         userTravelInfoModel *model = [userTravelInfoModel mj_objectWithKeyValues:dict[@"data"]];
         callback(model,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -909,7 +829,7 @@ static NetworkAPI* _instance = nil;
                              @"totalMileage":@(totalMileage) };
     [self.manager POST:UPDATE_AVERAGE_SPEED parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"上传平均速度 今日里程 总里程：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"上传平均速度 今日里程 总里程：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -918,10 +838,10 @@ static NetworkAPI* _instance = nil;
 
 //上传分段里程
 -(void)uploadTravelOnce:(NSDictionary *)dict callback:(statusBlock _Nonnull)callback{
-    NSLog(@"要上传的分段数据%@\n",dict);
+    CLNSLog(@"要上传的分段数据%@\n",dict);
     [self.manager POST:UPDATE_TRAVEL_ONCE parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"上传分段里程：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"上传分段里程：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -932,7 +852,7 @@ static NetworkAPI* _instance = nil;
 -(void)requestNewestMileageDataCallback:(stringDataBlock)callback{
     [self.manager GET:NEWEST_MILEAGE parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"获取最新的一条分段里程数据：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"获取最新的一条分段里程数据：%@ 类型：%@\n",dict[@"msg"],dict);
         NSDictionary *data = dict[@"data"];
         if ([data isKindOfClass:[NSDictionary class]]) {
             callback(data[@"endtime"],nil);
@@ -948,7 +868,7 @@ static NetworkAPI* _instance = nil;
 -(void)uploadDeviceSleepTimes:(NSDictionary *)dict callback:(statusBlock _Nonnull)callback{
     [self.manager POST:SLEEP_TIMES parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"上传推车睡眠次数：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"上传推车睡眠次数：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -960,7 +880,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *parma = @{ @"sensitivity":sensitivity };
     [self.manager POST:SENSITIVITY parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"上传刹车灵敏度：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"上传刹车灵敏度：%@ 类型：%@\n",dict[@"msg"],dict);
         if ([dict[@"status"] integerValue] == 0) {
             callback(YES,nil);
         }else{
@@ -979,7 +899,7 @@ static NetworkAPI* _instance = nil;
                              @"bluetoothUUID":bleUUID==nil?@"":bleUUID  };
     [self.manager POST:REPAIR_ONCE parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"一键修复信息：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"一键修复信息：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -992,7 +912,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *parma = @{ @"feedBackContent":msg };
     [self.manager POST:FEED_BACK parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"用户反馈：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"用户反馈：%@ 类型：%@\n",dict[@"msg"],dict);
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
@@ -1006,7 +926,7 @@ static NetworkAPI* _instance = nil;
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         NSArray *dataArray = dict[@"data"];
         NSDictionary *data = [dataArray firstObject];
-        NSLog(@"使用说明：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"使用说明：%@ 类型：%@\n",dict[@"msg"],dict);
         if ([data isKindOfClass:[NSDictionary class]]) {
             callback(data[@"instruction_file"],nil);
         }
@@ -1019,7 +939,7 @@ static NetworkAPI* _instance = nil;
 -(void)userProtocolCallback:(stringDataBlock _Nonnull)callback{
     [self.manager POST:USER_PROTOCOL parameters:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"用户协议：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"用户协议：%@ 类型：%@\n",dict[@"msg"],dict);
         NSArray *dataArray = dict[@"data"];
         NSDictionary *data = [dataArray firstObject];
         if ([data isKindOfClass:[NSDictionary class]]) {
@@ -1037,7 +957,7 @@ static NetworkAPI* _instance = nil;
     
     [self.manager POST:APP_CONTROL parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"获取app_control数据：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"获取app_control数据：%@ 类型：%@\n",dict[@"msg"],dict);
         NSDictionary *data = dict[@"data"];
         if ([data isKindOfClass:[NSDictionary class]]) {
             callback(data[@"version"],[data[@"hideversioncell"] boolValue],nil);
@@ -1053,7 +973,7 @@ static NetworkAPI* _instance = nil;
     NSDictionary *dict = @{ @"type":@"cart_list_details" };
     [self.manager POST:APP_CONTROL parameters:dict progress:nil  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"获取设备类型列表：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"获取设备类型列表：%@ 类型：%@\n",dict[@"msg"],dict);
         NSArray *array = [deviceTypeModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         callback(array,0,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -1062,8 +982,9 @@ static NetworkAPI* _instance = nil;
 }
 
 //上传崩溃信息
--(void)uploadCrashLogData:(NSDictionary *)dict imageData:(NSData *)imageData{
+-(void)uploadCrashLogData:(NSDictionary *)dict imageData:(NSData * _Nonnull)imageData{
     [self.manager POST:CRASH_LOG parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
         if (imageData != nil && [imageData isKindOfClass:[NSData class]]) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyyMMddHHmmss";   // 设置时间格式
@@ -1071,9 +992,10 @@ static NetworkAPI* _instance = nil;
             NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
             [formData appendPartWithFileData:imageData name:@"header" fileName:fileName mimeType:@"image/png"];
         }
+        
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        NSLog(@"上传崩溃信息：%@ 类型：%@\n",dict[@"msg"],dict);
+        CLNSLog(@"上传崩溃信息：%@ 类型：%@\n",dict[@"msg"],dict);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
