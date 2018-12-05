@@ -72,49 +72,21 @@
     self.collectionLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    [self initNavi];
-//
-//}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
-//- (void)initNavi
-//{
-//    [self.collectionPhotos registerNib:[UINib nibWithNibName:@"AlbumPhotoCell" bundle:nil] forCellWithReuseIdentifier:@"AlbumPhotoCell"];
-//    self.collectionLayout.widthHeightScale = 1;
-//    self.collectionLayout.lineSpacing = 0;
-//    self.collectionLayout.interitemSpacing = 0;
-//    self.collectionLayout.numberOfItemForLine = 4;
-//    self.collectionLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//
-//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"取消", nil) style:UIBarButtonItemStylePlain target:self action:@selector(leftBarAction)];
-//    self.navigationItem.leftBarButtonItem = leftItem;
-//
-//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"确定", nil) style:UIBarButtonItemStylePlain target:self action:@selector(rightBarAction)];
-//    self.navigationItem.rightBarButtonItem = rightItem;
-//}
 
 #pragma mark -- 加载资源库
 - (void)loadLibrary{
     //失败的回调
     ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
-        //        headerView.hidden = YES;
-//        NSString *errorMessage = nil;
         switch ([error code]) {
             case ALAssetsLibraryAccessUserDeniedError:
-            case ALAssetsLibraryAccessGloballyDeniedError:
-            {
-//                errorMessage = @"The user has declined access to it.";
+            case ALAssetsLibraryAccessGloballyDeniedError:{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"当前不能查看照片，请进入设置->隐私->照片->在XXX应用后面打开开关", nil) message:@"" delegate:nil cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil];
                 [alert show];
             }break;
             default:
-//                errorMessage = @"Reason unknown.";
                 break;
         }
     };

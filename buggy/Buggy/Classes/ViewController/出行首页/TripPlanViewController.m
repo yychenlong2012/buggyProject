@@ -28,7 +28,6 @@
 @property (nonatomic,strong) NSMutableDictionary *travelDataDict;    //出行数据字典
 @property (nonatomic,strong) NSMutableDictionary *recommendDataDict; //推荐数据字典
 @property (nonatomic,strong) NSMutableDictionary *hasBeenDownloadData;  //用于标记已下载的月数据 防止重复下载
-@property (nonatomic,assign) BOOL isFirstLoad;   //是否进入界面的第一次加载
 @end
 //出行打卡详情
 @implementation TripPlanViewController
@@ -41,7 +40,6 @@
     self.hasBeenDownloadData = [NSMutableDictionary dictionary];
     self.travelAnalysis = @"";
     self.travelAnalysisLabelHeight = 0;
-    self.isFirstLoad = YES;
     [self setupUI];
     
     NSDateFormatter *forma = [[NSDateFormatter alloc] init];
@@ -81,12 +79,12 @@
         }
         
         //刷新日历界面UI
-        if (self.isFirstLoad) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.calendar selectDate:[NSDate date] scrollToDate:YES];
-            });
-            self.isFirstLoad = NO;
-        }
+//        if (self.isFirstLoad) {
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [self.calendar selectDate:[NSDate date] scrollToDate:YES];
+//            });
+//            self.isFirstLoad = NO;
+//        }
     }];
 }
 
