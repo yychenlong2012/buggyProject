@@ -95,12 +95,6 @@ static NetworkAPI* _instance = nil;
 //        [_manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
         _manager.requestSerializer.timeoutInterval = 20.f;
 //        [_manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-        //允许不进行证书验证
-//        AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];
-//        securityPolicy.validatesDomainName = NO;
-//        securityPolicy.allowInvalidCertificates = YES;
-//        _manager.securityPolicy = securityPolicy;
-        
         //设置response将要缓存时的回调 在这里修改响应头的缓存字段信息 系统将按照缓存缓存字段设置缓存
         [_manager setDataTaskWillCacheResponseBlock:^NSCachedURLResponse * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionDataTask * _Nonnull dataTask, NSCachedURLResponse * _Nonnull proposedResponse) {
             CLNSLog(@"%@",[dataTask.currentRequest.URL absoluteString]);
@@ -133,12 +127,6 @@ static NetworkAPI* _instance = nil;
             }
             return nil;    //返回nil表示不缓存
         }];
-        
-        //创建缓存文件夹
-        NSFileManager *manager = [NSFileManager defaultManager];
-        if (![manager fileExistsAtPath:CACHE_PATH]) {
-            [manager createDirectoryAtPath:CACHE_PATH withIntermediateDirectories:YES attributes:nil error:nil];
-        }
     }
     return _manager;
 }

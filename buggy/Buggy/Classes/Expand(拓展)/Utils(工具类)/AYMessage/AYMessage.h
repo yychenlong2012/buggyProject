@@ -10,7 +10,7 @@
 #import "MBProgressHUD.h"
 
 typedef void(^AlertButtonClickedBlock)(NSInteger buttonIndex);
-typedef void(^ViewClick)();
+typedef void(^ViewClick)(void);
 typedef void(^AlertButtonClickedTextBlock)(NSInteger buttonIndex, NSString *text);
 /**< 消息提示 */
 @interface AYMessage : NSObject <UIAlertViewDelegate>

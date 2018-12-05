@@ -7,7 +7,7 @@
 //
 
 #import "BaseModel.h"
-#import "UserModel.h"
+//#import "UserModel.h"
 
                 /*************************************用户管理类*************************************/
 
@@ -17,7 +17,7 @@
 @property (nonatomic, strong)UIViewController *rootVC;
 //@property (nonatomic, strong) AVUser *user;                   //该模型所属的用户
 @property (nonatomic) BOOL isLogin;                           //是否登录
-@property (nonatomic, strong)UserModel *userModel;            //用户信息模型
+//@property (nonatomic, strong)UserModel *userModel;            //用户信息模型
 @property (nonatomic, strong)UIImage *userImage;
 @property (nonatomic, assign)NSInteger openURLType;             //0 登录 1 QQ分享 2 微信分享 3微博分享
 @property (nonatomic, assign) MUSIC_TYPENUMBER musicTypeNumber; //音乐播放库的序列号

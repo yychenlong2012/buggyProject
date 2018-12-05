@@ -22,7 +22,7 @@
 }
 
 - (void)logout{
-    self.userModel = nil;
+//    self.userModel = nil;
     self.userImage = nil;
     [SCREENMGR clear];
 //    [AVUser logOut];  //清除缓存用户对象

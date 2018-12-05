@@ -460,7 +460,7 @@ void LoadMultiPYinWords(const char* multiPYinPath)
 	int index = 0;
 	char* buf = NULL;
 	unsigned char word = 0;
-	unsigned char word1 = 0;
+//    unsigned char word1 = 0;
 	WordCode* cur = NULL;
 	BOOL isFileEnd = FALSE;
 	

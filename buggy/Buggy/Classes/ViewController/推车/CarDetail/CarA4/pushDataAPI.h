@@ -17,7 +17,7 @@
 
 -(void)startUploadPushData;   //开始上传数据
 
--(void)uploadLoadPushDataInBackGround:(CarA4PushDataModel *)model;
+//-(void)uploadLoadPushDataInBackGround:(CarA4PushDataModel *)model;
 
 //上传本地记录   分段数据
 -(void)uploadLocalData;

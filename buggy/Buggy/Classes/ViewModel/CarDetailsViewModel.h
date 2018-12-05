@@ -34,7 +34,7 @@ typedef enum : NSUInteger {
  @param finish 完成回调
  */
 
-+ (void)getCarKcalType:(FETCHTABLENAMETYPE)type UUID:(NSString *)UUID Model:(void(^)(CarKcalModel *carKcalModel ,NSError *error))finish;
+//+ (void)getCarKcalType:(FETCHTABLENAMETYPE)type UUID:(NSString *)UUID Model:(void(^)(CarKcalModel *carKcalModel ,NSError *error))finish;
 
 /**
  上传数据

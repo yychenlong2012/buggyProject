@@ -9,7 +9,6 @@
 #import "tripAndMusicTools.h"
 #import "WNJsonModel.h"
 #import "NetWorkStatus.h"
-#import "UserModel.h"
 #import "MainViewController.h"
 
 @implementation tripAndMusicTools{

@@ -548,7 +548,9 @@ static AYCommon *common = nil;
     
     //output
     UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
-    ctx = nil;
+    CGImageRelease(image);
+    CGPathRelease(path);
+    
     UIGraphicsEndImageContext();
     return resultImage;
 }
@@ -967,8 +969,8 @@ static AYCommon *common = nil;
                                                   cancelButtonTitle:YFCulture(@"设置")
                                                   otherButtonTitles:YFCulture(@"取消"), nil];
             alert.tag = 0x10000;
-            
             [alert show];
+            CFRelease(addressBook);
             return;
         }else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined){
             __block BOOL tip = NO;
@@ -992,8 +994,8 @@ static AYCommon *common = nil;
                                                       cancelButtonTitle:YFCulture(@"设置")
                                                       otherButtonTitles:YFCulture(@"取消"), nil];
                 alert.tag = 0x10000;
-                
                 [alert show];
+                CFRelease(addressBook);
                 return;
             }
         }

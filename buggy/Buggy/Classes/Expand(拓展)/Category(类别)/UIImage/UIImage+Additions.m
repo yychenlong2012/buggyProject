@@ -273,10 +273,11 @@ static CGFloat edgeSizeFromCornerRadius(CGFloat cornerRadius) {
     }
     CGContextDrawLinearGradient(context, gradient, start, end, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
     CGGradientRelease(gradient);
     CGContextRestoreGState(context);
-    CGColorSpaceRelease(colorSpace);
     UIGraphicsEndImageContext();
+//    CGColorSpaceRelease(colorSpace);
     return image;
 }
 
@@ -411,15 +412,12 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     if (data) { free(data); }
     
     return color;
-    
 }
 
 
 
 - (CGContextRef) createARGBBitmapContextFromImage:(CGImageRef) inImage {
-    
-    
-    
+
     CGContextRef    context = NULL;
     
     CGColorSpaceRef colorSpace;
@@ -450,46 +448,26 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     
     bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
     
-    
-    
     // Use the generic RGB color space.
     
     colorSpace = CGColorSpaceCreateDeviceRGB();
     
-    
-    
     if (colorSpace == NULL)
-        
     {
-        
         fprintf(stderr, "Error allocating color space\n");
-        
         return NULL;
-        
     }
-    
-    
     
     // Allocate memory for image data. This is the destination in memory
     
     // where any drawing to the bitmap context will be rendered.
     
     bitmapData = malloc( bitmapByteCount );
-    
-    if (bitmapData == NULL)
-        
-    {
-        
+    if (bitmapData == NULL){
         fprintf (stderr, "Memory not allocated!");
-        
         CGColorSpaceRelease( colorSpace );
-        
         return NULL;
-        
     }
-    
-    
-    
     // Create the bitmap context. We want pre-multiplied ARGB, 8-bits
     
     // per component. Regardless of what the source image format is
@@ -512,24 +490,14 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
                                      
                                      (CGBitmapInfo)kCGImageAlphaPremultipliedFirst);
     
-    if (context == NULL)
-        
-    {
-        
+    if (context == NULL){
         free (bitmapData);
-        
         fprintf (stderr, "Context not created!");
-        
     }
-    
-    
-    
+
     // Make sure and release colorspace before returning
-    
     CGColorSpaceRelease( colorSpace );
-    
-    
-    
+ 
     return context;
     
 }

@@ -25,7 +25,7 @@
         [MBProgressHUD showError:NSLocalizedString(@"手机号格式错误", nil)];
         return;
     }
-    __weak typeof(self) wself = self;
+//    __weak typeof(self) wself = self;
     //登录
 //    [AVUser logInWithMobilePhoneNumberInBackground:number password:passWord
 //                                             block:^(AVUser *user, NSError *error) {
@@ -58,7 +58,7 @@
 
 //    [leanCloudMgr event:YOUZI_QQLogin];
     [MainModel model].openURLType = 0;
-    __weak typeof(self) wself = self;
+//    __weak typeof(self) wself = self;
 //    [[LoginModel model] loginWithLoginType:LOGIN_QQ
 //                                     error:^(NSError *error) {
 //                                         [wself dealProcessingError:error complete:^(BOOL isComNew) {
@@ -72,7 +72,7 @@
     
 //    [leanCloudMgr event:YOUZI_WeiBoLogin];
     [MainModel model].openURLType = 0;
-    __weak typeof(self) wself = self;
+//    __weak typeof(self) wself = self;
 //    [[LoginModel model] loginWithLoginType:LOGIN_SinaWeibo
 //                                     error:^(NSError *error) {
 //                                         [wself dealProcessingError:error complete:^(BOOL isComNew) {
@@ -84,7 +84,7 @@
 + (void)loginWeiXincomplete:(void(^)(BOOL isNew))complete {
 //    [leanCloudMgr event:YOUZI_WeiXinLogin];
     [MainModel model].openURLType = 0;
-    __weak typeof(self) wself = self;
+//    __weak typeof(self) wself = self;
 //    [[LoginModel model] loginWithLoginType:LOGIN_WeiXin error:^(NSError *error) {
 //         [wself dealProcessingError:error complete:^(BOOL isComNew) {
 //             if (complete) complete(isComNew);

@@ -201,7 +201,7 @@
 //    NSString *weight = [NSString stringWithFormat:@"%@%@",[HealthModel manager].weight,@"kg"];
     NSDateFormatter *dateF = [[NSDateFormatter alloc]init];
     [dateF setDateFormat:@"yyyy年MM月dd日"];
-    NSString *day = [self getAgeSince:[dateF dateFromString:[BabyModel manager].birthday]];
+//    NSString *day = [self getAgeSince:[dateF dateFromString:[BabyModel manager].birthday]];
 //    [_babyInfoMarkVeiw setbabyDay:day height:height weight:weight];
     [self.imgView.superview addSubview:_babyInfoMarkVeiw];
     _babyInfoMarkVeiw.top  = 40;

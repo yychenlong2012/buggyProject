@@ -46,7 +46,7 @@
     if (self.banner.dataArray.count == 0) {
         [self requestBannerData];
     }
-    if (self.albumArray.count == 0) {
+    if (self.albumArray.count == 0 || self.recommendArray.count == 0) {
         [self requestItemData];
     }
 }

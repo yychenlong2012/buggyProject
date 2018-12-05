@@ -35,7 +35,7 @@
         [MBProgressHUD showToast:@"您的没有安装QQ或者版本太低"];
         return;
     }
-    TencentOAuth *tencentOAuth = [[TencentOAuth alloc]initWithAppId:QQAPPID andDelegate:self];
+//    TencentOAuth *tencentOAuth = [[TencentOAuth alloc]initWithAppId:QQAPPID andDelegate:self];
     NSData *data = UIImagePNGRepresentation(image);
     NSData *preData = UIImageJPEGRepresentation(image, 0.4);
     QQApiImageObject *object = [QQApiImageObject objectWithData: data previewImageData:preData title:@"三爸育儿" description:@"身高信息"];
@@ -50,7 +50,7 @@
         [MBProgressHUD showToast:@"您的没有安装QQ或者版本太低"];
         return;
     }
-    TencentOAuth *tencentOAuth = [[TencentOAuth alloc]initWithAppId:QQAPPID andDelegate:self];
+//    TencentOAuth *tencentOAuth = [[TencentOAuth alloc]initWithAppId:QQAPPID andDelegate:self];
     NSData *data = UIImagePNGRepresentation(image);
     NSData *preData = UIImageJPEGRepresentation(image, 0.4);
     QQApiImageObject *object = [QQApiImageObject objectWithData: data previewImageData:preData title:@"三爸育儿" description:@"身高信息"];

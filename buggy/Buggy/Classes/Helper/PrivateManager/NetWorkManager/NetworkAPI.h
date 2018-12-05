@@ -20,7 +20,6 @@
 #define USER_REFRESH_TOKEN @"USER_REFRESH_TOKEN"   //用户刷新token
 #define THIRD_PARTY_LOGIN_TYPE @"THIRD_PARTY_LOGIN_TYPE"     //第三方登录平台标识
 #define USER_ID_NEW @"USER_ID_NEW"            //用户唯一标识
-#define CACHE_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/musicInfoCache"]   //缓存文件夹路径
 
 typedef enum : NSUInteger {
     WEEK_TYPE = 1,                  // 周频率

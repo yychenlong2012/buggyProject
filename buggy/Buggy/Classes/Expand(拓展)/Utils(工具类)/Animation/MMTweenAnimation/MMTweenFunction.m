@@ -404,13 +404,13 @@ static MMTweenFunction *sharedFunction = nil;
     //    [MMTweenFunction test];
 }
 
-+ (void)test {
-    MMTweenFunction *func = [MMTweenFunction sharedInstance];
-    for (int i = 0; i < MMTweenFunctionTypeMax; ++i) {
-        for (int j = 0; j < MMTweenEasingTypeMax; ++j) {
-            NSLog(@"%@\t\t%@", func.functionNames[i], func.easingNames[j]);
-        }
-    }
-}
+//+ (void)test {
+//    MMTweenFunction *func = [MMTweenFunction sharedInstance];
+//    for (int i = 0; i < MMTweenFunctionTypeMax; ++i) {
+//        for (int j = 0; j < MMTweenEasingTypeMax; ++j) {
+//            NSLog(@"%@\t\t%@", func.functionNames[i], func.easingNames[j]);
+//        }
+//    }
+//}
 
 @end

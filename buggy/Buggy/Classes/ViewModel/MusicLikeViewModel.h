@@ -13,11 +13,11 @@ typedef void(^Finish)(BOOL success,NSError *error);
 
 @interface MusicLikeViewModel : NSObject
 
-+ (void)selectMusicToLikeList:(MusicListModel *)musicModel
-                       finish:(Finish)finish;
+//+ (void)selectMusicToLikeList:(MusicListModel *)musicModel
+//                       finish:(Finish)finish;
 
-+ (void)removeSelectedMusicFromLikeList:(MusicListModel *)musicModel
-                                 finish:(Finish)finish;
+//+ (void)removeSelectedMusicFromLikeList:(MusicListModel *)musicModel
+//                                 finish:(Finish)finish;
 
 + (void)getLikelWithPage:(NSInteger)page
                     List:(void(^)(NSArray *datas,NSError *error))finish;

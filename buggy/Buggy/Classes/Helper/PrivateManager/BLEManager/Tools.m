@@ -89,8 +89,8 @@
         
         NSString *hex = [hexString substringWithRange:NSMakeRange(i, 2)];
         NSInteger decimalValue = 0;
-        sscanf([hex UTF8String], "%x", &decimalValue);
-        [string appendFormat:@"%c", decimalValue];
+        sscanf([hex UTF8String], "%lx", &decimalValue);
+        [string appendFormat:@"%ld", (long)decimalValue];
     }
     return string;
 }
@@ -170,7 +170,7 @@
                     [spaceIndexs addObject:[NSNumber numberWithInt:index]];
                 }
             }
-            int lastIndex = [[spaceIndexs lastObject] integerValue]+1;
+            NSInteger lastIndex = [[spaceIndexs lastObject] integerValue]+1;
             NSMutableString   *newStr =[NSMutableString stringWithString:[string substringFromIndex:lastIndex]];
             if(newStr.length%2 == 1)
             {

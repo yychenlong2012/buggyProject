@@ -288,24 +288,24 @@ void handleException(NSException *exception){
     return result;
 }
 
-- (BOOL)openURLTypeWithUrl:(NSURL *)url{
-//    switch ([MainModel model].openURLType) {       // 1、2、3 分别是用来分享时的回调  而 0 是用来 第三方快捷登陆的
-    switch ([KUserDefualt_Get(THIRD_PARTY_LOGIN_TYPE) integerValue]) {       // 1、2、3 分别是用来分享时的回调  而 0 是用来 第三方快捷登陆的
-        case 1:{
-            return [TencentOAuth HandleOpenURL:url];
-        }break;
-        case 2:{
-            return [WXApi handleOpenURL:url delegate:self];
-        }break;
-        case 3:{
-            return [WeiboSDK handleOpenURL:url delegate:self];
-        }break;
-        default:{
-            return NO;
-//            return [AVOSCloudSNS handleOpenURL:url];
-        }break;
-    }
-}
+//- (BOOL)openURLTypeWithUrl:(NSURL *)url{
+////    switch ([MainModel model].openURLType) {       // 1、2、3 分别是用来分享时的回调  而 0 是用来 第三方快捷登陆的
+//    switch ([KUserDefualt_Get(THIRD_PARTY_LOGIN_TYPE) integerValue]) {       // 1、2、3 分别是用来分享时的回调  而 0 是用来 第三方快捷登陆的
+//        case 1:{
+//            return [TencentOAuth HandleOpenURL:url];
+//        }break;
+//        case 2:{
+//            return [WXApi handleOpenURL:url delegate:self];
+//        }break;
+//        case 3:{
+//            return [WeiboSDK handleOpenURL:url delegate:self];
+//        }break;
+//        default:{
+//            return NO;
+////            return [AVOSCloudSNS handleOpenURL:url];
+//        }break;
+//    }
+//}
 
 
 #pragma mark === 处理推送

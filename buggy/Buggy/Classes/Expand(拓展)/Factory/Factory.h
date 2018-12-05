@@ -186,7 +186,7 @@
  */
 +(UIButton *)buttonWithFrame:(CGRect)frame
                withImageName:(NSString *)imageName
-                       click:(void(^)())click
+                       click:(void(^)(void))click
                       onView:(UIView *)view;
 
 
@@ -201,7 +201,7 @@
  */
 +(UIButton *)buttonWithCenter:(CGPoint)center
                     withImage:(UIImage *)image
-                        click:(void(^)())click
+                        click:(void(^)(void))click
                        onView:(UIView *)view;
 
 
@@ -220,7 +220,7 @@
                      bgColor:(UIColor *)bgColor
                        title:(NSString *)title
                    textColor:(UIColor *)textColor
-                       click:(void(^)())click
+                       click:(void(^)(void))click
                       onView:(UIView *)view;
 
 
@@ -233,7 +233,7 @@
  @return      实例类
  */
 +(UIButton *)buttonEmptyWithFrame:(CGRect)frame
-                            click:(void(^)())click
+                            click:(void(^)(void))click
                            onView:(UIView *)view;
 
 
@@ -252,13 +252,13 @@
                                bgColor:(UIColor *)bgColor
                                  title:(NSString *)title
                              textColor:(UIColor *)textColor
-                                 click:(void (^)())click
+                                 click:(void (^)(void))click
                                 onView:(UIView *)view;
 
 
 + (UIButton *)buttonTitle:(NSString *)title
                  fontSize:(CGFloat)fontSize
-                    click:(void(^)())click
+                    click:(void(^)(void))click
               normalColor:(UIColor *)normalColor
          highlightedColor:(UIColor *)highlightedColor
       backgroundImageName:(NSString *)backgroundImageName;
@@ -269,7 +269,7 @@
 +(UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)viewController;
 
 +(UIBarButtonItem *)costomBackBarWithTitle:(NSString *)title
-                                     click:(void (^)())click
+                                     click:(void (^)(void))click
                                     isback:(BOOL)isback;
 
 

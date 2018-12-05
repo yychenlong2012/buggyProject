@@ -98,10 +98,10 @@
         }
         
         //id
-        if ([dic[@"musicId"] isKindOfClass:[NSString class]]) {
+        if (dic[@"musicId"] != nil) {
             model.musicid = [dic[@"musicId"] integerValue];
         }
-        
+
         //歌名
         if ([dic[@"musicName"] isKindOfClass:[NSString class]]) {
             model.musicname = dic[@"musicName"];

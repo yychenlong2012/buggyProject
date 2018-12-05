@@ -517,7 +517,6 @@
 		7B5702C71E32023A00595107 /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702B71E32023A00595107 /* CacheManager.m */; };
 		7B5702C81E32023A00595107 /* MainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702B91E32023A00595107 /* MainModel.m */; };
 		7B5702C91E32023A00595107 /* ParentsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702BB1E32023A00595107 /* ParentsManager.m */; };
-		7B5702CA1E32023A00595107 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702BD1E32023A00595107 /* UserModel.m */; };
 		7B5702CB1E32023A00595107 /* WNJsonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702BF1E32023A00595107 /* WNJsonModel.m */; };
 		7B5702CF1E3202E700595107 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5702CE1E3202E700595107 /* LoginViewModel.m */; };
 		7B57B2AB1F0B7525009413DB /* BabyInfoMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B57B2AA1F0B7525009413DB /* BabyInfoMarkView.m */; };
@@ -1473,8 +1472,6 @@
 		7B5702B91E32023A00595107 /* MainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainModel.m; sourceTree = "<group>"; };
 		7B5702BA1E32023A00595107 /* ParentsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentsManager.h; sourceTree = "<group>"; };
 		7B5702BB1E32023A00595107 /* ParentsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentsManager.m; sourceTree = "<group>"; };
-		7B5702BC1E32023A00595107 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
-		7B5702BD1E32023A00595107 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		7B5702BE1E32023A00595107 /* WNJsonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WNJsonModel.h; sourceTree = "<group>"; };
 		7B5702BF1E32023A00595107 /* WNJsonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WNJsonModel.m; sourceTree = "<group>"; };
 		7B5702CD1E3202E700595107 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
@@ -3561,8 +3558,6 @@
 				7B5702B51E32023A00595107 /* BaseModel.m */,
 				7B5702B81E32023A00595107 /* MainModel.h */,
 				7B5702B91E32023A00595107 /* MainModel.m */,
-				7B5702BC1E32023A00595107 /* UserModel.h */,
-				7B5702BD1E32023A00595107 /* UserModel.m */,
 				7B6D93541E5BED9C00668E99 /* BabyModel.h */,
 				7B6D93551E5BED9C00668E99 /* BabyModel.m */,
 				7B5702B61E32023A00595107 /* CacheManager.h */,
@@ -4253,7 +4248,6 @@
 				7B1BBC2D1E2F657000995017 /* UIViewController+WXSTransition.m in Sources */,
 				4E70D07B20C63D55000C0CD2 /* bleConnectPromptView.m in Sources */,
 				4E882E9D20C278AB00D89492 /* setBabyBirthdayVC.m in Sources */,
-				7B5702CA1E32023A00595107 /* UserModel.m in Sources */,
 				7B1BBBFA1E2F657000995017 /* MGSwipeTableCell.m in Sources */,
 				7B1BBBE41E2F657000995017 /* UINavigationItem+Margin.m in Sources */,
 				7B1BBB9D1E2F657000995017 /* NSDate+Mac.m in Sources */,

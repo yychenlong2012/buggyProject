@@ -9,7 +9,7 @@
 #import "SetupViewController.h"
 #import "CLImageView.h"
 #import "BabyInfoTableViewCell.h"
-#import "UserModel.h"
+//#import "UserModel.h"
 #import "AlertActionSheetMgr.h"
 #import "AboutUSViewController.h"
 #import "UserProtocol.h"

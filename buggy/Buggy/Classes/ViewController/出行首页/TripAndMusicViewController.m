@@ -84,6 +84,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
     _bleDataParserAPI.delegate = self;
     BLEMANAGER.delegate = self;
     //请求上传天气数据
