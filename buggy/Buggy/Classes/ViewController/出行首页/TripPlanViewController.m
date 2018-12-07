@@ -74,7 +74,9 @@
                     NSString *dateStr = [date componentsSeparatedByString:@" "].firstObject;
                     [self.travelDataDict setObject:@"1" forKey:[dateStr stringByReplacingOccurrencesOfString:@"-" withString:@""]];
                 }
-                [self.calendar reloadData];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.calendar reloadData];
+                });
             }
         }
         
@@ -318,6 +320,7 @@
         self.calendar.appearance.titleTodayColor = [UIColor colorWithHexString:@"#E04E63"];
     }
 }
+
 -(UIImage *)calendar:(FSCalendar *)calendar imageForDate:(NSDate *)date{
     //未来推荐出行指示图标
     NSDateFormatter *form = [[NSDateFormatter alloc] init];
@@ -364,15 +367,15 @@
 }
 
 // 对有事件的显示一个点,默认是显示三个点
-- (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date{
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    dateFormatter.dateFormat = @"yyyy-MM-dd";
-    //从数组中查找是否有事件
-    //    if ([self.datesWithEvent containsObject:[dateFormatter stringFromDate:date]]) {
-    //        return 1;
-    //    }
-    return 0;
-}
+//- (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date{
+////    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+////    dateFormatter.dateFormat = @"yyyy-MM-dd";
+//    //从数组中查找是否有事件
+//    //    if ([self.datesWithEvent containsObject:[dateFormatter stringFromDate:date]]) {
+//    //        return 1;
+//    //    }
+//    return 0;
+//}
 
 //选中某个日期后的回调
 -(void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition{

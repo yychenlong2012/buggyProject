@@ -523,7 +523,7 @@ typedef struct _CHAR{
         if ([msg isKindOfClass:[NSString class]]) {
             NSDateFormatter *forma = [[NSDateFormatter alloc] init];
             forma.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-            block([NSDate dateWithTimeInterval:8*60*60 sinceDate:[forma dateFromString:msg]]);
+            block([forma dateFromString:msg]);
         }else{
             block([NSDate dateWithTimeInterval:-30*24*60*60 sinceDate:[NSDate date]]);
         }
@@ -531,10 +531,10 @@ typedef struct _CHAR{
 }
 #pragma mark - CBPeripheralDelegate 蓝牙外设代理
 //信号强度更新
-- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error{
-    //    DLog(@"_____ RSSI : %d\r\n",[peripheral.RSSI intValue]);
-
-}
+//- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error{
+//    //    DLog(@"_____ RSSI : %d\r\n",[peripheral.RSSI intValue]);
+//
+//}
 
 //发现蓝牙的服务
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(nullable NSError *)error{
@@ -731,10 +731,13 @@ typedef struct _CHAR{
             if (byte[5] == 0xFF) {   //表示为最后一条数据
                 //上传数据
                 if ([NetWorkStatus isNetworkEnvironment] && [self.onceDataArray isKindOfClass:[NSMutableArray class]] && self.onceDataArray.count > 0) {
-                    NSDictionary *dict = @{ @"data":self.onceDataArray };
-                    [NETWorkAPI uploadTravelOnce:dict callback:^(BOOL success, NSError * _Nullable error) {
-                        
-                    }];
+                    [self.onceDataArray removeObjectAtIndex:0];   //最新一条数据不上传
+                    if (self.onceDataArray.count > 0) {
+                        NSDictionary *dict = @{ @"data":self.onceDataArray };
+                        [NETWorkAPI uploadTravelOnce:dict callback:^(BOOL success, NSError * _Nullable error) {
+                            
+                        }];
+                    }
                 }
             }
             
@@ -749,19 +752,22 @@ typedef struct _CHAR{
                 NSDate *baseDate = [forme dateFromString:@"1980 01 02 00 00 00"];
                 NSDate *beginTime = [NSDate dateWithTimeInterval:time1 sinceDate:baseDate];
                 NSDate *endTime = [NSDate dateWithTimeInterval:time2 sinceDate:baseDate];
-                forme.dateFormat = @"YYYY-MM-dd HH:mm:";
-                NSString *beginStr = [NSString stringWithFormat:@"%@00",[forme stringFromDate:beginTime]];
+//                forme.dateFormat = @"YYYY-MM-dd HH:mm:";
+//                NSString *beginStr = [NSString stringWithFormat:@"%@00",[forme stringFromDate:beginTime]];
                 forme.dateFormat = @"YYYY-MM-dd HH:mm:ss";
-                beginTime = [forme dateFromString:beginStr];
+//                beginTime = [forme dateFromString:beginStr];
 //                CarA4PushDataModel *model = [[CarA4PushDataModel alloc] initWithStartTime:beginTime endTime:endTime mileage:distance useTime:pushTime];
 
 //                [[pushDataAPI sharedInstance].pushDateArray addObject:model];
 //                [[pushDataAPI sharedInstance] startUploadPushData]; //开始上传数据
-                [self.onceDataArray addObject:@{  @"mileage":@(distance),
-                                                  @"useTime":@(pushTime),
-                                                  @"startTime":beginTime,
-                                                  @"endTime":endTime,
-                                                  @"bluetoothAddress":BLEMANAGER.currentPeripheral.identifier.UUIDString }];
+                if (distance > 0) {
+                    [self.onceDataArray addObject:@{  @"mileage":@(distance),
+                                                      @"useTime":@(pushTime),
+                                                      @"startTime":[forme stringFromDate:beginTime],
+                                                      @"endTime":[forme stringFromDate:endTime],
+                                                      @"bluetoothAddress":BLEMANAGER.currentPeripheral.identifier.UUIDString }];
+                }
+                
             }
             return;
         }else if (byte[3] == 0x8b && byte[4] == 0x20){    //
@@ -770,10 +776,13 @@ typedef struct _CHAR{
             }else if (byte[2] == 0x01){    //数据域为1 表示底层没有数据
                 //上传数据
                 if ([NetWorkStatus isNetworkEnvironment] && [self.onceDataArray isKindOfClass:[NSMutableArray class]] && self.onceDataArray.count > 0) {
-                    NSDictionary *dict = @{ @"data":self.onceDataArray };
-                    [NETWorkAPI uploadTravelOnce:dict callback:^(BOOL success, NSError * _Nullable error) {
-                        
-                    }];
+                    [self.onceDataArray removeObjectAtIndex:0];   //最新一条数据不上传
+                    if (self.onceDataArray.count > 0) {
+                        NSDictionary *dict = @{ @"data":self.onceDataArray };
+                        [NETWorkAPI uploadTravelOnce:dict callback:^(BOOL success, NSError * _Nullable error) {
+                            
+                        }];
+                    }
                 }
             }else if (byte[2] == 0x0E){    //数据域为14 表示有推行数据
     
@@ -788,19 +797,21 @@ typedef struct _CHAR{
                 NSDate *baseDate = [forme dateFromString:@"1980 01 02 00 00 00"];
                 NSDate *beginTime = [NSDate dateWithTimeInterval:time1 sinceDate:baseDate];
                 NSDate *endTime = [NSDate dateWithTimeInterval:time2 sinceDate:baseDate];
-                forme.dateFormat = @"YYYY-MM-dd HH:mm:";
-                NSString *beginStr = [NSString stringWithFormat:@"%@00",[forme stringFromDate:beginTime]];
+//                forme.dateFormat = @"YYYY-MM-dd HH:mm:";
+//                NSString *beginStr = [NSString stringWithFormat:@"%@00",[forme stringFromDate:beginTime]];
                 forme.dateFormat = @"YYYY-MM-dd HH:mm:ss";
-                beginTime = [forme dateFromString:beginStr];
+//                beginTime = [forme dateFromString:beginStr];
 //                CarA4PushDataModel *model = [[CarA4PushDataModel alloc] initWithStartTime:beginTime endTime:endTime mileage:distance useTime:pushTime];
                 
 //                [[pushDataAPI sharedInstance].pushDateArray addObject:model];
 //                [[pushDataAPI sharedInstance] startUploadPushData]; //开始上传数据
-                [self.onceDataArray addObject:@{  @"mileage":@(distance),
-                                                  @"useTime":@(pushTime),
-                                                  @"startTime":beginTime,
-                                                  @"endTime":endTime,
-                                                  @"bluetoothAddress":BLEMANAGER.currentPeripheral.identifier.UUIDString  }];
+                if (distance > 0) {
+                    [self.onceDataArray addObject:@{  @"mileage":@(distance),
+                                                      @"useTime":@(pushTime),
+                                                      @"startTime":[forme stringFromDate:beginTime],
+                                                      @"endTime":[forme stringFromDate:endTime],
+                                                      @"bluetoothAddress":BLEMANAGER.currentPeripheral.identifier.UUIDString  }];
+                }
                 
                 [BLEMANAGER writeValueForPeripheral:[BLEA4API getSurplusPushData]];  //请求下一条
             }

@@ -26,6 +26,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *autoImage;
 @property (weak, nonatomic) IBOutlet UIImageView *smartImage;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *smartLabelTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *smartClickViewTop;
+
 @end
 @implementation brakeView
 - (IBAction)switchBtnValueChange:(UISwitch *)sender {
@@ -82,11 +85,16 @@
     self.autoClickView.hidden = YES;
     self.line.hidden = YES;
     
+    //删除原有约束
+    [self removeConstraint:self.smartLabelTop];
+    [self removeConstraint:self.smartClickViewTop];
+    
+    //添加新约束
     __weak typeof(self) wself = self;
     [self.smartLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(wself.topLabel.mas_bottom).offset(25);
     }];
-    
+
     [self.smartClickView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(wself.topLabel.mas_bottom).offset(25);
     }];

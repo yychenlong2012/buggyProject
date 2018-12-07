@@ -150,8 +150,10 @@
                 <outlet property="autoTipsLabel" destination="J4u-Rd-bRA" id="TyG-Df-JoF"/>
                 <outlet property="line" destination="NkR-tD-XXT" id="nY2-my-FZx"/>
                 <outlet property="smartClickView" destination="DwP-wo-wIs" id="3ti-lG-RUx"/>
+                <outlet property="smartClickViewTop" destination="Ahu-cp-5Jj" id="AgP-bp-fCx"/>
                 <outlet property="smartImage" destination="1Ip-eW-Fr5" id="xJr-jN-nhp"/>
                 <outlet property="smartLabel" destination="UGA-t2-mOL" id="7Mp-XF-3HS"/>
+                <outlet property="smartLabelTop" destination="0ny-VW-7Xp" id="F7d-aq-vSu"/>
                 <outlet property="switchBtn" destination="TWi-gg-QZg" id="vne-Hs-U8A"/>
                 <outlet property="topLabel" destination="Ufn-gd-vDK" id="gZT-Yx-9tY"/>
             </connections>

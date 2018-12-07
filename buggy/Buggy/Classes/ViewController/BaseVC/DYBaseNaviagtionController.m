@@ -55,7 +55,7 @@
             if (self.childViewControllers.count == 1) {
                 title = self.childViewControllers.firstObject.title;
             }
-//            title = nil;
+            title = nil;
             BaseVC *base = (BaseVC *)viewController;
             __weak typeof(self) wself = self;
             base.navigationItem.leftBarButtonItem = [Factory costomBackBarWithTitle:title click:^{

@@ -13,6 +13,7 @@
 #import "userInfoModel.h"
 #import "DeviceModel.h"
 #import <UMShare/UMShare.h>
+#import "musicModel.h"
 
 
 #define NETWorkAPI [NetworkAPI shareInstance]
@@ -122,7 +123,8 @@ NS_ASSUME_NONNULL_BEGIN
 //   ]
 //收藏与下载操作
 -(void)updateMusicWithOperation:(NSArray *)array callback:(statusBlock _Nonnull)callback;
-
+//上传歌曲播放次数
+-(void)uploadMusicPlayCount:(musicModel *)model;
 #pragma mark - 个人中心
 //用户信息
 -(void)requestUserDataCallback:(ModelBlock _Nonnull)callback;

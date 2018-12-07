@@ -37,7 +37,11 @@
     }
 }
 
+-(void)dealloc{
+    NSLog(@"111");
+}
 
+//
 -(void)requestData:(NSInteger)page{
     [NETWorkAPI requestPunchListWithPage:integerToStr(page) pageNum:@"20" callback:^(NSArray * _Nullable modelArray, NSInteger currentPage, NSError * _Nullable error) {
         [self.tableview.mj_footer endRefreshing];
@@ -100,9 +104,6 @@
     return str;
 }
 
--(void)dealloc{
-    NSLog(@"11");
-}
 
 #pragma mark - lazy
 -(UITableView *)tableview{

@@ -4,6 +4,7 @@ inhibit_all_warnings!
 target 'Buggy' do
     # 友盟分享基础依赖库
     pod 'UMCCommon'
+    pod 'UMCAnalytics'
     pod 'UMCSecurityPlugins'
     # 友盟分享对应平台
     pod 'UMCShare/Social/ReducedWeChat'    # 精简版微信

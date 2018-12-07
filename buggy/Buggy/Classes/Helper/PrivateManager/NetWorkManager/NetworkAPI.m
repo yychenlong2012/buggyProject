@@ -17,9 +17,9 @@
 #import <UMShare/UMShare.h>
 
 //开发版
-#define API_HEADER @"http://192.168.10.106"
+//#define API_HEADER @"http://192.168.10.106"
 //正式版
-//#define API_HEADER @"http://47.92.221.199"
+#define API_HEADER @"http://47.92.221.199"
 #define HOME_API @""API_HEADER"/Tp/index.php/App/Index/index.html"                      //首页数据
 #define PUNCH_LIST @""API_HEADER"/Tp/index.php/App/Index/punch_list.html"               //打卡列表
 #define HISTORY_PUNCH @""API_HEADER"/Tp/index.php/App/Index/historical_data.html"       //用户历史打卡记录
@@ -53,17 +53,18 @@
 #define UPDATE_AVERAGE_SPEED @""API_HEADER"/Tp/index.php/App/public/update_speed_mileage.html"     //上传总里程和平均速度今日里程
 #define UPDATE_TRAVEL_ONCE @""API_HEADER"/Tp/index.php/App/public/update_travelonce.html"          //上传分段里程
 #define NEWEST_MILEAGE @""API_HEADER"/Tp/index.php/App/public/get_new_mileage.html"                //获取最新的一条分段里程数据
-#define SLEEP_TIMES @""API_HEADER"/Tp/index.php/App/public/update_use_times.html"    //上传关机次数
-#define SENSITIVITY @""API_HEADER"/Tp/index.php/App/public/update_sensitivity.html"  //上传刹车灵敏度
-#define ADD_BABY @""API_HEADER"/Tp/index.php/App/user/add_baby.html"                 //添加宝贝
-#define APP_CONTROL @""API_HEADER"/Tp/index.php/App/Index/get_control.html"          //获取版本 已绑定的蓝牙列表 设备类型列表
-#define CHECK_LOGIN @""API_HEADER"/Tp/index.php/App/Login/check_login.html"          //验证登录状态
-#define REGISTER @""API_HEADER"/Tp/index.php/App/Login/register.html"                //注册
-#define LOGIN @""API_HEADER"/Tp/index.php/App/Login/index.html"                      //手机登录
-#define RESET_PASSWORD @""API_HEADER"/Tp/index.php/App/Login/reset_passwd.html"      //修改密码
-#define LOGOUT @""API_HEADER"/Tp/index.php/App/Login/loginout.html"                  //退出登录
-#define CRASH_LOG @""API_HEADER"/Tp/index.php/App/public/add_crash.html"             //崩溃信息
-#define THIRD_PART_LOGIN @""API_HEADER"/Tp/index.php/app/login/qq_weixin_login"      //第三方登录
+#define SLEEP_TIMES @""API_HEADER"/Tp/index.php/App/public/update_use_times.html"       //上传关机次数
+#define SENSITIVITY @""API_HEADER"/Tp/index.php/App/public/update_sensitivity.html"     //上传刹车灵敏度
+#define ADD_BABY @""API_HEADER"/Tp/index.php/App/user/add_baby.html"                    //添加宝贝
+#define APP_CONTROL @""API_HEADER"/Tp/index.php/App/Index/get_control.html"             //获取版本 已绑定的蓝牙列表 设备类型列表
+#define CHECK_LOGIN @""API_HEADER"/Tp/index.php/App/Login/check_login.html"             //验证登录状态
+#define REGISTER @""API_HEADER"/Tp/index.php/App/Login/register.html"                   //注册
+#define LOGIN @""API_HEADER"/Tp/index.php/App/Login/index.html"                         //手机登录
+#define RESET_PASSWORD @""API_HEADER"/Tp/index.php/App/Login/reset_passwd.html"         //修改密码
+#define LOGOUT @""API_HEADER"/Tp/index.php/App/Login/loginout.html"                     //退出登录
+#define CRASH_LOG @""API_HEADER"/Tp/index.php/App/public/add_crash.html"                //崩溃信息
+#define THIRD_PART_LOGIN @""API_HEADER"/Tp/index.php/app/login/qq_weixin_login"         //第三方登录
+#define MUSIC_PLAY_COUNT @""API_HEADER"/Tp/index.php/App/Music/update_play_count"       //上传音乐播放次数
 
 
 #define CLNSLog(format,...) printf("%s",[[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String])
@@ -152,7 +153,7 @@ static NetworkAPI* _instance = nil;
                 [SCREENMGR changeToLoginScreen];
             }break;
             case 7:{
-                [self loginSeccessWithData:dict callback:nil];
+                [self loginSeccessWithData:dict isRegister:NO callback:nil];
             }break;
             default:{
                 KUserDefualt_Set(@"", USER_LOGIN_TOKEN);
@@ -211,7 +212,7 @@ static NetworkAPI* _instance = nil;
        id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
        CLNSLog(@"手机登录：%@ 类型：%@\n",dict[@"msg"],dict);
        if ([dict[@"status"] integerValue] == 7) {
-           [self loginSeccessWithData:dict callback:callback];
+           [self loginSeccessWithData:dict isRegister:NO callback:callback];
        }else{
            [MBProgressHUD showError:dict[@"msg"]];
        }
@@ -228,7 +229,7 @@ static NetworkAPI* _instance = nil;
        id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
        CLNSLog(@"手机注册：%@ 类型：%@\n",dict[@"msg"],dict);
        if ([dict[@"status"] integerValue] == 7) {
-           [self loginSeccessWithData:dict callback:callback];
+           [self loginSeccessWithData:dict isRegister:YES callback:callback];
        }else{
            [MBProgressHUD showError:dict[@"msg"]];
        }
@@ -322,7 +323,7 @@ static NetworkAPI* _instance = nil;
             id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
             CLNSLog(@"第三方登录：%@ 类型：%@\n",dict[@"msg"],dict);
             if ([dict[@"status"] integerValue] == 7) {
-                [self loginSeccessWithData:dict callback:callback];
+                [self loginSeccessWithData:dict isRegister:NO callback:callback];
             }else{
                 [MBProgressHUD showError:@"登录失败"];
             }
@@ -334,7 +335,7 @@ static NetworkAPI* _instance = nil;
 }
 
 //登录成功之后的数据设置
--(void)loginSeccessWithData:(NSDictionary *)dict callback:(HomeDataBlock)callback{
+-(void)loginSeccessWithData:(NSDictionary *)dict isRegister:(BOOL)isRegister callback:(HomeDataBlock)callback{
     
     NSDictionary *data = dict[@"data"];
     if ([data isKindOfClass:[NSDictionary class]]) {
@@ -351,7 +352,9 @@ static NetworkAPI* _instance = nil;
         //保存用户信息
         self.userInfo = [userInfoModel mj_objectWithKeyValues:data[@"userinfo"]];
         //跳转主界面
-        [SCREENMGR showMainScreen];
+        if (isRegister == NO) {
+            [SCREENMGR showMainScreen];
+        }
         [MBProgressHUD showSuccess:dict[@"msg"]];    //登录成功
         //主页数据
         homeDataModel *model = [homeDataModel mj_objectWithKeyValues:data[@"data"]];
@@ -591,6 +594,45 @@ static NetworkAPI* _instance = nil;
         callback(YES,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
+    }];
+}
+
+//上传歌曲播放次数
+-(void)uploadMusicPlayCount:(musicModel *)model{
+    //查看有无本地记录
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *fileName = [NSString stringWithFormat:@"musicPlayCount%@.plist",KUserDefualt_Get(USER_ID_NEW)];
+    NSString *filePath = [cachePath stringByAppendingPathComponent:fileName];
+    NSMutableArray *localArray = [NSMutableArray arrayWithContentsOfFile:filePath];
+    if (localArray == nil) {
+        localArray = [NSMutableArray array];
+    }
+    //合并数据
+    BOOL isExist = NO;
+    for (NSMutableDictionary *dict in localArray) {
+        if ([dict[@"musicName"] isEqualToString:model.musicname]) {   //存在记录
+            isExist = YES;
+            //累加播放次数
+            NSInteger count = [dict[@"play_count"] integerValue] + 1;
+            dict[@"play_count"] = @(count);
+        }
+    }
+    if (isExist == NO) {
+        [localArray addObject:@{  @"musicName":model.musicname==nil?@"":model.musicname,
+                                 @"play_count":@(1)  }];
+    }
+//    CLNSLog(@"%@",localArray);
+    NSDictionary *parma = @{@"data":localArray};
+    [self.manager POST:MUSIC_PLAY_COUNT parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
+        CLNSLog(@"上传播放次数：%@ 类型：%@\n",dict[@"msg"],dict);
+        if ([dict[@"status"] integerValue] == 0) {   //成功则清空数据
+            [localArray removeAllObjects];
+        }
+        [localArray writeToFile:filePath atomically:YES];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //上传失败
+        [localArray writeToFile:filePath atomically:YES];
     }];
 }
 

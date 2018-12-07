@@ -70,6 +70,7 @@
     self.bgView.hidden = YES;
     [self.contentView insertSubview:self.bgView belowSubview:self.titleLabel];
     
+    //为灰色view添加圆形边框
     shapeLayer = [CAShapeLayer layer];
     shapeLayer.backgroundColor = [UIColor clearColor].CGColor;
     shapeLayer.borderWidth = 1.0;
@@ -156,13 +157,13 @@
                                    (titleHeight-diameter)/2,
                                    diameter,
                                    diameter);
-    self.bgView.layer.cornerRadius = CGRectGetWidth(_shapeLayer.bounds)*0.5;
-    
+
     _shapeLayer.frame = CGRectMake((self.bounds.size.width-diameter)/2,
                                    (titleHeight-diameter)/2,
                                    diameter,
                                    diameter);
-    
+    //设置灰色view圆角半径
+    self.bgView.layer.cornerRadius = CGRectGetWidth(_shapeLayer.bounds)*0.5;
     CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds
                                                 cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
     if (!CGPathEqualToPath(_shapeLayer.path,path)) {

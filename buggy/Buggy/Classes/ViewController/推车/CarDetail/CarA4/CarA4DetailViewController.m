@@ -84,7 +84,6 @@
             [self.timer fire];
         }
     }
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -138,10 +137,11 @@
             block([NSDate date]);
             return ;
         }
+
         if ([msg isKindOfClass:[NSString class]]) {
             NSDateFormatter *forma = [[NSDateFormatter alloc] init];
             forma.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-            block([NSDate dateWithTimeInterval:8*60*60 sinceDate:[forma dateFromString:msg]]);
+            block([NSDate dateWithTimeInterval:5 sinceDate:[forma dateFromString:msg]]);
         }else{
             block([NSDate dateWithTimeInterval:-30*24*60*60 sinceDate:[NSDate date]]);
         }
@@ -381,18 +381,24 @@
             NSDate *baseDate = [forme dateFromString:@"1980 01 02 00 00 00"];
             NSDate *beginTime = [NSDate dateWithTimeInterval:time1 sinceDate:baseDate];
             NSDate *endTime = [NSDate dateWithTimeInterval:time2 sinceDate:baseDate];
-            forme.dateFormat = @"YYYY-MM-dd HH:mm:";
-            NSString *beginStr = [NSString stringWithFormat:@"%@00",[forme stringFromDate:beginTime]];
+//            forme.dateFormat = @"YYYY-MM-dd HH:mm:";
+//            NSString *beginStr = [NSString stringWithFormat:@"%@00",[forme stringFromDate:beginTime]];
             forme.dateFormat = @"YYYY-MM-dd HH:mm:ss";
-            beginTime = [forme dateFromString:beginStr];
+//            [forme setLocale:[NSLocale currentLocale]];
+//            beginTime = [forme dateFromString:beginStr];
 //            CarA4PushDataModel *model = [[CarA4PushDataModel alloc] initWithStartTime:beginTime endTime:endTime mileage:distance useTime:pushTime];
 //            NSLog(@"推行编号%d 开始时间%@ 结束时间%@ 距离%d",num,[forme stringFromDate:beginTime],[forme stringFromDate:endTime],distance);
 
-            [self.onceDataArray addObject:@{  @"mileage":@(distance),
-                                            @"useTime":@(pushTime),
-                                            @"startTime":beginTime,
-                                            @"endTime":endTime,
-                                            @"bluetoothAddress":BLEMANAGER.currentPeripheral.identifier.UUIDString  }];
+            NSLog(@"start = %@\nend = %@\n",[forme stringFromDate:beginTime],[forme stringFromDate:endTime]);
+            
+            if (distance > 0) {
+                [self.onceDataArray addObject:@{    @"mileage":@(distance),
+                                                  @"useTime":@(pushTime),
+                                                  @"startTime":[forme stringFromDate:beginTime],
+                                                  @"endTime":[forme stringFromDate:endTime],
+                                                  @"bluetoothAddress":BLEMANAGER.currentPeripheral.identifier.UUIDString  }];
+            }
+            
             if ([NetWorkStatus isNetworkEnvironment]) {
 //                [[pushDataAPI sharedInstance].pushDateArray addObject:model];
                 [[pushDataAPI sharedInstance] startUploadPushData]; //开始上传数据
@@ -401,10 +407,13 @@
             if (byte[5] == 0xFF) {   //表示为最后一条数据
                 //上传数据
                 if ([NetWorkStatus isNetworkEnvironment] && [self.onceDataArray isKindOfClass:[NSMutableArray class]]) {
-                    NSDictionary *dict = @{ @"data":self.onceDataArray };
-                    [NETWorkAPI uploadTravelOnce:dict callback:^(BOOL success, NSError * _Nullable error) {
-                        
-                    }];
+                    [self.onceDataArray removeObjectAtIndex:0];   //最新一条数据不上传
+                    if (self.onceDataArray.count > 0) {
+                        NSDictionary *dict = @{ @"data":self.onceDataArray };
+                        [NETWorkAPI uploadTravelOnce:dict callback:^(BOOL success, NSError * _Nullable error) {
+                            
+                        }];
+                    }
                 }
                 //
                 [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
@@ -427,10 +436,13 @@
         }else if (byte[2] == 0x01){    //数据域为1 表示底层没有数据
             //上传数据
             if ([NetWorkStatus isNetworkEnvironment] && [self.onceDataArray isKindOfClass:[NSMutableArray class]] && self.onceDataArray.count > 0) {
-                NSDictionary *dict = @{ @"data":self.onceDataArray };
-                [NETWorkAPI uploadTravelOnce:dict callback:^(BOOL success, NSError * _Nullable error) {
-                    
-                }];
+                [self.onceDataArray removeObjectAtIndex:0];   //最新一条数据不上传
+                if (self.onceDataArray.count > 0) {
+                    NSDictionary *dict = @{ @"data":self.onceDataArray };
+                    [NETWorkAPI uploadTravelOnce:dict callback:^(BOOL success, NSError * _Nullable error) {
+                        
+                    }];
+                }
             }
             
             //
@@ -452,17 +464,20 @@
             NSDate *baseDate = [forme dateFromString:@"1980 01 02 00 00 00"];
             NSDate *beginTime = [NSDate dateWithTimeInterval:time1 sinceDate:baseDate];
             NSDate *endTime = [NSDate dateWithTimeInterval:time2 sinceDate:baseDate];
-            forme.dateFormat = @"YYYY-MM-dd HH:mm:";
-            NSString *beginStr = [NSString stringWithFormat:@"%@00",[forme stringFromDate:beginTime]];
+//            forme.dateFormat = @"YYYY-MM-dd HH:mm:";
+//            NSString *beginStr = [NSString stringWithFormat:@"%@00",[forme stringFromDate:beginTime]];
             forme.dateFormat = @"YYYY-MM-dd HH:mm:ss";
-            beginTime = [forme dateFromString:beginStr];
+//            beginTime = [forme dateFromString:beginStr];
 //            CarA4PushDataModel *model = [[CarA4PushDataModel alloc] initWithStartTime:beginTime endTime:endTime mileage:distance useTime:pushTime];
+            NSLog(@"start = %@\nend = %@\n",[forme stringFromDate:beginTime],[forme stringFromDate:endTime]);
             
-            [self.onceDataArray addObject:@{  @"mileage":@(distance),
-                                              @"useTime":@(pushTime),
-                                              @"startTime":beginTime,
-                                              @"endTime":endTime,
-                                              @"bluetoothAddress":BLEMANAGER.currentPeripheral.identifier.UUIDString  }];
+            if(distance > 0){
+                [self.onceDataArray addObject:@{  @"mileage":@(distance),
+                                                  @"useTime":@(pushTime),
+                                                  @"startTime":[forme stringFromDate:beginTime],
+                                                  @"endTime":[forme stringFromDate:endTime],
+                                                  @"bluetoothAddress":BLEMANAGER.currentPeripheral.identifier.UUIDString  }];
+            }
             
 //            [[pushDataAPI sharedInstance].pushDateArray addObject:model];
 //            [[pushDataAPI sharedInstance] startUploadPushData]; //开始上传数据
@@ -489,7 +504,7 @@
 }
 
 #pragma mark - tableviewdelegate
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{return 8;}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{return 8;}    //8
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{return 1;}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {

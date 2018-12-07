@@ -27,7 +27,7 @@
 #import "LoginVC.h"
 #import <UMShare/UMShare.h>
 #import <UMCommon/UMCommon.h>
-//#import <UMAnalytics/MobClick.h>
+#import <UMAnalytics/MobClick.h>
 
 @interface AppDelegate ()
 @property (strong, nonatomic) NSDictionary *infoDic;

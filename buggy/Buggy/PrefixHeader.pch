@@ -78,7 +78,7 @@
 #import "deviceTypeModel.h"
 #import "frequencyWeekModel.h"
 #import "TravelInfoModel.h"
-
+#import "musicModel.h"
 #endif
 
 #define MAS_SHORTHAND

@@ -135,12 +135,10 @@
 - (void)playFromURL:(NSURL *)url{
     [super playFromURL:url];
 
-    
 //    NSURL *localUrl = [NSURL fileURLWithPath:[[NSString cacheFolderPath] stringByAppendingPathComponent:@"1111.mp3"]];
 //    if (localUrl != nil) {
 //        self.outputFile = localUrl;
 //    }
-    
     
     if (!_displaylink) {
         _displaylink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateProgress)];
@@ -176,6 +174,8 @@
     
     if (itemIndex < self.audioArray.count) {
         musicModel *model = [self.audioArray objectAtIndex:itemIndex];
+        //上传播放次数
+        [NETWorkAPI uploadMusicPlayCount:model];
         
         self.currentItemIndex = itemIndex;
         self.currentMusicImage = nil;
@@ -229,7 +229,6 @@
                 [self downloadImage:model];
             }
         }
-        
     } else { NSLog(@"超出列表长度"); }
 }
 
