@@ -213,11 +213,16 @@
             __weak typeof(self) wself = self;
             [ALERTACTIONSHEETMGR createFromVC:wself withAlertType:TYPE_ALERTVC_ALERT withTitle:NSLocalizedString(@"提示", nil) withMessage:NSLocalizedString(@"确定要退出当前账号？",nil) withCanCelTitle:NSLocalizedString(@"取消", nil) withRedBtnTitle:nil withOtherBtnTitle:NSLocalizedString(@"确定", nil) clickIndexBlock:^(NSInteger index) {
                 if (index == 2) {
+                    //关闭音乐悬浮按钮
                     [[FloatTools manager] dismissMusicRelocateView];
+                    //停止音乐
                     [MUSICMANAGER stop];
+                    //清空蓝牙数据
                     [BLEMANAGER cancelConnect];
                     BLEMANAGER.currentPeripheral = nil;
+                    //清空网络单粒数据
                     [NETWorkAPI.deviceArray removeAllObjects];
+                    NETWorkAPI.userInfo = [[userInfoModel alloc] init];
 //                    [[MainModel model] logout];
 //                    [[MainModel model] showLoginVC];
 //                    [leanCloudMgr event:YOUZI_Loginout];

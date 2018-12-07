@@ -712,7 +712,6 @@ typedef struct _CHAR{
                 //上传成功 重新请求数据
                 [self refreshHomeVcMileageData:j*10];
             }];
-            
             return;
         }else if (byte[3] == 0x8b && byte[4] == 0x0A){    //时间同步成功后 请求数据
             [BLEMANAGER writeValueForPeripheral:[BLEA4API notifySuccess]];  //请求界面数据
@@ -742,7 +741,7 @@ typedef struct _CHAR{
             }
             
             if (data.length == 19) {
-                long time1   = (byte[6]<<24) + (byte[7]<<16) + (byte[8]<<8) + byte[9];    //开始推行时间
+                long time1   = (byte[6]<<24) + (byte[7]<<16) + (byte[8]<<8) + byte[9];        //开始推行时间
                 long time2   = (byte[10]<<24) + (byte[11]<<16) + (byte[12]<<8) + byte[13];    //结束推行时间
                 int distance = (byte[14]<<8) + byte[15];
                 int pushTime = (byte[16]<<8) + byte[17];

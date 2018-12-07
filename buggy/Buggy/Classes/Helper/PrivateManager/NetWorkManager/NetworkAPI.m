@@ -114,6 +114,8 @@ static NetworkAPI* _instance = nil;
                                  };
             NSString *urlStr = [[dataTask.currentRequest.URL absoluteString] componentsSeparatedByString:@"?"].firstObject;    //去掉url后面的参数
             if ([dict[urlStr] isEqualToString:@"1"]) {
+//                id dict=[NSJSONSerialization  JSONObjectWithData:proposedResponse.data options:0 error:nil];
+//                CLNSLog(@"数据:%@  %@",dict[@"msg"],dict);
                 NSURLResponse *response = proposedResponse.response;
                 NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse*)response;
                 NSDictionary *headers = HTTPResponse.allHeaderFields;
@@ -621,7 +623,7 @@ static NetworkAPI* _instance = nil;
         [localArray addObject:@{  @"musicName":model.musicname==nil?@"":model.musicname,
                                  @"play_count":@(1)  }];
     }
-//    CLNSLog(@"%@",localArray);
+    CLNSLog(@"%@",localArray);
     NSDictionary *parma = @{@"data":localArray};
     [self.manager POST:MUSIC_PLAY_COUNT parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];

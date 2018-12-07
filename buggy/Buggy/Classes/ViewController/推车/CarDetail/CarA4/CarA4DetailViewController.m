@@ -411,7 +411,6 @@
                     if (self.onceDataArray.count > 0) {
                         NSDictionary *dict = @{ @"data":self.onceDataArray };
                         [NETWorkAPI uploadTravelOnce:dict callback:^(BOOL success, NSError * _Nullable error) {
-                            
                         }];
                     }
                 }
@@ -439,12 +438,9 @@
                 [self.onceDataArray removeObjectAtIndex:0];   //最新一条数据不上传
                 if (self.onceDataArray.count > 0) {
                     NSDictionary *dict = @{ @"data":self.onceDataArray };
-                    [NETWorkAPI uploadTravelOnce:dict callback:^(BOOL success, NSError * _Nullable error) {
-                        
-                    }];
+                    [NETWorkAPI uploadTravelOnce:dict callback:^(BOOL success, NSError * _Nullable error) { }];
                 }
             }
-            
             //
             [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
             [BLEMANAGER writeValueForPeripheral:[BLEA4API notifySuccess]];  //请求界面数据

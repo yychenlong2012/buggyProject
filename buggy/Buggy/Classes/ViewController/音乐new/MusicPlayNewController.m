@@ -70,22 +70,20 @@
 
 //请求已绑定的推车信息
 -(void)requestDeviceData{
-    [NETWorkAPI requestDeviceListCallback:^(NSArray * _Nullable modelArray, NSInteger currentPage, NSError * _Nullable error) {
-        if ([modelArray isKindOfClass:[NSArray class]]) {
-            //判断音乐蓝牙名
-            if (BLEMANAGER.currentPeripheral == nil) {   //蓝牙未连接则选取最新的已绑定推车作为音乐蓝牙标识
-                DeviceModel *model = modelArray.firstObject;
-                [self musicBleNameWith:model];
-            }else{  //否则选取已连接的蓝牙作为标识
-                for (DeviceModel *model in modelArray) {
-                    if ([BLEMANAGER.currentPeripheral.identifier.UUIDString isEqualToString:model.bluetoothuuid]) {
-                        [self musicBleNameWith:model];
-                        return ;
-                    }
+    if (NETWorkAPI.deviceArray.count > 0) {
+        //判断音乐蓝牙名
+        if (BLEMANAGER.currentPeripheral == nil) {   //蓝牙未连接则选取最新的已绑定推车作为音乐蓝牙标识
+            DeviceModel *model = NETWorkAPI.deviceArray.firstObject;
+            [self musicBleNameWith:model];
+        }else{  //否则选取已连接的蓝牙作为标识
+            for (DeviceModel *model in NETWorkAPI.deviceArray) {
+                if ([BLEMANAGER.currentPeripheral.identifier.UUIDString isEqualToString:model.bluetoothuuid]) {
+                    [self musicBleNameWith:model];
+                    return ;
                 }
             }
         }
-    }];
+    }
 }
 
 -(void)musicBleNameWith:(DeviceModel *)model{
