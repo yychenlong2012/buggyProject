@@ -62,7 +62,6 @@
 //    if ([NETWorkAPI.userInfo isKindOfClass:[userInfoModel class]]) {
         [self requestParentData];
 //    }
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -78,6 +77,8 @@
             [self requestDeviceData];
         });
 //    }
+    
+    [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
 }
 
 //请求已绑定的推车信息
@@ -107,22 +108,28 @@
 
 //获取父母信息
 -(void)requestParentData{
-    [NETWorkAPI requestUserDataCallback:^(id  _Nullable model, NSError * _Nullable error) {
-        if (model != nil && [model isKindOfClass:[userInfoModel class]] && error == nil) {
-            userInfoModel *userModel = (userInfoModel *)model;
-            NETWorkAPI.userInfo = userModel;
-            if ([userModel.nickname isKindOfClass:[NSString class]]) {
-                self.userNameLabel.text = userModel.nickname;
+    if (NETWorkAPI.userInfo != nil) {
+        [self displayParentData];
+    }else{
+        [NETWorkAPI requestUserDataCallback:^(id  _Nullable model, NSError * _Nullable error) {
+            if (model == nil) {
+                return ;
             }
-            
-            if ([userModel.header isKindOfClass:[NSString class]]) {
-                NSURL *url = [NSURL URLWithString:userModel.header];
-                if (url) {
-                    [self.userImageView sd_setImageWithURL:url];
-                }
-            }
+            [self displayParentData];
+        }];
+    }
+}
+
+-(void)displayParentData{
+    if ([NETWorkAPI.userInfo.nickname isKindOfClass:[NSString class]]) {
+        self.userNameLabel.text = NETWorkAPI.userInfo.nickname;
+    }
+    if ([NETWorkAPI.userInfo.header isKindOfClass:[NSString class]]) {
+        NSURL *url = [NSURL URLWithString:NETWorkAPI.userInfo.header];
+        if (url) {
+            [self.userImageView sd_setImageWithURL:url];
         }
-    }];
+    }
 }
 
 //新手引导

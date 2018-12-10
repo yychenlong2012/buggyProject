@@ -102,6 +102,7 @@
 
 -(void)dealloc{
     NSLog(@"dealloc");
+    [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
 }
 
 #pragma mark - action

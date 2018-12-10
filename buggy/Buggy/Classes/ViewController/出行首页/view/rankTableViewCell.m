@@ -11,6 +11,7 @@
 @implementation rankTableViewCell{
     CAShapeLayer *shapeLayer;
 }
+
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.userIcon = [[UIImageView alloc] init];
@@ -36,7 +37,6 @@
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    
     self.userIcon.frame = CGRectMake(25, 25, 40, 40);
     UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:self.userIcon.bounds];
     shapeLayer.path = path.CGPath;
@@ -47,6 +47,7 @@
     self.time.frame = CGRectMake(ScreenWidth-125, 0, 100, 13);
     self.time.centerY = self.userIcon.centerY;
 }
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

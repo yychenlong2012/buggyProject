@@ -59,7 +59,7 @@ typedef void(^appControlBlock)(NSString * _Nullable version, BOOL isHidenVersion
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NetworkAPI : NSObject
-@property (nonatomic,strong) userInfoModel *userInfo;
+@property (nonatomic,strong) userInfoModel *userInfo;                    //用户信息
 @property (nonatomic,strong) NSMutableArray <DeviceModel *>*deviceArray;  //已绑定的推车信息
 @property (nonatomic,strong) AFHTTPSessionManager * manager;
 

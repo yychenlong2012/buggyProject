@@ -645,6 +645,7 @@ static NetworkAPI* _instance = nil;
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         CLNSLog(@"用户信息：%@ 类型：%@\n",dict[@"msg"],dict);
         userInfoModel *model = [userInfoModel mj_objectWithKeyValues:dict[@"data"]];
+        self.userInfo = model;
         callback(model,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(nil,error);

@@ -45,7 +45,7 @@
 @property (strong,nonatomic) UISlider *volumeSlider;          //音量调节滑块
 @property (strong,nonatomic) CLImageView *like;               //收藏按钮
 @property (strong,nonatomic) UIButton *beginOrPause;          //开始或暂停
-@property (strong,nonatomic) lrcScrollView *lrcView;           //歌词view
+@property (strong,nonatomic) lrcScrollView *lrcView;          //歌词view
 @end
 
 @implementation MusicPlayNewController
