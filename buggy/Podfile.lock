@@ -23,7 +23,7 @@ PODS:
   - FreeStreamer (3.8.2):
     - Reachability (~> 3.0)
   - FSCalendar (2.7.9)
-  - lottie-ios (2.1.5)
+  - lottie-ios (2.5.2)
   - MagicalRecord (2.3.2):
     - MagicalRecord/Core (= 2.3.2)
   - MagicalRecord/Core (2.3.2)
@@ -40,34 +40,34 @@ PODS:
   - SDWebImage/Core (4.0.0)
   - TMCache (2.1.0)
   - UICountingLabel (1.2.0)
-  - UMCAnalytics (5.4.1):
+  - UMCAnalytics (5.5.2):
     - UMCCommon
-  - UMCCommon (1.4.1)
+  - UMCCommon (1.5.3)
   - UMCSecurityPlugins (1.0.6)
-  - UMCShare/Core (6.8.1):
+  - UMCShare/Core (6.9.5):
     - UMCCommon
-  - UMCShare/Social/ReducedQQ (6.8.1):
-    - UMCCommon
-    - UMCShare/Core
-  - UMCShare/Social/ReducedSina (6.8.1):
+  - UMCShare/Social/ReducedQQ (6.9.5):
     - UMCCommon
     - UMCShare/Core
-  - UMCShare/Social/ReducedWeChat (6.8.1):
+  - UMCShare/Social/ReducedSina (6.9.5):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/Social/ReducedWeChat (6.9.5):
     - UMCCommon
     - UMCShare/Core
 
 DEPENDENCIES:
-  - AFNetworking
+  - AFNetworking (~> 3.1.0)
   - DZNEmptyDataSet (~> 1.7.2)
-  - FMDB
-  - FMDBHelpers
-  - FreeStreamer
-  - FSCalendar
+  - FMDB (~> 2.6.2)
+  - FMDBHelpers (~> 0.0.7)
+  - FreeStreamer (~> 3.8.2)
+  - FSCalendar (~> 2.7.9)
   - lottie-ios
   - MagicalRecord (~> 2.3.0)
   - Masonry
   - MBProgressHUD (~> 0.9.2)
-  - MJExtension
+  - MJExtension (~> 3.0.13)
   - MJRefresh (~> 3.1.0)
   - MMPopupView (~> 1.7)
   - pop
@@ -88,7 +88,7 @@ SPEC CHECKSUMS:
   FMDBHelpers: c6bd06c59049d51d9072180f253b6ee53f695bf3
   FreeStreamer: 2847699abbdbd8fb1e2909fd13d5047972cb44d3
   FSCalendar: a04b09f16f811bc92e82f3cf852a15225233b9d5
-  lottie-ios: 836cdbba92f62f3c6a00e37a4ce485321fe317cf
+  lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
@@ -100,11 +100,11 @@ SPEC CHECKSUMS:
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   TMCache: 95ebcc9b3c7e90fb5fd8fc3036cba3aa781c9bed
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
-  UMCAnalytics: 44e0bb2f442b7aaf97d1c924b58798b612f2c13d
-  UMCCommon: ed0b882a939c45850f6803a5837698572a3e9b96
+  UMCAnalytics: 6654fd3c8201ff6da5c86a3ae29cd5c8436d3b7b
+  UMCCommon: 016af43c0f769feb1ae1861d65aaf2b23b89c9c7
   UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
-  UMCShare: d63008fcea9b2e1e52bc62816b1611ee7d5af50e
+  UMCShare: 552b29753f1b4da87b51d96545ed19e6263df397
 
-PODFILE CHECKSUM: e852779f5ef5141661d598f350362cda80bf8043
+PODFILE CHECKSUM: d2d08bb2a1aecd79753dfdaf0393374664a0c747
 
 COCOAPODS: 1.4.0
