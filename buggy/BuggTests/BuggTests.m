@@ -8,6 +8,8 @@
 
 #import <XCTest/XCTest.h>
 
+#import "AppDelegate.h"
+
 @interface BuggTests : XCTestCase
 
 @end
@@ -32,6 +34,10 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
     }];
+}
+
+-(void)testNetwork{
+    
 }
 
 @end

@@ -108,27 +108,21 @@
 
 //获取父母信息
 -(void)requestParentData{
-    if (NETWorkAPI.userInfo != nil) {
-        [self displayParentData];
-    }else{
+    if (NETWorkAPI.userInfo == nil) {
         [NETWorkAPI requestUserDataCallback:^(id  _Nullable model, NSError * _Nullable error) {
             if (model == nil) {
                 return ;
             }
-            [self displayParentData];
+            if ([NETWorkAPI.userInfo.nickname isKindOfClass:[NSString class]]) {
+                self.userNameLabel.text = NETWorkAPI.userInfo.nickname;
+            }
+            if ([NETWorkAPI.userInfo.header isKindOfClass:[NSString class]]) {
+                NSURL *url = [NSURL URLWithString:NETWorkAPI.userInfo.header];
+                if (url) {
+                    [self.userImageView sd_setImageWithURL:url];
+                }
+            }
         }];
-    }
-}
-
--(void)displayParentData{
-    if ([NETWorkAPI.userInfo.nickname isKindOfClass:[NSString class]]) {
-        self.userNameLabel.text = NETWorkAPI.userInfo.nickname;
-    }
-    if ([NETWorkAPI.userInfo.header isKindOfClass:[NSString class]]) {
-        NSURL *url = [NSURL URLWithString:NETWorkAPI.userInfo.header];
-        if (url) {
-            [self.userImageView sd_setImageWithURL:url];
-        }
     }
 }
 
@@ -646,6 +640,12 @@
         //头像
         UIImageView *userIcon = [[UIImageView alloc] initWithFrame:CGRectMake((ScreenWidth-RealWidth(75))/2, RealWidth(64.5), RealWidth(75), RealWidth(75))];
         userIcon.image = ImageNamed(@"home_default");
+        if (NETWorkAPI.userInfo != nil && [NETWorkAPI.userInfo.header isKindOfClass:[NSString class]]) {
+            NSURL *url = [NSURL URLWithString:NETWorkAPI.userInfo.header];
+            if (url) {
+                [userIcon sd_setImageWithURL:url];
+            }
+        }
         self.userImageView = userIcon;
         userIcon.userInteractionEnabled = YES;
         [_topHeaderView addSubview:userIcon];
@@ -672,6 +672,9 @@
         label.extraWidth = 15;  //额外点击区域
         self.userNameLabel = label;
         label.text = NSLocalizedString(@"小宝贝的守护者", nil);
+        if (NETWorkAPI.userInfo != nil && [NETWorkAPI.userInfo.nickname isKindOfClass:[NSString class]]) {
+            label.text = NETWorkAPI.userInfo.nickname;
+        }
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
         label.textColor = [UIColor colorWithMacHexString:@"#131313"];

@@ -317,10 +317,10 @@ static NetworkAPI* _instance = nil;
                 //平台错误
                 return ;
         }
-        NSDictionary *parma = @{   @"openid":openID,
-                                  @"nickName":resp.name,
-                                  @"platform":platform,
-                                  @"header":resp.iconurl   };
+        NSDictionary *parma = @{   @"openid":openID==nil?@"":openID,
+                                   @"nickName":resp.name==nil?@"":resp.name,
+                                   @"platform":platform==nil?@"":platform,
+                                   @"header":resp.iconurl==nil?@"":resp.iconurl   };
         [self.manager POST:THIRD_PART_LOGIN parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
             CLNSLog(@"第三方登录：%@ 类型：%@\n",dict[@"msg"],dict);
@@ -338,7 +338,6 @@ static NetworkAPI* _instance = nil;
 
 //登录成功之后的数据设置
 -(void)loginSeccessWithData:(NSDictionary *)dict isRegister:(BOOL)isRegister callback:(HomeDataBlock)callback{
-    
     NSDictionary *data = dict[@"data"];
     if ([data isKindOfClass:[NSDictionary class]]) {
         //保存token

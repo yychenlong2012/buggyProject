@@ -60,6 +60,9 @@
     self.imageviewTopMargin.constant = navigationH;
 }
 
+-(void)dealloc{
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
