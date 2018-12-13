@@ -14,9 +14,10 @@
 #import "RegisterVC.h"
 #import "setBabyBirthdayVC.h"
 #import "ScreenMgr.h"
-#import "AYReSetPasswordVC.h"
 #import "LoginViewModel.h"
 #import "UserProtocol.h"
+#import "verifyCodeViewController.h"
+
 @interface LoginVC ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *weixinBtn;
@@ -135,7 +136,7 @@
 }
 #pragma mark ===  手机号码登录
 - (IBAction)onLogin:(id)sender {
-    [NETWorkAPI loginWithMobilePhone:self.tfPhoneNum.text password:self.tfPassword.text callback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
+    [NETWorkAPI loginWithMobilePhone:self.tfPhoneNum.text password:self.tfPassword.text callback:^(homeDataModel * _Nullable model, BOOL isfirstLogin, NSError * _Nullable error) {
         
     }];
 }
@@ -162,68 +163,64 @@
 #pragma mark ====  第三方登录
 - (IBAction)onLoginWeixin:(id)sender {
     [self resignNameAndPasswordFirstResponder];
-    [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_WechatSession callback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
-        
+    [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_WechatSession callback:^(homeDataModel * _Nullable model, BOOL isfirstLogin, NSError * _Nullable error) {
+        if (isfirstLogin) {
+            verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
+            vc.view.backgroundColor = kWhiteColor;
+            vc.verifyType = BAND_PHONE_TYPE;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }];
-//    [LoginViewModel loginWeiXincomplete:^(BOOL isNew) {
-//        if (isNew) {  //如果是新用户则进入添加宝宝界面
-//            //添加宝宝信息
-//            setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
-//            birthday.isResetData = NO;
-//            birthday.sourceVC = self;
-//            birthday.skip.hidden = NO;
-//            birthday.view.backgroundColor = kWhiteColor;
-//            [self.navigationController pushViewController:birthday animated:YES];
-//        }
-//    }];
 }
 
 - (IBAction)onLoginWeibo:(id)sender {
     [self resignNameAndPasswordFirstResponder];
-    [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_Sina callback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
-        
+    [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_Sina callback:^(homeDataModel * _Nullable model, BOOL isfirstLogin, NSError * _Nullable error) {
+        if (isfirstLogin) {
+            verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
+            vc.view.backgroundColor = kWhiteColor;
+            vc.verifyType = BAND_PHONE_TYPE;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }];
-//    [LoginViewModel loginWeiBocomplete:^(BOOL isNew) {
-//        if (isNew) {
-//            //添加宝宝信息
-//            setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
-//            birthday.isResetData = NO;
-//            birthday.sourceVC = self;
-//            birthday.skip.hidden = NO;
-//            birthday.view.backgroundColor = kWhiteColor;
-//            [self.navigationController pushViewController:birthday animated:YES];
-//        }
-//    }];
 }
 
 - (IBAction)onLoginQQ:(id)sender {
     [self resignNameAndPasswordFirstResponder];
-    [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_QQ callback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
-        
+    [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_QQ callback:^(homeDataModel * _Nullable model, BOOL isfirstLogin, NSError * _Nullable error) {
+        if (isfirstLogin) {
+            verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
+            vc.view.backgroundColor = kWhiteColor;
+            vc.verifyType = BAND_PHONE_TYPE;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }];
-//    [LoginViewModel loginQQcomplete:^(BOOL isNew) {
-//        if (isNew) {
-//            //添加宝宝信息
-//            setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];
-//            birthday.isResetData = NO;
-//            birthday.sourceVC = self;
-//            birthday.skip.hidden = NO;
-//            birthday.view.backgroundColor = kWhiteColor;
-//            [self.navigationController pushViewController:birthday animated:YES];
-//        }
-//    }];
 }
+
 
 // 忘记密码
 - (IBAction)resetPassword:(id)sender {
-    RegisterVC *VC= [[RegisterVC alloc]init];
-    VC.isRePwd = YES;
-    [self.navigationController pushViewController:VC animated:YES]; 
+//    RegisterVC *VC= [[RegisterVC alloc]init];
+//    VC.isRePwd = YES;
+//    [self.navigationController pushViewController:VC animated:YES];
+    
+    verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
+    vc.view.backgroundColor = kWhiteColor;
+    vc.verifyType = RESET_PASSWORD_TYPE;
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 // 注册
 - (IBAction)onRegister:(id)sender {
-    RegisterVC *vc = [[RegisterVC alloc]init];
-    vc.isRePwd = NO;
+//    RegisterVC *vc = [[RegisterVC alloc]init];
+//    vc.isRePwd = NO;
+//    [self.navigationController pushViewController:vc animated:YES];
+//    getVerifyCodeViewController *vc = [[getVerifyCodeViewController alloc] init];
+//    vc.view.backgroundColor = kWhiteColor;
+    
+    verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
+    vc.view.backgroundColor = kWhiteColor;
+    vc.verifyType = REGISTER_TYPE;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

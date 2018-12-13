@@ -48,7 +48,7 @@ typedef enum : NSUInteger {
 } SCENE_MUSIC_TYPE;      //操作类型
 
 
-typedef void(^HomeDataBlock)(homeDataModel * _Nullable model, NSError * _Nullable error);    //首页数据返回block
+typedef void(^HomeDataBlock)(homeDataModel * _Nullable model, BOOL isfirstLogin,NSError * _Nullable error);    //首页数据返回block   isfirstLogin 用于表明三方登陆是否为首次登陆
 typedef void(^ModelBlock)(id _Nullable model, NSError * _Nullable error);
 typedef void(^DataListBlock)(NSArray * _Nullable modelArray, NSInteger currentPage, NSError * _Nullable error);
 typedef void(^stringDataBlock)(NSString * _Nullable msg, NSError * _Nullable error);
@@ -66,16 +66,20 @@ NS_ASSUME_NONNULL_BEGIN
 +(instancetype)shareInstance;
 
 #pragma mark - 登录注册
+//获取验证码
+-(void)getVerifyCodeWithPhoneNum:(NSString *)phoneNum type:(NSString *)type callback:(stringDataBlock)callback;
 //验证登录状态
 -(void)checkToken;
 //手机登录
 -(void)loginWithMobilePhone:(NSString *)phone password:(NSString *)password callback:(HomeDataBlock _Nonnull)callback;
 //手机注册
--(void)registerWithMobilePhone:(NSString *)phone password:(NSString *)password callback:(HomeDataBlock _Nonnull)callback;
+-(void)registerWithMobilePhone:(NSString *)phone password:(NSString *)password verifyCode:(NSString *)code callback:(HomeDataBlock _Nonnull)callback;
 //重置密码
--(void)resetPassword:(NSString *)password mobilePhone:(NSString *)phone callback:(statusBlock _Nonnull)callback;
+-(void)resetPassword:(NSString *)password mobilePhone:(NSString *)phone verifyCode:(NSString *)code callback:(statusBlock _Nonnull)callback;
 //退出登录
 -(void)logoutWithCallback:(statusBlock _Nonnull)callback;
+//绑定手机
+-(void)bindPhoneNumber:(NSString *)phoneNum verifyCode:(NSString *)code callback:(HomeDataBlock _Nonnull)callback;
 //第三方登录
 - (void)loginToGetUserInfoForPlatform:(UMSocialPlatformType)platformType callback:(HomeDataBlock _Nonnull)callback;
 #pragma mark - 上传天气

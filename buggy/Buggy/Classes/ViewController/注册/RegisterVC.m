@@ -8,17 +8,14 @@
 
 #import "RegisterVC.h"
 #import "UIColor+Additions.h"
-#import "AYReSetPasswordVC.h" //修改密码
-//#import "AddBirthdayVC.h"
 #import "setBabyBirthdayVC.h"
 #import "CLImageView.h"
 @interface RegisterVC (){
-//    AVUser *_user;
     NSTimer *timer;
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnTopConstraint;   //确定按钮顶部约束
 @property (nonatomic,strong) UIView *naviView;             //自定义导航栏背景view
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentTop;    //内容距离顶部的高度
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentTop;  //内容距离顶部的高度
 
 @end
 
@@ -26,14 +23,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@",[self class]);
+    
     [self.view addSubview:self.naviView];
     self.contentTop.constant = navigationH + 30;
-//    _user = [AVUser user];
     if (self.isRePwd) {
         self.view3.alpha = 0;
         [self.commitbtn setTitle:NSLocalizedString(@"确定修改", nil) forState:UIControlStateNormal];
     }
+    
+    self.btnVerfigy.hidden = YES;
 //    [leanCloudMgr event:YOUZI_Register];
     self.view1.layer.borderColor = KHexRGB(0xE04E63).CGColor;
     self.view1.layer.borderWidth = 0.5;
@@ -45,7 +43,7 @@
     
     self.tfPhoneNum.placeholder = NSLocalizedString(@"输入手机号",nil);
     self.tfPassword.placeholder = NSLocalizedString(@"输入6-22位密码",nil);
-    self.tfVerifyCode.placeholder = NSLocalizedString(@"输入验证码",nil);
+    self.tfVerifyCode.placeholder = NSLocalizedString(@"输入短信验证码",nil);
     [self.btnVerfigy setTitle:NSLocalizedString(@"验证码",nil) forState:UIControlStateNormal];
     [self.commitbtn setTitle:NSLocalizedString(@"下一步",nil) forState:UIControlStateNormal];
 }
@@ -58,18 +56,17 @@
 - (IBAction)onNext:(id)sender {
     
     //验证验证码长度
-    if (self.tfVerifyCode.text.length != 6){
+    if (![self.tfVerifyCode.text isEqualToString:self.verifyCode]){
         [MBProgressHUD showToast:NSLocalizedString(@"验证码错误", nil)];
         return;
     }
     
     if (self.isRePwd) {//修改密码
-
-        AYReSetPasswordVC *VC = [AYReSetPasswordVC new];
-        VC.code = self.tfVerifyCode.text;
-        VC.userID = self.tfPhoneNum.text;
+//        AYReSetPasswordVC *VC = [AYReSetPasswordVC new];
+        reSetPasswordViewController *VC = [[reSetPasswordViewController alloc] init];
+        VC.verifyCode = self.tfVerifyCode.text;
+        VC.phoneNumber = self.tfPhoneNum.text;
         [self.navigationController pushViewController:VC animated:YES];
-        
     }else{//注册
 
         //检验密码格式
@@ -79,12 +76,12 @@
         }
         
         //检验手机号格式
-        if (![AYCommon isValidateMobile:self.tfPhoneNum.text]) {
-            [MBProgressHUD showToast:NSLocalizedString(@"输入正确的手机号", nil)];
-            return;
-        }
+//        if (![AYCommon isValidateMobile:self.tfPhoneNum.text]) {
+//            [MBProgressHUD showToast:NSLocalizedString(@"输入正确的手机号", nil)];
+//            return;
+//        }
         
-        [NETWorkAPI registerWithMobilePhone:self.tfPhoneNum.text password:self.tfPassword.text callback:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
+        [NETWorkAPI registerWithMobilePhone:self.phoneNumber password:self.tfPassword.text verifyCode:self.tfVerifyCode.text callback:^(homeDataModel * _Nullable model,BOOL is, NSError * _Nullable error) {
             if (model != nil && error == nil) {
                 //添加宝宝信息
                 setBabyBirthdayVC *birthday = [[setBabyBirthdayVC alloc] init];

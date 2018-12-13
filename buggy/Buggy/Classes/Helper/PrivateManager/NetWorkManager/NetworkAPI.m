@@ -65,12 +65,14 @@
 #define CRASH_LOG @""API_HEADER"/Tp/index.php/App/public/add_crash.html"                //崩溃信息
 #define THIRD_PART_LOGIN @""API_HEADER"/Tp/index.php/app/login/qq_weixin_login"         //第三方登录
 #define MUSIC_PLAY_COUNT @""API_HEADER"/Tp/index.php/App/Music/update_play_count"       //上传音乐播放次数
+#define GET_VERIFY_CODE @""API_HEADER"/Tp/index.php/App/Login/send_code.html"           //获取验证码
+#define BIND_PHONE_NUM @""API_HEADER"/Tp/index.php/App/Login/bind_phone.html"           //绑定手机
 
 
 #define CLNSLog(format,...) printf("%s",[[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String])
 @interface NetworkAPI()
 
-@property (nonatomic,strong) TencentOAuth *tencent;
+@property (nonatomic,strong) NSMutableDictionary *thirdPartData;
 @end
 @implementation NetworkAPI
 
@@ -140,6 +142,29 @@ static NetworkAPI* _instance = nil;
 }
 
 #pragma mark - 注册登录
+//获取验证码
+-(void)getVerifyCodeWithPhoneNum:(NSString *)phoneNum type:(NSString *)type callback:(stringDataBlock)callback{
+    [self.manager POST:GET_VERIFY_CODE parameters:@{@"phoneNumber":phoneNum ,@"type":type} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
+        NSDictionary *data = dict[@"data"];
+        NSInteger code = [data[@"code"] integerValue];
+        switch ([dict[@"status"] integerValue]) {
+            case 1:{   //频率过高 或者已注册
+                [MBProgressHUD showToast:NSLocalizedString(dict[@"msg"], nil)];
+            }break;
+            case 0:{
+                callback([NSString stringWithFormat:@"%ld",code],nil);
+            }break;
+            default:{
+               
+            }
+        }
+        CLNSLog(@"验证码:%@  %@",dict[@"msg"],dict);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        callback(nil,error);
+    }];
+}
+
 //验证登录状态
 -(void)uploadRefreshToken{
     NSDictionary *dict = @{ @"refresh_token":KUserDefualt_Get(USER_REFRESH_TOKEN) };
@@ -219,14 +244,15 @@ static NetworkAPI* _instance = nil;
            [MBProgressHUD showError:dict[@"msg"]];
        }
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-       callback(nil,error);
+       callback(nil,NO,error);
    }];
 }
 
 //手机注册
--(void)registerWithMobilePhone:(NSString *)phone password:(NSString *)password callback:(HomeDataBlock _Nonnull)callback{
+-(void)registerWithMobilePhone:(NSString *)phone password:(NSString *)password verifyCode:(NSString *)code callback:(HomeDataBlock _Nonnull)callback{
     NSDictionary *dict = @{  @"phoneNumber":phone==nil?@"":phone,
-                            @"password":password==nil?@"":password  };
+                            @"password":password==nil?@"":password,
+                             @"code":code==nil?@"":code };
     [self.manager POST:REGISTER parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
        id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
        CLNSLog(@"手机注册：%@ 类型：%@\n",dict[@"msg"],dict);
@@ -236,14 +262,15 @@ static NetworkAPI* _instance = nil;
            [MBProgressHUD showError:dict[@"msg"]];
        }
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-       callback(nil,error);
+       callback(nil,NO,error);
    }];
 }
 
 //重置密码
--(void)resetPassword:(NSString *)password mobilePhone:(NSString *)phone callback:(statusBlock _Nonnull)callback{
+-(void)resetPassword:(NSString *)password mobilePhone:(NSString *)phone verifyCode:(NSString *)code callback:(statusBlock _Nonnull)callback{
     NSDictionary *dict = @{   @"phoneNumber":phone==nil?@"":phone,
-                             @"password":password==nil?@"":password  };
+                             @"password":password==nil?@"":password,
+                              @"code":code==nil?@"":code   };
     [self.manager POST:RESET_PASSWORD parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         CLNSLog(@"重置密码：%@ 类型：%@\n",dict[@"msg"],dict);
@@ -254,29 +281,37 @@ static NetworkAPI* _instance = nil;
             [MBProgressHUD showError:dict[@"msg"]];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-           callback(NO,error);
+        callback(NO,error);
     }];
 }
 
 //退出登录
 -(void)logoutWithCallback:(statusBlock _Nonnull)callback{
-    NSDictionary *dict = @{ @"refresh_token":KUserDefualt_Get(USER_REFRESH_TOKEN)==nil?@"":KUserDefualt_Get(USER_REFRESH_TOKEN) };
-    [self.manager POST:LOGOUT parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
-        CLNSLog(@"退出登录：%@ 类型：%@\n",dict[@"msg"],dict);
-        if ([dict[@"status"] integerValue] == 0) {
-            [MBProgressHUD showSuccess:@"退出登录成功"];
-            KUserDefualt_Set(@"", USER_LOGIN_TOKEN);    //退出登录 清空token
-            KUserDefualt_Set(@"", USER_REFRESH_TOKEN);
-            KUserDefualt_Set(@"", USER_ID_NEW);
-            [self resetHTTPHeader];
-            callback(YES,nil);
-        }else{
-            [MBProgressHUD showError:dict[@"msg"]];
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        callback(NO,error);
-    }];
+    [MBProgressHUD showSuccess:@"退出登录成功"];
+    KUserDefualt_Set(@"", USER_LOGIN_TOKEN);    //退出登录 清空token
+    KUserDefualt_Set(@"", USER_REFRESH_TOKEN);
+    KUserDefualt_Set(@"", USER_ID_NEW);
+    [self resetHTTPHeader];
+    callback(YES,nil);
+    
+    
+//    NSDictionary *dict = @{ @"refresh_token":KUserDefualt_Get(USER_REFRESH_TOKEN)==nil?@"":KUserDefualt_Get(USER_REFRESH_TOKEN) };
+//    [self.manager POST:LOGOUT parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
+//        CLNSLog(@"退出登录：%@ 类型：%@\n",dict[@"msg"],dict);
+//        if ([dict[@"status"] integerValue] == 0) {
+//            [MBProgressHUD showSuccess:@"退出登录成功"];
+//            KUserDefualt_Set(@"", USER_LOGIN_TOKEN);    //退出登录 清空token
+//            KUserDefualt_Set(@"", USER_REFRESH_TOKEN);
+//            KUserDefualt_Set(@"", USER_ID_NEW);
+//            [self resetHTTPHeader];
+//            callback(YES,nil);
+//        }else{
+////            [MBProgressHUD showError:dict[@"msg"]];
+//        }
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        callback(NO,error);
+//    }];
 }
 
 //第三方登录
@@ -317,22 +352,53 @@ static NetworkAPI* _instance = nil;
                 //平台错误
                 return ;
         }
-        NSDictionary *parma = @{   @"openid":openID==nil?@"":openID,
-                                   @"nickName":resp.name==nil?@"":resp.name,
-                                   @"platform":platform==nil?@"":platform,
-                                   @"header":resp.iconurl==nil?@"":resp.iconurl   };
+//        NSDictionary *parma = @{   @"openid":openID==nil?@"":openID,
+//                                   @"nickName":resp.name==nil?@"":resp.name,
+//                                   @"platform":platform==nil?@"":platform,
+//                                   @"header":resp.iconurl==nil?@"":resp.iconurl   };
+        NSDictionary *parma = @{  @"openid":@"11111112",
+                                   @"nickName":@"chenlong",
+                                   @"platform":@"qq",
+                                   @"header":@""  };
+        self.thirdPartData = [NSMutableDictionary dictionaryWithDictionary:parma];
         [self.manager POST:THIRD_PART_LOGIN parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
             CLNSLog(@"第三方登录：%@ 类型：%@\n",dict[@"msg"],dict);
-            if ([dict[@"status"] integerValue] == 7) {
-                [self loginSeccessWithData:dict isRegister:NO callback:callback];
-            }else{
-                [MBProgressHUD showError:@"登录失败"];
+            switch ([dict[@"status"] integerValue]) {
+                case 10:{    //首次登陆 强制绑定手机
+                    callback(nil,YES,nil);
+                }break;
+                case 7:{
+                    [self loginSeccessWithData:dict isRegister:NO callback:callback];
+                }break;
+                default:{
+                    [MBProgressHUD showError:@"登录失败"];
+                }
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            callback(nil,error);
+            callback(nil,NO,error);
             [MBProgressHUD showError:@"网络错误!"];
         }];
+    }];
+}
+
+//第三方登录后绑定手机
+-(void)bindPhoneNumber:(NSString *)phoneNum verifyCode:(NSString *)code callback:(HomeDataBlock)callback{
+    [self.thirdPartData setValue:phoneNum forKey:@"phoneNumber"];
+    [self.thirdPartData setValue:code forKey:@"code"];
+    [self.manager POST:BIND_PHONE_NUM parameters:self.thirdPartData progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
+        id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
+        CLNSLog(@"绑定手机：%@ 类型：%@\n",dict[@"msg"],dict);
+        switch ([dict[@"status"] integerValue]) {
+            case 7:{
+                [self loginSeccessWithData:dict isRegister:YES callback:callback];
+            }break;
+            default:{
+                [MBProgressHUD showError:dict[@"msg"]];
+            }
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        callback(nil,NO,nil);
     }];
 }
 
@@ -360,7 +426,7 @@ static NetworkAPI* _instance = nil;
         //主页数据
         homeDataModel *model = [homeDataModel mj_objectWithKeyValues:data[@"data"]];
         if (callback) {
-            callback(model,nil);
+            callback(model,NO,nil);
         }
     }
 }
@@ -384,9 +450,9 @@ static NetworkAPI* _instance = nil;
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         CLNSLog(@"HomeData：%@ 类型：%@\n",dict[@"msg"],dict);
         homeDataModel *model = [homeDataModel mj_objectWithKeyValues:dict[@"data"]];
-        homeData(model,nil);
+        homeData(model,NO,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        homeData(nil,error);
+        homeData(nil,NO,error);
     }];
 }
 

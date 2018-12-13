@@ -61,6 +61,8 @@
 #import "NSString+IsNull.h"
 #import "NSObject+ShowErrorMessage.h"
 #import "CALayer+Transition.h"
+#import "MQVerCodeImageView.h"
+#import "reSetPasswordViewController.h"
 
 //模型
 #import "homeDataModel.h"

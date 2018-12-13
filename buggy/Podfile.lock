@@ -27,7 +27,7 @@ PODS:
   - MagicalRecord (2.3.2):
     - MagicalRecord/Core (= 2.3.2)
   - MagicalRecord/Core (2.3.2)
-  - Masonry (1.0.1)
+  - Masonry (1.1.0)
   - MBProgressHUD (0.9.2)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.12)
@@ -65,7 +65,6 @@ DEPENDENCIES:
   - FSCalendar (~> 2.7.9)
   - lottie-ios
   - MagicalRecord (~> 2.3.0)
-  - Masonry
   - MBProgressHUD (~> 0.9.2)
   - MJExtension (~> 3.0.13)
   - MJRefresh (~> 3.1.0)
@@ -90,7 +89,7 @@ SPEC CHECKSUMS:
   FSCalendar: a04b09f16f811bc92e82f3cf852a15225233b9d5
   lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
-  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
@@ -105,6 +104,6 @@ SPEC CHECKSUMS:
   UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
   UMCShare: 552b29753f1b4da87b51d96545ed19e6263df397
 
-PODFILE CHECKSUM: d2d08bb2a1aecd79753dfdaf0393374664a0c747
+PODFILE CHECKSUM: c1d2977ebdc8ef290f26b0fa44a285920bea7d45
 
 COCOAPODS: 1.4.0

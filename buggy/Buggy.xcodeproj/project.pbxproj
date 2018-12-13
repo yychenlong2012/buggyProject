@@ -13,7 +13,10 @@
 		4E2BF9FF1F458AD800BAAFB9 /* CALayer+Transition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2BF9FE1F458AD800BAAFB9 /* CALayer+Transition.m */; };
 		4E2F552621A5503000404A07 /* TencentOpenApi_IOS_Bundle.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B1BBD401E2F686C00995017 /* TencentOpenApi_IOS_Bundle.bundle */; };
 		4E2F552721A5504800404A07 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B1BBADB1E2F657000995017 /* TencentOpenAPI.framework */; };
-		4E3CA84B1F34095C00C40ED0 /* AYReSetPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3CA84A1F34095C00C40ED0 /* AYReSetPasswordVC.m */; };
+		4E384CC821C2082C0039FD1A /* reSetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E384CC621C2082C0039FD1A /* reSetPasswordViewController.m */; };
+		4E384CC921C2082C0039FD1A /* reSetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E384CC721C2082C0039FD1A /* reSetPasswordViewController.xib */; };
+		4E384CCD21C23FAA0039FD1A /* bandPhoneNumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E384CCB21C23FAA0039FD1A /* bandPhoneNumViewController.m */; };
+		4E384CCE21C23FAA0039FD1A /* bandPhoneNumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E384CCC21C23FAA0039FD1A /* bandPhoneNumViewController.xib */; };
 		4E41B3EA219BFEC600918C91 /* babyInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E41B3E9219BFEC600918C91 /* babyInfoModel.m */; };
 		4E4804BA20DA088B00BF33EB /* CLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4804B920DA088B00BF33EB /* CLView.m */; };
 		4E48C7361F33205D004D8553 /* AYCulture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48C7351F33205D004D8553 /* AYCulture.m */; };
@@ -61,6 +64,9 @@
 		4E6B7F58209C3F56006F65E9 /* MineNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B7F57209C3F56006F65E9 /* MineNewViewController.m */; };
 		4E6B7F5B209C5435006F65E9 /* mineNewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B7F5A209C5435006F65E9 /* mineNewTableViewCell.m */; };
 		4E6B7F5E209C65F2006F65E9 /* MineDataTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6B7F5D209C65F2006F65E9 /* MineDataTools.m */; };
+		4E6BB94E21C0B89A002307F3 /* MQVerCodeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6BB94C21C0B899002307F3 /* MQVerCodeImageView.m */; };
+		4E6BB95B21C0E2CD002307F3 /* verifyCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6BB95921C0E2CD002307F3 /* verifyCodeViewController.m */; };
+		4E6BB95C21C0E2CD002307F3 /* verifyCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E6BB95A21C0E2CD002307F3 /* verifyCodeViewController.xib */; };
 		4E6C9C3A20A2CD5F00CE5B9A /* electricityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9C3920A2CD5F00CE5B9A /* electricityView.m */; };
 		4E6C9C3D20A2DB2000CE5B9A /* brakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9C3C20A2DB2000CE5B9A /* brakeView.m */; };
 		4E6C9C4220A3032700CE5B9A /* promptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9C4120A3032600CE5B9A /* promptView.m */; };
@@ -592,8 +598,12 @@
 		4E24C4001FA06F5A0076E522 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		4E2BF9FD1F458AD800BAAFB9 /* CALayer+Transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+Transition.h"; sourceTree = "<group>"; };
 		4E2BF9FE1F458AD800BAAFB9 /* CALayer+Transition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Transition.m"; sourceTree = "<group>"; };
-		4E3CA8491F34095C00C40ED0 /* AYReSetPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AYReSetPasswordVC.h; sourceTree = "<group>"; };
-		4E3CA84A1F34095C00C40ED0 /* AYReSetPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AYReSetPasswordVC.m; sourceTree = "<group>"; };
+		4E384CC521C2082C0039FD1A /* reSetPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = reSetPasswordViewController.h; sourceTree = "<group>"; };
+		4E384CC621C2082C0039FD1A /* reSetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = reSetPasswordViewController.m; sourceTree = "<group>"; };
+		4E384CC721C2082C0039FD1A /* reSetPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = reSetPasswordViewController.xib; sourceTree = "<group>"; };
+		4E384CCA21C23FAA0039FD1A /* bandPhoneNumViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bandPhoneNumViewController.h; sourceTree = "<group>"; };
+		4E384CCB21C23FAA0039FD1A /* bandPhoneNumViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = bandPhoneNumViewController.m; sourceTree = "<group>"; };
+		4E384CCC21C23FAA0039FD1A /* bandPhoneNumViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = bandPhoneNumViewController.xib; sourceTree = "<group>"; };
 		4E41B3E8219BFEC600918C91 /* babyInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = babyInfoModel.h; sourceTree = "<group>"; };
 		4E41B3E9219BFEC600918C91 /* babyInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = babyInfoModel.m; sourceTree = "<group>"; };
 		4E444C611FBD765800670036 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -692,6 +702,11 @@
 		4E6B7F5A209C5435006F65E9 /* mineNewTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mineNewTableViewCell.m; sourceTree = "<group>"; };
 		4E6B7F5C209C65F2006F65E9 /* MineDataTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineDataTools.h; sourceTree = "<group>"; };
 		4E6B7F5D209C65F2006F65E9 /* MineDataTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineDataTools.m; sourceTree = "<group>"; };
+		4E6BB94C21C0B899002307F3 /* MQVerCodeImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQVerCodeImageView.m; sourceTree = "<group>"; };
+		4E6BB94D21C0B89A002307F3 /* MQVerCodeImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQVerCodeImageView.h; sourceTree = "<group>"; };
+		4E6BB95821C0E2CD002307F3 /* verifyCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = verifyCodeViewController.h; sourceTree = "<group>"; };
+		4E6BB95921C0E2CD002307F3 /* verifyCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = verifyCodeViewController.m; sourceTree = "<group>"; };
+		4E6BB95A21C0E2CD002307F3 /* verifyCodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = verifyCodeViewController.xib; sourceTree = "<group>"; };
 		4E6C9C3820A2CD5F00CE5B9A /* electricityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = electricityView.h; sourceTree = "<group>"; };
 		4E6C9C3920A2CD5F00CE5B9A /* electricityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = electricityView.m; sourceTree = "<group>"; };
 		4E6C9C3B20A2DB2000CE5B9A /* brakeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = brakeView.h; sourceTree = "<group>"; };
@@ -3450,11 +3465,20 @@
 		7B1BBB1D1E2F657000995017 /* 注册 */ = {
 			isa = PBXGroup;
 			children = (
+				4E6BB94D21C0B89A002307F3 /* MQVerCodeImageView.h */,
+				4E6BB94C21C0B899002307F3 /* MQVerCodeImageView.m */,
 				7B1BBB271E2F657000995017 /* RegisterVC.h */,
 				7B1BBB281E2F657000995017 /* RegisterVC.m */,
 				7B1BBB291E2F657000995017 /* RegisterVC.xib */,
-				4E3CA8491F34095C00C40ED0 /* AYReSetPasswordVC.h */,
-				4E3CA84A1F34095C00C40ED0 /* AYReSetPasswordVC.m */,
+				4E6BB95821C0E2CD002307F3 /* verifyCodeViewController.h */,
+				4E6BB95921C0E2CD002307F3 /* verifyCodeViewController.m */,
+				4E6BB95A21C0E2CD002307F3 /* verifyCodeViewController.xib */,
+				4E384CC521C2082C0039FD1A /* reSetPasswordViewController.h */,
+				4E384CC621C2082C0039FD1A /* reSetPasswordViewController.m */,
+				4E384CC721C2082C0039FD1A /* reSetPasswordViewController.xib */,
+				4E384CCA21C23FAA0039FD1A /* bandPhoneNumViewController.h */,
+				4E384CCB21C23FAA0039FD1A /* bandPhoneNumViewController.m */,
+				4E384CCC21C23FAA0039FD1A /* bandPhoneNumViewController.xib */,
 			);
 			path = "注册";
 			sourceTree = "<group>";
@@ -3874,11 +3898,13 @@
 				4EDA88661F690ACE0080E023 /* check_select@2x.png in Resources */,
 				4E7A47B720AEC766007DD284 /* moon.png in Resources */,
 				7B1BBCAB1E2F657000995017 /* login_other_qq.png in Resources */,
+				4E384CCE21C23FAA0039FD1A /* bandPhoneNumViewController.xib in Resources */,
 				7B1BBCD81E2F657100995017 /* sina@3x.png in Resources */,
 				4E7A480F20AED349007DD284 /* 26.json in Resources */,
 				7B1BBC791E2F657000995017 /* personal_arrowright_icon@2x.png in Resources */,
 				7B1BBCA81E2F657000995017 /* login_icon_id@2x.png in Resources */,
 				7B1BBBEE1E2F657000995017 /* icon_refresh_1@2x.png in Resources */,
+				4E6BB95C21C0E2CD002307F3 /* verifyCodeViewController.xib in Resources */,
 				4E7A47BB20AEC8D5007DD284 /* 4.json in Resources */,
 				7B1BBCC01E2F657000995017 /* personal_nameedit_icon@2x.png in Resources */,
 				7B1BBCB51E2F657000995017 /* Thumbs.db in Resources */,
@@ -3956,6 +3982,7 @@
 				7B1BBCB31E2F657000995017 /* password_show_pre.png in Resources */,
 				4E7A47D020AECB46007DD284 /* cloud5.png in Resources */,
 				7B1BBC8B1E2F657000995017 /* homepage_headdata_bg_nor.png in Resources */,
+				4E384CC921C2082C0039FD1A /* reSetPasswordViewController.xib in Resources */,
 				7B1BBBF11E2F657000995017 /* icon_refresh_2@3x.png in Resources */,
 				7B1BBC4B1E2F657000995017 /* WNImagePicker.xib in Resources */,
 				7B1BBC7A1E2F657000995017 /* top_btn_back_nor.png in Resources */,
@@ -4117,7 +4144,6 @@
 				4E794E4E207C9C66003903CA /* MusicTotalListController.m in Sources */,
 				7BCB36BE1EE810B200B40120 /* CarOldDetailViewController.m in Sources */,
 				7B1BBC101E2F657000995017 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
-				4E3CA84B1F34095C00C40ED0 /* AYReSetPasswordVC.m in Sources */,
 				4E5E915A20EA2E0600B26220 /* FloatTools.m in Sources */,
 				7B1BBC351E2F657000995017 /* LocalPushCenter.m in Sources */,
 				7B1BBBCB1E2F657000995017 /* UIButton+TouchAreaInsets.m in Sources */,
@@ -4272,6 +4298,7 @@
 				7BAD2FF41E9F678700956CA6 /* NSObject+MonitorCrash.m in Sources */,
 				4E693F67209D4B2800C86688 /* BabyInfoViewController.m in Sources */,
 				7B1BBBED1E2F657000995017 /* UITableViewCell+HYBMasonryAutoCellHeight.m in Sources */,
+				4E6BB94E21C0B89A002307F3 /* MQVerCodeImageView.m in Sources */,
 				7BAD2FED1E9F678600956CA6 /* NSArray+MonitorCrash.m in Sources */,
 				7B1BBBE51E2F657000995017 /* UIResponder+Chain.m in Sources */,
 				4E744AB02066011000BCBC7C /* animationTools.m in Sources */,
@@ -4326,6 +4353,7 @@
 				4E586E01206E24650010D60D /* tripTotalModel.m in Sources */,
 				7B1BBC4C1E2F657000995017 /* ShareAnimationView.m in Sources */,
 				7B1BBC0A1E2F657000995017 /* UIView+MAC.m in Sources */,
+				4E6BB95B21C0E2CD002307F3 /* verifyCodeViewController.m in Sources */,
 				4ED8268C1F46857B0029DB29 /* AYObject.m in Sources */,
 				7B1BBC1C1E2F657000995017 /* NSString+Bool.m in Sources */,
 				4ECF35BA20D0D75C005E0243 /* lrcModel.m in Sources */,
@@ -4425,6 +4453,7 @@
 				7B1BBC091E2F657000995017 /* UIView+HUD.m in Sources */,
 				7B6A52C61EA8B9D600393D86 /* MusicLocalViewController.m in Sources */,
 				7B1BBC331E2F657000995017 /* GCDSemaphore.m in Sources */,
+				4E384CCD21C23FAA0039FD1A /* bandPhoneNumViewController.m in Sources */,
 				7B1BBBBD1E2F657000995017 /* NSString+UUID.m in Sources */,
 				4E77AED42079C77D00036113 /* FrequencyWeekDataBase.m in Sources */,
 				7BAD2FF11E9F678700956CA6 /* NSMutableAttributedString+MonitorCrash.m in Sources */,
@@ -4434,6 +4463,7 @@
 				7B1BBBAA1E2F657000995017 /* NSDecimalNumber+Extensions.m in Sources */,
 				7B1BBC4F1E2F657000995017 /* CustomCircleView.m in Sources */,
 				7B1BBC1B1E2F657000995017 /* NSString+Additions.m in Sources */,
+				4E384CC821C2082C0039FD1A /* reSetPasswordViewController.m in Sources */,
 				7B1BBBAB1E2F657000995017 /* NSNumber+CGFloat.m in Sources */,
 				7B1BBC421E2F657000995017 /* AlbumPhotoCell.m in Sources */,
 				4E41B3EA219BFEC600918C91 /* babyInfoModel.m in Sources */,

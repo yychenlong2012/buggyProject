@@ -113,7 +113,7 @@
         }
     } success:^{
         //上传天气成功，请求首页数据
-        [NETWorkAPI requestHomeData:^(homeDataModel * _Nullable model, NSError * _Nullable error) {
+        [NETWorkAPI requestHomeData:^(homeDataModel * _Nullable model,BOOL is, NSError * _Nullable error) {
             if (error) {
                 DLog(@"请求失败");
                 return ;

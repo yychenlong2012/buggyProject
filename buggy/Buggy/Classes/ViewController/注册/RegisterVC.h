@@ -21,4 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *tfPassword;
 @property (nonatomic ,assign) BOOL isRePwd;/**<是不是修改密码*/
+
+@property (nonatomic,strong) NSString *verifyCode;    //服务器返回的验证码
+@property (nonatomic,strong) NSString *phoneNumber;   //手机号码
 @end

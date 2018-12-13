@@ -29,9 +29,10 @@ target 'Buggy' do
     pod 'FreeStreamer', '~> 3.8.2'       # 有修改
     pod 'lottie-ios'
     pod 'MJExtension', '~> 3.0.13'
+    
 end
 
-# pod update UMCShare/Social/ReducedSina --verbose --no-repo-update
+# pod update MQVerCodeView --verbose --no-repo-update
 #Using AFNetworking (3.1.0)
 #Using AMap2DMap (4.2.0)
 #Using AMapFoundation (1.2.0)

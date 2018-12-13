@@ -226,9 +226,10 @@
 //                    [[MainModel model] logout];
 //                    [[MainModel model] showLoginVC];
 //                    [leanCloudMgr event:YOUZI_Loginout];
+                    [SCREENMGR changeToLoginScreen];
                     [NETWorkAPI logoutWithCallback:^(BOOL success, NSError * _Nullable error) {
                         if (success) {
-                            [SCREENMGR changeToLoginScreen];
+                            
                         }
                     }];
                 }
