@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		28ED6A20B417E8CD18BAB880 /* libPods-Buggy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5BC932C4B22C5DF7BE3DE06 /* libPods-Buggy.a */; };
+		4E10AAF521C342F200ED39AE /* registerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E10AAF321C342F200ED39AE /* registerViewController.m */; };
+		4E10AAF621C342F200ED39AE /* registerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E10AAF421C342F200ED39AE /* registerViewController.xib */; };
+		4E10AAFF21C37BDD00ED39AE /* bandThirdPartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E10AAFD21C37BDD00ED39AE /* bandThirdPartViewController.m */; };
+		4E10AB0021C37BDD00ED39AE /* bandThirdPartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E10AAFE21C37BDD00ED39AE /* bandThirdPartViewController.xib */; };
 		4E1A449E208D860700A7A51B /* HmacSha1Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A449D208D860700A7A51B /* HmacSha1Tool.m */; };
 		4E2052A1219D857700D6937B /* userTravelInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2052A0219D857700D6937B /* userTravelInfoModel.m */; };
 		4E2BF9FF1F458AD800BAAFB9 /* CALayer+Transition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2BF9FE1F458AD800BAAFB9 /* CALayer+Transition.m */; };
@@ -590,6 +594,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E10AAF221C342F200ED39AE /* registerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = registerViewController.h; sourceTree = "<group>"; };
+		4E10AAF321C342F200ED39AE /* registerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = registerViewController.m; sourceTree = "<group>"; };
+		4E10AAF421C342F200ED39AE /* registerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = registerViewController.xib; sourceTree = "<group>"; };
+		4E10AAFC21C37BDD00ED39AE /* bandThirdPartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bandThirdPartViewController.h; sourceTree = "<group>"; };
+		4E10AAFD21C37BDD00ED39AE /* bandThirdPartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = bandThirdPartViewController.m; sourceTree = "<group>"; };
+		4E10AAFE21C37BDD00ED39AE /* bandThirdPartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = bandThirdPartViewController.xib; sourceTree = "<group>"; };
 		4E1A449C208D85DB00A7A51B /* HmacSha1Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HmacSha1Tool.h; sourceTree = "<group>"; };
 		4E1A449D208D860700A7A51B /* HmacSha1Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HmacSha1Tool.m; sourceTree = "<group>"; };
 		4E20529F219D857700D6937B /* userTravelInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = userTravelInfoModel.h; sourceTree = "<group>"; };
@@ -3479,6 +3489,12 @@
 				4E384CCA21C23FAA0039FD1A /* bandPhoneNumViewController.h */,
 				4E384CCB21C23FAA0039FD1A /* bandPhoneNumViewController.m */,
 				4E384CCC21C23FAA0039FD1A /* bandPhoneNumViewController.xib */,
+				4E10AAF221C342F200ED39AE /* registerViewController.h */,
+				4E10AAF321C342F200ED39AE /* registerViewController.m */,
+				4E10AAF421C342F200ED39AE /* registerViewController.xib */,
+				4E10AAFC21C37BDD00ED39AE /* bandThirdPartViewController.h */,
+				4E10AAFD21C37BDD00ED39AE /* bandThirdPartViewController.m */,
+				4E10AAFE21C37BDD00ED39AE /* bandThirdPartViewController.xib */,
 			);
 			path = "注册";
 			sourceTree = "<group>";
@@ -3900,6 +3916,7 @@
 				7B1BBCAB1E2F657000995017 /* login_other_qq.png in Resources */,
 				4E384CCE21C23FAA0039FD1A /* bandPhoneNumViewController.xib in Resources */,
 				7B1BBCD81E2F657100995017 /* sina@3x.png in Resources */,
+				4E10AAF621C342F200ED39AE /* registerViewController.xib in Resources */,
 				4E7A480F20AED349007DD284 /* 26.json in Resources */,
 				7B1BBC791E2F657000995017 /* personal_arrowright_icon@2x.png in Resources */,
 				7B1BBCA81E2F657000995017 /* login_icon_id@2x.png in Resources */,
@@ -4046,6 +4063,7 @@
 				4EDA88671F690ACE0080E023 /* check_select.png in Resources */,
 				7B1BBCD41E2F657100995017 /* share_btn_nro.png in Resources */,
 				7B1BBCAE1E2F657000995017 /* login_other_wb@2x.png in Resources */,
+				4E10AB0021C37BDD00ED39AE /* bandThirdPartViewController.xib in Resources */,
 				7B1BBCD11E2F657000995017 /* QQ.png in Resources */,
 				7B1BBCD51E2F657100995017 /* share_btn_nro@2x.png in Resources */,
 				7B1BBC9E1E2F657000995017 /* top_btn_3uz_nor@2x.png in Resources */,
@@ -4297,6 +4315,7 @@
 				4E62F31A20B5664D00B07CC0 /* pushDataAPI.m in Sources */,
 				7BAD2FF41E9F678700956CA6 /* NSObject+MonitorCrash.m in Sources */,
 				4E693F67209D4B2800C86688 /* BabyInfoViewController.m in Sources */,
+				4E10AAFF21C37BDD00ED39AE /* bandThirdPartViewController.m in Sources */,
 				7B1BBBED1E2F657000995017 /* UITableViewCell+HYBMasonryAutoCellHeight.m in Sources */,
 				4E6BB94E21C0B89A002307F3 /* MQVerCodeImageView.m in Sources */,
 				7BAD2FED1E9F678600956CA6 /* NSArray+MonitorCrash.m in Sources */,
@@ -4358,6 +4377,7 @@
 				7B1BBC1C1E2F657000995017 /* NSString+Bool.m in Sources */,
 				4ECF35BA20D0D75C005E0243 /* lrcModel.m in Sources */,
 				7B1BBBB31E2F657000995017 /* NSObject+JKRuntime.m in Sources */,
+				4E10AAF521C342F200ED39AE /* registerViewController.m in Sources */,
 				7BED53251ED9383400C4610D /* CarKcalModel.m in Sources */,
 				7B1BBBC31E2F657000995017 /* UIApplication+AppInfo.m in Sources */,
 				7B1BBC261E2F657000995017 /* Factory.m in Sources */,

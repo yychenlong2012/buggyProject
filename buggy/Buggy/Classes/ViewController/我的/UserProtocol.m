@@ -7,8 +7,8 @@
 //
 
 #import "UserProtocol.h"
-//#import "UserProtocolViewModel.h"
 #import "CLImageView.h"
+
 @interface UserProtocol ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewTop;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewBottom;
@@ -29,59 +29,10 @@
     KUserDefualt_Set(@(0), @"statusCode");
     self.webView.delegate = self;
     [self loadData];
-    
-//    NSURL *url = [NSURL URLWithString:@"http://192.168.10.106/Tp/Uploads/2018-11-21/220265424b1f6b6c97d2.html"];
-//    if (url) {
-//        //请求加载网页
-//        //                NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-////        NSString *str = KUserDefualt_Get(@"statusCode1");
-////        if ([str isEqualToString:@"200"]) {
-//            NSString *str = KUserDefualt_Get(@"Last-Modified");
-////            [request setValue:str forHTTPHeaderField:@"If-Modified-Since"];   //Wed, 21 Nov 2018 03:51:48 GMT
-//        [request setValue:@"Wed, 21 Nov 2018 03:51:48 GMT" forHTTPHeaderField:@"If-Modified-Since"];
-////        }
-//
-//        [self.webView loadRequest:request];
-//    }
 }
--(void)dealloc{
-    NSLog(@"111");
-}
-
-//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-//
-//    NSLog(@"%@",request.allHTTPHeaderFields);
-//
-//    return YES;
-//}
-
-//-(void)webViewDidFinishLoad:(UIWebView *)webView{
-//    //获取status code
-//    NSHTTPURLResponse *response = (NSHTTPURLResponse *)[[NSURLCache sharedURLCache] cachedResponseForRequest:webView.request].response;
-//    NSInteger statusCode = response.statusCode;
-//    NSLog(@"%ld",statusCode);
-//    NSString *str = [response.allHeaderFields objectForKey:@"Last-Modified"];
-//    KUserDefualt_Set(str, @"Last-Modified");
-//    KUserDefualt_Set(@"200", @"statusCode1");
-//    NSLog(@"%@",response.allHeaderFields);
-//}
 
 - (void)loadData{
     [AYMessage hideNoContentTipView];
-//    [UserProtocolViewModel requestUserProtocol:^(NSArray *list, NSError *error) {
-//         [AYMessage hideActiveView];
-//        if (list.count >1) {
-//
-//            UserProtpcolModel *object = list[1];
-//            [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:object.userProtocol.url]]];
-//        }else{
-//            [AYMessage showNoContentTip:NSLocalizedString(@"暂时与母星失去联系", nil) image:@"无网络" onView:self.webView viewClick:^{
-//                //  [wself requestData];
-//            }];
-//        }
-//    }];
-    
     [NETWorkAPI userProtocolCallback:^(NSString * _Nullable msg, NSError * _Nullable error) {
         [AYMessage hideActiveView];
         if ([msg isKindOfClass:[NSString class]]) {
@@ -97,7 +48,6 @@
             }];
         }
     }];
-   
 }
 
 -(UIView *)naviView{

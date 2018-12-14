@@ -17,6 +17,8 @@
 #import "LoginViewModel.h"
 #import "UserProtocol.h"
 #import "verifyCodeViewController.h"
+#import "bandThirdPartViewController.h"
+#import "registerViewController.h"
 
 @interface LoginVC ()<UITextFieldDelegate>
 
@@ -165,9 +167,10 @@
     [self resignNameAndPasswordFirstResponder];
     [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_WechatSession callback:^(homeDataModel * _Nullable model, BOOL isfirstLogin, NSError * _Nullable error) {
         if (isfirstLogin) {
-            verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
+            bandThirdPartViewController *vc = [[bandThirdPartViewController alloc] init];
+//            verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
             vc.view.backgroundColor = kWhiteColor;
-            vc.verifyType = BAND_PHONE_TYPE;
+//            vc.verifyType = BAND_PHONE_TYPE;
             [self.navigationController pushViewController:vc animated:YES];
         }
     }];
@@ -177,9 +180,10 @@
     [self resignNameAndPasswordFirstResponder];
     [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_Sina callback:^(homeDataModel * _Nullable model, BOOL isfirstLogin, NSError * _Nullable error) {
         if (isfirstLogin) {
-            verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
+            bandThirdPartViewController *vc = [[bandThirdPartViewController alloc] init];
+//            verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
             vc.view.backgroundColor = kWhiteColor;
-            vc.verifyType = BAND_PHONE_TYPE;
+//            vc.verifyType = BAND_PHONE_TYPE;
             [self.navigationController pushViewController:vc animated:YES];
         }
     }];
@@ -189,9 +193,10 @@
     [self resignNameAndPasswordFirstResponder];
     [NETWorkAPI loginToGetUserInfoForPlatform:UMSocialPlatformType_QQ callback:^(homeDataModel * _Nullable model, BOOL isfirstLogin, NSError * _Nullable error) {
         if (isfirstLogin) {
-            verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
+            bandThirdPartViewController *vc = [[bandThirdPartViewController alloc] init];
+//            verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
             vc.view.backgroundColor = kWhiteColor;
-            vc.verifyType = BAND_PHONE_TYPE;
+//            vc.verifyType = BAND_PHONE_TYPE;
             [self.navigationController pushViewController:vc animated:YES];
         }
     }];
@@ -204,11 +209,14 @@
 //    VC.isRePwd = YES;
 //    [self.navigationController pushViewController:VC animated:YES];
     
-    verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
-    vc.view.backgroundColor = kWhiteColor;
-    vc.verifyType = RESET_PASSWORD_TYPE;
-    [self.navigationController pushViewController:vc animated:YES];
+//    verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
+//    vc.view.backgroundColor = kWhiteColor;
+//    vc.verifyType = RESET_PASSWORD_TYPE;
+//    [self.navigationController pushViewController:vc animated:YES];
 
+    registerViewController *vc = [[registerViewController alloc] init];
+    vc.isRegister = NO;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 // 注册
 - (IBAction)onRegister:(id)sender {
@@ -218,9 +226,13 @@
 //    getVerifyCodeViewController *vc = [[getVerifyCodeViewController alloc] init];
 //    vc.view.backgroundColor = kWhiteColor;
     
-    verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
-    vc.view.backgroundColor = kWhiteColor;
-    vc.verifyType = REGISTER_TYPE;
+//    verifyCodeViewController *vc = [[verifyCodeViewController alloc] init];
+//    vc.view.backgroundColor = kWhiteColor;
+//    vc.verifyType = REGISTER_TYPE;
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    registerViewController *vc = [[registerViewController alloc] init];
+    vc.isRegister = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

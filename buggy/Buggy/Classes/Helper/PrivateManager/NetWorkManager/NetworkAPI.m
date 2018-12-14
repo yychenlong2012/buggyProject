@@ -45,7 +45,7 @@
 #define DEL_DEVICE @""API_HEADER"/Tp/index.php/App/user/del_device.html"                //删除推车设备，解绑
 #define FEED_BACK @""API_HEADER"/Tp/index.php/App/user/feed_back.html"                  //用户反馈
 #define INSTRUCTIONS @""API_HEADER"/Tp/index.php/App/user/instructions.html"            //使用说明
-#define USER_PROTOCOL @""API_HEADER"/Tp/index.php/App/user/userprotocol.html"           //用户协议
+#define USER_PROTOCOL @""API_HEADER"/Tp/index.php/App/Upload/userprotocol.html"         //用户协议
 #define UPDATE_DEVICE_NAME @""API_HEADER"/Tp/index.php/App/user/update_devicename.html" //更新设备名
 #define USER_TRAVEL_INFO @""API_HEADER"/Tp/index.php/App/user/get_device_details.html"  //获取用户出行里程
 #define BIND_DEVICE @""API_HEADER"/Tp/index.php/App/public/bind_device.html"            //绑定推车
@@ -148,15 +148,13 @@ static NetworkAPI* _instance = nil;
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         NSDictionary *data = dict[@"data"];
         NSInteger code = [data[@"code"] integerValue];
+        [MBProgressHUD showToast:NSLocalizedString(dict[@"msg"], nil)];
         switch ([dict[@"status"] integerValue]) {
             case 1:{   //频率过高 或者已注册
-                [MBProgressHUD showToast:NSLocalizedString(dict[@"msg"], nil)];
+                
             }break;
             case 0:{
                 callback([NSString stringWithFormat:@"%ld",code],nil);
-            }break;
-            default:{
-               
             }
         }
         CLNSLog(@"验证码:%@  %@",dict[@"msg"],dict);
@@ -287,7 +285,7 @@ static NetworkAPI* _instance = nil;
 
 //退出登录
 -(void)logoutWithCallback:(statusBlock _Nonnull)callback{
-    [MBProgressHUD showSuccess:@"退出登录成功"];
+//    [MBProgressHUD showSuccess:@"退出登录成功"];
     KUserDefualt_Set(@"", USER_LOGIN_TOKEN);    //退出登录 清空token
     KUserDefualt_Set(@"", USER_REFRESH_TOKEN);
     KUserDefualt_Set(@"", USER_ID_NEW);
@@ -352,14 +350,14 @@ static NetworkAPI* _instance = nil;
                 //平台错误
                 return ;
         }
-//        NSDictionary *parma = @{   @"openid":openID==nil?@"":openID,
-//                                   @"nickName":resp.name==nil?@"":resp.name,
-//                                   @"platform":platform==nil?@"":platform,
-//                                   @"header":resp.iconurl==nil?@"":resp.iconurl   };
-        NSDictionary *parma = @{  @"openid":@"11111112",
-                                   @"nickName":@"chenlong",
-                                   @"platform":@"qq",
-                                   @"header":@""  };
+        NSDictionary *parma = @{   @"openid":openID==nil?@"":openID,
+                                   @"nickName":resp.name==nil?@"":resp.name,
+                                   @"platform":platform==nil?@"":platform,
+                                   @"header":resp.iconurl==nil?@"":resp.iconurl   };
+//        NSDictionary *parma = @{  @"openid":@"11152200",
+//                                   @"nickName":@"chenlong",
+//                                   @"platform":@"weixin",
+//                                   @"header":@""  };
         self.thirdPartData = [NSMutableDictionary dictionaryWithDictionary:parma];
         [self.manager POST:THIRD_PART_LOGIN parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];

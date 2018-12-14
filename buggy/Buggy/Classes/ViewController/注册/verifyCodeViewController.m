@@ -23,6 +23,7 @@
 @property (nonatomic,strong) UIView *naviView;             //自定义导航栏背景view
 @property (nonatomic,strong) MQVerCodeImageView *verifyView;
 @property (nonatomic,strong) NSString *verify;            //图形验证码
+@property (nonatomic,strong) dispatch_source_t timer;      //定时器
 
 @end
 
@@ -108,6 +109,20 @@
     [self.verifyView freshVerCode];
 }
 
+#pragma mark - lazy
+-(dispatch_source_t)timer{
+    if (_timer == nil) {
+        dispatch_queue_t queue = dispatch_get_global_queue(0,0);
+        _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        //设置定时器，开启时间，时间间隔、、
+        dispatch_source_set_timer(_timer,DISPATCH_TIME_NOW,(int64_t)(2.0 * NSEC_PER_SEC), 0);
+        //设置block回调
+        dispatch_source_set_event_handler(_timer, ^{
+           
+        });
+    }
+    return _timer;
+}
 
 -(UIView *)naviView{
     if (_naviView == nil) {
@@ -170,10 +185,13 @@
     BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
     [self.navigationController setNavigationBarHidden:isShowHomePage animated:NO];
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.contentTop.constant = navigationH + 30;
     [self.view addSubview:self.naviView];
 }
+
+
 @end
