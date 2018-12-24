@@ -250,4 +250,38 @@
 }
 
 
++ (UIViewController *)topViewController {
+    //排除alert和statusBar层级的window
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal){
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows){
+            if (tmpWin.windowLevel == UIWindowLevelNormal){
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    
+    UIViewController *resultVC;
+    //1、先找排除导航控制器和tabber控制器
+    resultVC = [self _topViewController:[window rootViewController]];
+    //2、判断当前ViewController是否通过presentViewController:animated:completion:模态展示了其他ViewController
+    while (resultVC.presentedViewController) {
+        resultVC = [self _topViewController:resultVC.presentedViewController];
+    }
+    return resultVC;
+}
+
++ (UIViewController *)_topViewController:(UIViewController *)vc {
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+        return [self _topViewController:[(UINavigationController *)vc topViewController]];
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        return [self _topViewController:[(UITabBarController *)vc selectedViewController]];
+    } else {
+        return vc;
+    }
+    return nil;
+}
+
 @end

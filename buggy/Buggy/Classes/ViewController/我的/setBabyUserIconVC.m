@@ -127,8 +127,9 @@
                         [mine.babyArray removeAllObjects];
                         [mine.babyArray addObjectsFromArray:modelArray];
                         [mine.tableview reloadData];
-//                        [mine.babyArray insertObject:wself.addBabyModel atIndex:0];
-//                        [mine.tableview reloadData];
+                    }else{
+                        //网络延时的时候会通过通知把数据传过去
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"add_baby_info" object:modelArray];
                     }
                 }];
             }

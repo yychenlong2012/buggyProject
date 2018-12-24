@@ -29,7 +29,8 @@ target 'Buggy' do
     pod 'FreeStreamer', '~> 3.8.2'       # 有修改
     pod 'lottie-ios'
     pod 'MJExtension', '~> 3.0.13'
-    
+#    pod 'MYKit', '~> 1.1.2'
+
 end
 
 # pod update MQVerCodeView --verbose --no-repo-update

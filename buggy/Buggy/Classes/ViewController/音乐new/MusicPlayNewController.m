@@ -22,6 +22,7 @@
 #import "WNJsonModel.h"
 #import "DeviceModel.h"
 #import "BlueToothManager.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface MusicPlayNewController ()<PlayerDelegate,UIScrollViewDelegate>
 @property (nonatomic,assign) Music_Play_Mode playMode; //歌曲播放顺序
@@ -430,10 +431,12 @@
     [view addSubview:slider];
     return view;
 }
+
 - (void)sliderVolumeSwipe:(UISlider *)slider{
     MUSICMANAGER.volume = slider.value;
     KUserDefualt_Set(@(slider.value), @"musicVolume");  //本地化音量
 }
+
 //进度条拖拽
 -(void)ProgressTouchOutSide{
     FSStreamPosition position = {0};
@@ -441,6 +444,7 @@
     [MUSICMANAGER seekToPosition:position];     //取值范围0 - 1
     self.isTouch = NO;
 }
+
 -(void)progressTouchDown{
     self.isTouch = YES;
 }
@@ -457,12 +461,14 @@
     animation.removedOnCompletion = NO;
     [_themeImage.layer addAnimation:animation forKey:@"rotation"];
 }
+
 //初始化动画
 - (void)removeRotation{
     [_themeImage.layer resumeAnimate];
     [_themeImage.layer removeAllAnimations];
     [self beginRotation];
 }
+
 //初始化界面歌曲信息
 - (void)setMusicInfo{
     __weak typeof(self) wself = self;
@@ -486,13 +492,48 @@
             }
         }];
         //设置封面图片
-        if (MUSICMANAGER.currentMusicImage == nil) {
-            self.themeImage.image = ImageNamed(@"播放界面占位");
-        }else{
-            self.themeImage.image = MUSICMANAGER.currentMusicImage;;
+        if (MUSICMANAGER.currentItemIndex < MUSICMANAGER.audioArray.count) {
+            musicModel *model = MUSICMANAGER.audioArray[MUSICMANAGER.currentItemIndex];
+            if (![model.imageurl isKindOfClass:[NSString class]]) {
+                self.themeImage.image = ImageNamed(@"播放界面占位");
+                return;
+            }
+            NSURL *url = [NSURL URLWithString:model.imageurl];
+            if (url == nil) {
+                self.themeImage.image = ImageNamed(@"播放界面占位");
+                return;
+            }
+            [self.themeImage sd_setImageWithURL:url placeholderImage:ImageNamed(@"播放界面占位") options:SDWebImageProgressiveDownload|SDWebImageLowPriority progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                [FloatTools manager].icon.image = image;
+                [self configLockScreenPlay:model image:image];
+            }];
         }
     }
 }
+
+/* 配置锁屏界面 */
+- (void)configLockScreenPlay:(musicModel *)model image:(UIImage *)image{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    if (image) {
+        // 初始化一个封面
+        MPMediaItemArtwork *albumArt = [[MPMediaItemArtwork alloc] initWithImage:image];
+        // 设置封面
+        [dict setObject: albumArt forKey:MPMediaItemPropertyArtwork];
+    }
+    // 设置标题
+    [dict setObject:model.musicname forKey:MPMediaItemPropertyTitle];
+    // 设置作者
+    //    [ dict setObject: @"作者" forKey:MPMediaItemPropertyArtist ];
+    // 设置专辑
+    [ dict setObject: @"三爸育儿" forKey:MPMediaItemPropertyAlbumTitle ];
+    // 流派
+    //    [ dict setObject:@"流派" forKey:MPMediaItemPropertyGenre ];
+    // 设置总时长
+    NSInteger time = MUSICMANAGER.duration.minute*60 + MUSICMANAGER.duration.second;
+    [dict setObject:@(time) forKey:MPMediaItemPropertyPlaybackDuration];
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
+}
+
 //初始化播放状态
 -(void)setPlayingStatus{
     if (MUSICMANAGER.isPlaying) {
@@ -503,6 +544,7 @@
         [self.themeImage.layer pauseAnimate];
     }
 }
+
 #pragma mark - scrollviewdelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
 
@@ -569,6 +611,7 @@
     //清除音乐缓存
     [MUSICMANAGER clearMusicCache];
 }
+
 -(void)dealloc{
     
 }
@@ -584,6 +627,7 @@
         [self.themeImage.layer pauseAnimate];
     }
 }
+
 #pragma mark - 自定义导航栏
 - (void)setupNav{
     CLImageView *backimage = [[CLImageView alloc] init];

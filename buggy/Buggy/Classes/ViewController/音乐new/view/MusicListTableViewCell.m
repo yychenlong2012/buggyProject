@@ -67,26 +67,10 @@
         NSURL *url = [NSURL URLWithString:leftModel.imageface];
         if (url) {
             [self.leftView.imageView sd_setImageWithURL:url placeholderImage:ImageNamed(@"歌单占位图")];
+//            [self.leftView.imageView sd_setImageWithURL:url placeholderImage:ImageNamed(@"歌单占位图") options:SDWebImageProgressiveDownload|SDWebImageLowPriority];
         }
     }
-    
-//    if (leftModel.imageface != nil && ![leftModel.imageface isKindOfClass:[NSNull class]]) {
-//        
-//        NSString *urlStr;
-//        if ([leftModel.imageface isKindOfClass:[NSString class]]) {
-//            urlStr = (NSString *)leftModel.imageface;
-//        }
-//        
-//        if ([leftModel.imageface isKindOfClass:[AVFile class]]) {
-//            urlStr = leftModel.imageface.url;
-//        }
-//        
-//        NSURL *url = [NSURL URLWithString:urlStr];
-//        if (url) {
-//            [self.leftView.imageView sd_setImageWithURL:url placeholderImage:ImageNamed(@"歌单占位图")];
-//        }
-//    }
-    
+
     if ([leftModel.title isKindOfClass:[NSString class]]) {
         self.leftView.titleLabel.text = leftModel.title;
     }
@@ -97,27 +81,11 @@
 -(void)setRightModel:(MusicAlbumModel *)rightModel{
     _rightModel = rightModel;
     
-//    if (rightModel.imageFace != nil && ![rightModel.imageFace isKindOfClass:[NSNull class]]) {
-//
-//        NSString *urlStr;
-//        if ([rightModel.imageFace isKindOfClass:[NSString class]]) {
-//            urlStr = (NSString *)rightModel.imageFace;
-//        }
-//
-//        if ([rightModel.imageFace isKindOfClass:[AVFile class]]) {
-//            urlStr = rightModel.imageFace.url;
-//        }
-//
-//        NSURL *url = [NSURL URLWithString:urlStr];
-//        if (url) {
-//            [self.rightView.imageView sd_setImageWithURL:url placeholderImage:ImageNamed(@"歌单占位图")];
-//        }
-//    }
-    
     if ([rightModel.imageface isKindOfClass:[NSString class]]) {
         NSURL *url = [NSURL URLWithString:rightModel.imageface];
         if (url) {
             [self.rightView.imageView sd_setImageWithURL:url placeholderImage:ImageNamed(@"歌单占位图")];
+//            [self.rightView.imageView sd_setImageWithURL:url placeholderImage:ImageNamed(@"歌单占位图") options:SDWebImageProgressiveDownload|SDWebImageLowPriority];
         }
     }
     

@@ -17,6 +17,7 @@
 #import "MusicAlbumModel.h"
 #import "banner2.h"
 #import "CLLabel.h"
+#import "UIImage+COSAdtions.h"
 
 @interface MusicMainViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong) UITableView *tableView;
@@ -260,7 +261,8 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, statusBarH+20, ScreenWidth, ScreenHeight-tabbarH-statusBarH-20) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.bounces = NO;
+        _tableView.backgroundColor = kWhiteColor;
+//        _tableView.bounces = NO;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

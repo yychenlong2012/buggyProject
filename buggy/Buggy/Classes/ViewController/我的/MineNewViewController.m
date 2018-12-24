@@ -47,6 +47,10 @@
 
 @implementation MineNewViewController
 
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"add_baby_info" object:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.babyArray = [NSMutableArray array];
@@ -54,6 +58,9 @@
     [self.view addSubview:self.tableview];
     [self guideView];
     if (@available(iOS 11.0, *)) {
+        self.tableview.estimatedRowHeight = 0;
+        self.tableview.estimatedSectionFooterHeight = 0;
+        self.tableview.estimatedSectionHeaderHeight = 0;
         self.tableview.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }else {
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -62,10 +69,16 @@
 //    if ([NETWorkAPI.userInfo isKindOfClass:[userInfoModel class]]) {
         [self requestParentData];
 //    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addBabyNotify:) name:@"add_baby_info" object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    //刷新我的音乐组
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:2];
+    [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     
     BLEMANAGER.delegate = self;
     if (self.babyArray.count == 0) {
@@ -86,7 +99,9 @@
     [NETWorkAPI requestDeviceListCallback:^(NSArray * _Nullable modelArray, NSInteger currentPage, NSError * _Nullable error) {
         if (modelArray != nil && [modelArray isKindOfClass:[NSArray class]] && error == nil) {
             NETWorkAPI.deviceArray = [NSMutableArray arrayWithArray:modelArray];
-            [self.tableview reloadData];
+            
+            NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+            [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
         }else{
             
         }
@@ -99,7 +114,9 @@
         if (modelArray != nil && [modelArray isKindOfClass:[NSArray class]] && error == nil) {
             [self.babyArray removeAllObjects];
             [self.babyArray addObjectsFromArray:modelArray];
-            [self.tableview reloadData];
+            
+            NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
+            [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
         }else{
             
         }
@@ -119,7 +136,7 @@
             if ([NETWorkAPI.userInfo.header isKindOfClass:[NSString class]]) {
                 NSURL *url = [NSURL URLWithString:NETWorkAPI.userInfo.header];
                 if (url) {
-                    [self.userImageView sd_setImageWithURL:url];
+                    [self.userImageView sd_setImageWithURL:url placeholderImage:nil options:SDWebImageProgressiveDownload|SDWebImageLowPriority];
                 }
             }
         }];
@@ -219,7 +236,15 @@
     return array;
 }
 
-#pragma mark -- WNImagePickerDelegate
+#pragma mark - notify
+-(void)addBabyNotify:(NSNotification *)noti{
+    NSArray *array = (NSArray *)noti.object;
+    [self.babyArray removeAllObjects];
+    [self.babyArray addObjectsFromArray:array];
+    [self.tableview reloadData];
+}
+
+#pragma mark - WNImagePickerDelegate
 - (void)getCutImage:(UIImage *)image controller:(WNImagePicker *)vc{
     [self.navigationController popToViewController:self animated:YES];
     
@@ -371,7 +396,7 @@
             if ([model.header isKindOfClass:[NSString class]]) {
                 NSURL *url = [NSURL URLWithString:model.header];
                 if (url) {
-                    [babyCell.icon sd_setImageWithURL:url placeholderImage:ImageNamed(@"Group 2 Copy")];
+                    [babyCell.icon sd_setImageWithURL:url placeholderImage:ImageNamed(@"Group 2 Copy") options:SDWebImageProgressiveDownload|SDWebImageLowPriority];
                 }
             }
             babyCell.detailLabel.text = model.birthday_fromnow;

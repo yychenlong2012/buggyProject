@@ -59,7 +59,6 @@ typedef NS_ENUM(NSInteger, MusicType) {  //歌曲所属模块
 @property (weak, nonatomic) id<PlayerDelegate> playerDelegate;
 
 @property (assign, nonatomic) NSUInteger currentItemIndex;  //当前播放歌曲的序号
-@property (strong, nonatomic) UIImage *currentMusicImage;   //当前播放音乐的专辑图片
 @property (strong, nonatomic) NSString *currntMusicName;    //当前播放音乐的名字
 
 

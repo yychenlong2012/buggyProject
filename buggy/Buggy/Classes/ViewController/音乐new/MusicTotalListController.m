@@ -240,6 +240,7 @@ static BOOL SDImagedownloderOldShouldDecompressImages = YES;
             NSURL *url = [NSURL URLWithString:model.imageface];
             if (url) {
                 [cell.imageview sd_setImageWithURL:url placeholderImage:ImageNamed(@"歌单占位图")];
+//                [cell.imageview sd_setImageWithURL:url placeholderImage:ImageNamed(@"歌单占位图") options:SDWebImageProgressiveDownload|SDWebImageLowPriority];
             }
         }
         

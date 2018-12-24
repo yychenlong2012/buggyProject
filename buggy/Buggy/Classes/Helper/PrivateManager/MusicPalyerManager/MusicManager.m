@@ -16,6 +16,7 @@
 @property (strong, nonatomic) CADisplayLink *displaylink;
 @end
 @implementation MusicManager
+
 /**
  *  获得播放器单例
  *
@@ -178,7 +179,6 @@
         [NETWorkAPI uploadMusicPlayCount:model];
         
         self.currentItemIndex = itemIndex;
-        self.currentMusicImage = nil;
         self.currntMusicName = model.musicname;
         
         //判断有无本地文件
@@ -204,8 +204,6 @@
                     if ([_playerDelegate respondsToSelector:@selector(PD_startPlayNewMusic)]) {
                         [_playerDelegate PD_startPlayNewMusic];
                     }
-                    //下载图片
-                    [self downloadImage:model];
                     return;
                 }
             }
@@ -225,56 +223,9 @@
                 if ([_playerDelegate respondsToSelector:@selector(PD_startPlayNewMusic)]) {
                     [_playerDelegate PD_startPlayNewMusic];
                 }
-                //下载图片
-                [self downloadImage:model];
             }
         }
     } else { NSLog(@"超出列表长度"); }
-}
-
--(void)downloadImage:(musicModel *)model{
-        
-    //如果没有file文件 判断是否有url
-    NSString *imageUrl = model.imageurl;
-    if (imageUrl != nil && [imageUrl isKindOfClass:[NSString class]] && [imageUrl hasPrefix:@"http"]) {
-        NSURL *url = [NSURL URLWithString:imageUrl];
-        if (url) {
-            [[[SDWebImageManager sharedManager] imageDownloader] downloadImageWithURL:url options:0 progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
-                if (image) {
-                    self->_currentMusicImage = image;
-                    if ([self->_playerDelegate respondsToSelector:@selector(PD_startPlayNewMusic)]) {
-                        [self->_playerDelegate PD_startPlayNewMusic];
-                    }
-                    [FloatTools manager].icon.image = image;
-                }
-                //设置封面
-                [self configLockScreenPlay:model];
-            }];
-        }
-    }
-}
-
-/* 配置锁屏界面 */
-- (void)configLockScreenPlay:(musicModel *)model{
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    if (self.currentMusicImage) {
-        // 初始化一个封面
-        MPMediaItemArtwork *albumArt = [[MPMediaItemArtwork alloc] initWithImage: self.currentMusicImage];
-        // 设置封面
-        [dict setObject: albumArt forKey:MPMediaItemPropertyArtwork];
-    }
-    // 设置标题
-    [dict setObject:model.musicname forKey:MPMediaItemPropertyTitle];
-    // 设置作者
-//    [ dict setObject: @"作者" forKey:MPMediaItemPropertyArtist ];
-    // 设置专辑
-    [ dict setObject: @"三爸育儿" forKey:MPMediaItemPropertyAlbumTitle ];
-    // 流派
-//    [ dict setObject:@"流派" forKey:MPMediaItemPropertyGenre ];
-    // 设置总时长
-    NSInteger time = self.duration.minute*60 + self.duration.second;
-    [dict setObject:@(time) forKey:MPMediaItemPropertyPlaybackDuration];
-    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
 }
 
 /**

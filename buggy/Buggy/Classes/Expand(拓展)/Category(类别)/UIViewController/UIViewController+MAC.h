@@ -89,4 +89,5 @@
 
 //返回最顶部的视图
 + (UIViewController *)presentingVC;
++ (UIViewController *)topViewController;
 @end
