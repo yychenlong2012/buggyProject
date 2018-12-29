@@ -77,7 +77,6 @@
 
 -(void)setModel:(MusicBannerModel *)model{
     _model = model;
-    
     NSURL *imageUrl = [NSURL URLWithString:model.imgurl];
     if (imageUrl) {
         [self.imageview sd_setImageWithURL:imageUrl placeholderImage:ImageNamed(@"banner占位图")];
@@ -87,12 +86,12 @@
         self.bannerTitle.text = model.title;
     }
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
+
+//2018-12-26 10:11:35.185450+0800 Buggy[449:28529] 图片大小 0.408698 0.200139
+//2018-12-26 10:11:35.322241+0800 Buggy[449:28529] 图片大小 0.432026 0.194679
+//2018-12-26 10:11:35.492161+0800 Buggy[449:28529] 图片大小 0.577319 0.408294
+//2018-12-26 10:11:35.573947+0800 Buggy[449:28529] 图片大小 0.149972 0.223761
+//2018-12-26 10:11:35.884368+0800 Buggy[449:28529] 图片大小 0.465430 0.326331
+//2018-12-26 10:11:36.019810+0800 Buggy[449:28529] 图片大小 0.648888 0.296264
 @end

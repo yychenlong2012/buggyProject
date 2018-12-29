@@ -21,6 +21,7 @@
 		4E384CC921C2082C0039FD1A /* reSetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E384CC721C2082C0039FD1A /* reSetPasswordViewController.xib */; };
 		4E384CCD21C23FAA0039FD1A /* bandPhoneNumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E384CCB21C23FAA0039FD1A /* bandPhoneNumViewController.m */; };
 		4E384CCE21C23FAA0039FD1A /* bandPhoneNumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E384CCC21C23FAA0039FD1A /* bandPhoneNumViewController.xib */; };
+		4E386DE521D0BD09008272CD /* springAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E386DE421D0BD09008272CD /* springAnimation.m */; };
 		4E41B3EA219BFEC600918C91 /* babyInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E41B3E9219BFEC600918C91 /* babyInfoModel.m */; };
 		4E4804BA20DA088B00BF33EB /* CLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4804B920DA088B00BF33EB /* CLView.m */; };
 		4E48C7361F33205D004D8553 /* AYCulture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48C7351F33205D004D8553 /* AYCulture.m */; };
@@ -90,7 +91,6 @@
 		4E744AA72065FA4C00BCBC7C /* histogramCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E744AA62065FA4C00BCBC7C /* histogramCollectionView.m */; };
 		4E744AAA2065FDBE00BCBC7C /* lineLayoutTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E744AA92065FDBE00BCBC7C /* lineLayoutTwo.m */; };
 		4E744AAD2065FE2300BCBC7C /* histogramCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E744AAC2065FE2300BCBC7C /* histogramCollectionViewCell.m */; };
-		4E744AB02066011000BCBC7C /* animationTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E744AAE206600F600BCBC7C /* animationTools.m */; };
 		4E74826420844B310031042B /* MusicPlayNewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E74826320844B310031042B /* MusicPlayNewController.m */; };
 		4E75992C2199130E00F3A0A6 /* NetworkAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E75992B2199130E00F3A0A6 /* NetworkAPI.m */; };
 		4E75992F21992CAE00F3A0A6 /* homeDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E75992E21992CAE00F3A0A6 /* homeDataModel.m */; };
@@ -614,6 +614,8 @@
 		4E384CCA21C23FAA0039FD1A /* bandPhoneNumViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bandPhoneNumViewController.h; sourceTree = "<group>"; };
 		4E384CCB21C23FAA0039FD1A /* bandPhoneNumViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = bandPhoneNumViewController.m; sourceTree = "<group>"; };
 		4E384CCC21C23FAA0039FD1A /* bandPhoneNumViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = bandPhoneNumViewController.xib; sourceTree = "<group>"; };
+		4E386DE321D0BD09008272CD /* springAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = springAnimation.h; sourceTree = "<group>"; };
+		4E386DE421D0BD09008272CD /* springAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = springAnimation.m; sourceTree = "<group>"; };
 		4E41B3E8219BFEC600918C91 /* babyInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = babyInfoModel.h; sourceTree = "<group>"; };
 		4E41B3E9219BFEC600918C91 /* babyInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = babyInfoModel.m; sourceTree = "<group>"; };
 		4E444C611FBD765800670036 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -753,8 +755,6 @@
 		4E744AA92065FDBE00BCBC7C /* lineLayoutTwo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lineLayoutTwo.m; sourceTree = "<group>"; };
 		4E744AAB2065FE2300BCBC7C /* histogramCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = histogramCollectionViewCell.h; sourceTree = "<group>"; };
 		4E744AAC2065FE2300BCBC7C /* histogramCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = histogramCollectionViewCell.m; sourceTree = "<group>"; };
-		4E744AAE206600F600BCBC7C /* animationTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = animationTools.m; sourceTree = "<group>"; };
-		4E744AAF2066011000BCBC7C /* animationTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animationTools.h; sourceTree = "<group>"; };
 		4E74826220844B310031042B /* MusicPlayNewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayNewController.h; sourceTree = "<group>"; };
 		4E74826320844B310031042B /* MusicPlayNewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayNewController.m; sourceTree = "<group>"; };
 		4E75992A2199130E00F3A0A6 /* NetworkAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkAPI.h; sourceTree = "<group>"; };
@@ -2932,12 +2932,12 @@
 			children = (
 				4E5D87692069E56100B153D0 /* MYLabel.h */,
 				4E5D87682069E54300B153D0 /* MYLabel.m */,
-				4E744AAF2066011000BCBC7C /* animationTools.h */,
-				4E744AAE206600F600BCBC7C /* animationTools.m */,
 				4ECECDC8213E29D000B1940A /* CLKeyChain.h */,
 				4ECECDC9213E29D000B1940A /* CLKeyChain.m */,
 				4E53748C218801A400D5E66F /* GSNetworkSpeed.h */,
 				4E53748B2188019E00D5E66F /* GSNetworkSpeed.m */,
+				4E386DE321D0BD09008272CD /* springAnimation.h */,
+				4E386DE421D0BD09008272CD /* springAnimation.m */,
 				4ED826891F46857B0029DB29 /* AYObject */,
 				4E7215B21F3D850A00672191 /* AYViewPager */,
 				4E48C7371F332094004D8553 /* Device */,
@@ -4236,6 +4236,7 @@
 				7B1BBBFF1E2F657000995017 /* UIPlaceholderTextView.m in Sources */,
 				7BB6AAD41E9B2DF80026694E /* WaveView.m in Sources */,
 				7B1BBBCD1E2F657000995017 /* UIColor+Mac.m in Sources */,
+				4E386DE521D0BD09008272CD /* springAnimation.m in Sources */,
 				4E6DDB8B20E73533000B1A44 /* banner2.m in Sources */,
 				4E9040F7205CEF5F005C795F /* TripDetailViewController.m in Sources */,
 				4E693F6A209D520300C86688 /* BabyInfoTableViewCell.m in Sources */,
@@ -4320,7 +4321,6 @@
 				4E6BB94E21C0B89A002307F3 /* MQVerCodeImageView.m in Sources */,
 				7BAD2FED1E9F678600956CA6 /* NSArray+MonitorCrash.m in Sources */,
 				7B1BBBE51E2F657000995017 /* UIResponder+Chain.m in Sources */,
-				4E744AB02066011000BCBC7C /* animationTools.m in Sources */,
 				4E75992F21992CAE00F3A0A6 /* homeDataModel.m in Sources */,
 				7B1BBC341E2F657000995017 /* GCDTimer.m in Sources */,
 				4E7215B51F3D850A00672191 /* AYViewPager.m in Sources */,

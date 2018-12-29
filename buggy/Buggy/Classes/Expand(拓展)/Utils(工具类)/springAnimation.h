@@ -1,16 +1,17 @@
 //
-//  animationTools.h
-//  合集
+//  springAnimation.h
+//  Buggy
 //
-//  Created by goat on 2017/12/20.
-//  Copyright © 2017年 goat. All rights reserved.
+//  Created by goat on 2018/12/24.
+//  Copyright © 2018 ningwu. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
 typedef void(^CallBackBlockValue)(CGFloat value);
 typedef void(^CallBackBlockPoint)(CGPoint point);
-@interface animationTools : NSObject
+@interface springAnimation : NSObject
 //单个值的震荡
 -(void)animationWithFormValue:(CGFloat)formValue
                       toValue:(CGFloat)toValue
@@ -27,3 +28,5 @@ typedef void(^CallBackBlockPoint)(CGPoint point);
                      duration:(CGFloat)duration
                      callback:(CallBackBlockPoint)callback;
 @end
+
+NS_ASSUME_NONNULL_END

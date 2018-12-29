@@ -61,6 +61,7 @@
 }
 
 -(void)dealloc{
+    NSLog(@"imagePicker-dealloc");
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -417,60 +418,55 @@
 
 //完成
 - (void)rightBarAction{
-    CGFloat scraled = self.imageSelected.image.size.width / self.imageSelected.frame.size.width;
 
-    CGFloat imgX;
-    CGFloat imgY;
-    CGFloat imgW;
-    CGFloat imgH;
+    //按比例缩小图片
+    NSData *data = [self shrinkImage:self.imageSelected.image];
+    UIImage *imageCut = [UIImage imageWithData:data];
+    //裁剪图片
+    imageCut = [self getCenterImage:imageCut];
+    self.imageSelected.image = nil;
+    if ([self.delegate respondsToSelector:@selector(getCutImage:)]) {
+        [self.delegate getCutImage:imageCut];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
-    if (self.imageSelected.width <= ScreenWidth){
-        imgX = 0;
-        imgW = self.imageSelected.width;
+//截取中间正方形区域
+-(UIImage *)getCenterImage:(UIImage *)image{
+    CGFloat imgW = image.size.width;
+    CGFloat imgH = image.size.height;
+    CGRect rect;
+    if (imgW > imgH) {
+        rect = CGRectMake((imgW-imgH)/2, 0, imgH, imgH);
     }else{
-        imgX = -self.imageSelected.originX;
-        imgW = ScreenWidth;
+        rect = CGRectMake(0, (imgH-imgW)/2, imgW, imgW);
     }
+    //裁剪图片 取中间部分
+    CGImageRef subImageRef = CGImageCreateWithImageInRect(image.CGImage, rect);
+    NSLog(@"图片尺寸 %zu %zu",CGImageGetWidth(subImageRef),CGImageGetHeight(subImageRef));
+    UIImage* smallImage = [[UIImage alloc] initWithCGImage:subImageRef scale:image.scale orientation:image.imageOrientation];     //用上面的方法 在截图后会改变图片的显示方向
+    CGImageRelease(subImageRef);
+    return smallImage;
+}
 
-    if (self.imageSelected.height <= ScreenWidth) {
-        imgY = 0;
-        imgH = self.imageSelected.height;
-    }else{
-        imgY = - self.imageSelected.originY;
-        imgH = ScreenWidth;
-    }
-
-    CGRect rect = CGRectMake(imgX*scraled, imgY*scraled, imgW*scraled, imgH*scraled);
-    UIImage *imageCut = [self.imageSelected.image getSubImage:rect];    //裁剪
-//    [self setCoverImage:imageCut];   //刷新封面大图
-
-    //图片压缩
-    //质量压缩
-//    NSData *data = UIImageJPEGRepresentation(imageCut, 0.05);
-//    UIImage * resultImage = [UIImage imageWithData:data];
-
-//    resultImage = [self compressImage:resultImage toByte:200000];
-//    self.imageSelected.image = resultImage;
-//    NSData *data = UIImageJPEGRepresentation(resultImage, 1);
-//    NSLog(@"%lu",(unsigned long)data.length);
-    //尺寸压缩
-//    CGSize imageSize = CGSizeMake(300, 300);
-//    UIGraphicsBeginImageContext(imageSize);
-//    [resultImage drawInRect:CGRectMake(0, 0, imageSize.width, imageSize.height)];
-//    resultImage = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    NSLog(@"%f",UIImageJPEGRepresentation(resultImage, 1).length/1024.0);
-//    self.imageSelected.image = resultImage;
-
-    //跳转图片编辑view
-//    ImageEditVC *imageVC = [[ImageEditVC alloc]init];
-//    imageVC.image = imageCut;
-//
-//    [self.navigationController pushViewController:imageVC animated:YES];
-
-    if ([self.delegate respondsToSelector:@selector(getCutImage:controller:)]) {
-        [self.delegate getCutImage:imageCut controller:self];
-    }
+//缩小图片
+-(NSData *)shrinkImage:(UIImage *)image{
+    //实现等比例缩放
+    CGFloat hfactor = image.size.width / ScreenWidth;
+    CGFloat vfactor = image.size.height / ScreenHeight;
+    CGFloat factor = fmax(hfactor, vfactor);
+    //画布大小
+    CGFloat newWith = image.size.width / factor;
+    CGFloat newHeigth = image.size.height / factor;
+    CGSize newSize = CGSizeMake(newWith, newHeigth);
+    
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0, 0, newWith, newHeigth)];
+    UIImage * newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    //图像压缩
+    NSData * newImageData = UIImageJPEGRepresentation(newImage, 0.5);
+    return newImageData;
 }
 
 

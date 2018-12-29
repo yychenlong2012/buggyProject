@@ -97,14 +97,16 @@
 //请求已绑定的推车信息
 -(void)requestDeviceData{
     [NETWorkAPI requestDeviceListCallback:^(NSArray * _Nullable modelArray, NSInteger currentPage, NSError * _Nullable error) {
-        if (modelArray != nil && [modelArray isKindOfClass:[NSArray class]] && error == nil) {
-            NETWorkAPI.deviceArray = [NSMutableArray arrayWithArray:modelArray];
-            
-            NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
-            [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-        }else{
-            
+        if (error) {
+            return ;
         }
+        if (modelArray != nil && [modelArray isKindOfClass:[NSArray class]]) {
+            NETWorkAPI.deviceArray = [NSMutableArray arrayWithArray:modelArray];
+        }else{
+            [NETWorkAPI.deviceArray removeAllObjects];
+        }
+        NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+        [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
 
@@ -245,8 +247,8 @@
 }
 
 #pragma mark - WNImagePickerDelegate
-- (void)getCutImage:(UIImage *)image controller:(WNImagePicker *)vc{
-    [self.navigationController popToViewController:self animated:YES];
+- (void)getCutImage:(UIImage *)image{
+//    [self.navigationController popToViewController:self animated:YES];
     
     //上传用户头像
     NSData *imageData = [image compressImageWithImage:image aimWidth:300 aimLength:300*1024 accuracyOfLength:1024];

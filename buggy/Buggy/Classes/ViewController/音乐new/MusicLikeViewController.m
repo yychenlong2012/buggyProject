@@ -14,6 +14,7 @@
 #import "MusicVehicleViewModel.h"
 #import "MusicManager.h"
 #import "CLImageView.h"
+#import "PreferenceDataBase.h"
 
 #define MusicLikeCellHeight 52
 @interface MusicLikeViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -170,6 +171,24 @@
         _isPullup = YES;
         _pullUpNumber ++;
         [self requestDataOfPage:_pullUpNumber];
+    }
+}
+
+- (UITableViewCellEditingStyle )tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        musicModel *model = _dataArray[indexPath.row];
+        
+        //删除数据库中的记录
+        PreferenceDataBase *db = [[PreferenceDataBase alloc] init];
+        [db removeData:@{@"musicName":model.musicname}];
+        
+        [_dataArray removeObjectAtIndex:indexPath.row];
+        [self.tableView reloadData];
     }
 }
 

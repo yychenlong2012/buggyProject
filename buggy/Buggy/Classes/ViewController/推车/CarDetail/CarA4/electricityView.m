@@ -7,7 +7,8 @@
 //
 
 #import "electricityView.h"
-#import "animationTools.h"
+//#import "animationTools.h"
+#import "springAnimation.h"
 
 @interface electricityView()
 @property (nonatomic,strong) UILabel *label1;
@@ -108,7 +109,7 @@
 
 -(void)setLeftValue:(CGFloat)leftValue{
     //动画
-    animationTools *tools = [[animationTools alloc] init];
+    springAnimation *tools = [[springAnimation alloc] init];
     __weak typeof(self) wself = self;
     [tools animationWithFormValue:0.0 toValue:leftValue damping:3 velocity:10 duration:1.5 callback:^(CGFloat value) {
         wself.leftLayer.strokeEnd = value;
@@ -117,7 +118,7 @@
 
 -(void)setRightValue:(CGFloat)rightValue{
     //动画
-    animationTools *tools = [[animationTools alloc] init];
+    springAnimation *tools = [[springAnimation alloc] init];
     __weak typeof(self) wself = self;
     [tools animationWithFormValue:0.0 toValue:rightValue damping:3 velocity:10 duration:1.5 callback:^(CGFloat value) {
         wself.rightLayer.strokeEnd = value;

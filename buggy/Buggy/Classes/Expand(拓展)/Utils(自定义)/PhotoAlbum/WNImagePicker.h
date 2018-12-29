@@ -12,7 +12,7 @@
 
 @protocol WNImagePickerDelegate <NSObject>
 @optional
-- (void)getCutImage:(UIImage *)image controller:(WNImagePicker *)vc;
+- (void)getCutImage:(UIImage *)image;
 
 - (void)onCancel:(WNImagePicker *)vc;
 @end

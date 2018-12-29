@@ -1,15 +1,14 @@
 //
-//  animationTools.m
-//  合集
+//  springAnimation.m
+//  Buggy
 //
-//  Created by goat on 2017/12/20.
-//  Copyright © 2017年 goat. All rights reserved.
+//  Created by goat on 2018/12/24.
+//  Copyright © 2018 ningwu. All rights reserved.
 //
 
-#import "animationTools.h"
-#import <UIKit/UIKit.h>
+#import "springAnimation.h"
 
-@interface animationTools()
+@interface springAnimation()
 @property (nonatomic,strong) CADisplayLink *displaylink;
 @property (nonatomic,assign) CGFloat formValue;
 @property (nonatomic,assign) CGFloat toValue;
@@ -22,19 +21,17 @@
 @property (nonatomic,copy)   CallBackBlockValue callbackValue;
 @property (nonatomic,copy)   CallBackBlockPoint callbackPoint;
 @end
-@implementation animationTools
-
-
+@implementation springAnimation
 /*
  * damping = 5;     //越小 幅度越大
  * velocity = 30;   //越大 震动次数越多
  */
 -(void)animationWithFormValue:(CGFloat)formValue
-                      toValue:(CGFloat)toValue
-                      damping:(CGFloat)damping
-                     velocity:(CGFloat)velocity
-                     duration:(CGFloat)duration
-                     callback:(CallBackBlockValue)callback
+toValue:(CGFloat)toValue
+damping:(CGFloat)damping
+velocity:(CGFloat)velocity
+duration:(CGFloat)duration
+callback:(CallBackBlockValue)callback
 {
     [self.displaylink invalidate];
     self.displaylink = nil;
@@ -69,11 +66,11 @@
 }
 
 -(void)animationWithFormPoint:(CGPoint)formPoint
-                      toPoint:(CGPoint)toPoint
-                      damping:(CGFloat)damping
-                     velocity:(CGFloat)velocity
-                     duration:(CGFloat)duration
-                     callback:(CallBackBlockPoint)callback
+toPoint:(CGPoint)toPoint
+damping:(CGFloat)damping
+velocity:(CGFloat)velocity
+duration:(CGFloat)duration
+callback:(CallBackBlockPoint)callback
 {
     [self.displaylink invalidate];
     self.displaylink = nil;
@@ -135,3 +132,4 @@
 //anim.fillMode=kCAFillModeForwards;
 //anim.removedOnCompletion = NO;
 //[self.animView.layer addAnimation:anim forKey:nil];
+

@@ -14,6 +14,7 @@
 @property (nonatomic,strong) babyInfoModel *addBabyModel;   //添加宝贝
 
 @property (nonatomic,strong) NSString *babyId;
+@property (nonatomic,strong) NSString *currentIcon;
 
 @property (nonatomic,assign) BOOL isResetData;      //是用于修改数据还是添加数据
 @property (nonatomic,weak) id sourceVC;             //用于跳转

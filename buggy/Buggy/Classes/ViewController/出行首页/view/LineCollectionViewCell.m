@@ -7,7 +7,7 @@
 //
 
 #import "LineCollectionViewCell.h"
-#import "animationTools.h"
+#import "springAnimation.h"
 @interface LineCollectionViewCell()
 @property (nonatomic,strong) CAShapeLayer *shapeLayer;
 @property (nonatomic,strong) UIBezierPath *path;
@@ -65,7 +65,7 @@
     }
     
     if (self.lineHeight > 0) {
-        animationTools *tools = [[animationTools alloc] init];
+        springAnimation *tools = [[springAnimation alloc] init];
         __weak typeof(self) wself = self;
         [tools animationWithFormValue:0.0 toValue:1.0 damping:5 velocity:30 duration:1.0 callback:^(CGFloat value) {
             wself.shapeLayer.strokeEnd = value;

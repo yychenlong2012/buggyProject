@@ -62,7 +62,7 @@
         musicModel *model = MUSICMANAGER.audioArray[MUSICMANAGER.currentItemIndex];
         if (model) {
             if (model.musicid != 0) {
-                [self.lrcView setLrcName:[NSString stringWithFormat:@"%ld",model.musicid]];
+                [self.lrcView setLrcName:[NSString stringWithFormat:@"%ld",(long)model.musicid]];
             }
         }
     }
@@ -154,7 +154,7 @@
     //设置歌词
     musicModel *model = MUSICMANAGER.audioArray[MUSICMANAGER.currentItemIndex];
     if (model.musicid != 0) {
-        [self.lrcView setLrcName:[NSString stringWithFormat:@"%ld",model.musicid]];
+        [self.lrcView setLrcName:[NSString stringWithFormat:@"%ld",(long)model.musicid]];
     }
 }
 - (void)PD_playCompletion{   //播放完毕
@@ -503,7 +503,7 @@
                 self.themeImage.image = ImageNamed(@"播放界面占位");
                 return;
             }
-            [self.themeImage sd_setImageWithURL:url placeholderImage:ImageNamed(@"播放界面占位") options:SDWebImageProgressiveDownload|SDWebImageLowPriority progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            [self.themeImage sd_setImageWithURL:url placeholderImage:ImageNamed(@"播放界面占位") options:SDWebImageLowPriority progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                 [FloatTools manager].icon.image = image;
                 [self configLockScreenPlay:model image:image];
             }];
@@ -547,7 +547,6 @@
 
 #pragma mark - scrollviewdelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-
     CGFloat alpha = 1 - scrollView.contentOffset.x/ScreenWidth;
     
     self.baseImage.alpha = alpha;
@@ -607,7 +606,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-//    [AVFile clearAllCachedFiles];
     //清除音乐缓存
     [MUSICMANAGER clearMusicCache];
 }

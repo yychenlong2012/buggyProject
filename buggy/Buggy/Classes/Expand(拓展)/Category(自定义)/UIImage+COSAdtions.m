@@ -31,15 +31,28 @@
 {
     CGImageRef subImageRef = CGImageCreateWithImageInRect(self.CGImage, rect);
     CGRect smallBounds = CGRectMake(0, 0, CGImageGetWidth(subImageRef)*0.5, CGImageGetHeight(subImageRef)*0.5);
-    
+
     UIGraphicsBeginImageContext(smallBounds.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextDrawImage(context, smallBounds, subImageRef);
-//    UIImage* smallImage = [UIImage imageWithCGImage:subImageRef];
-    UIImage* smallImage = [[UIImage alloc] initWithCGImage:subImageRef scale:1 orientation:self.imageOrientation];     //用上面的方法 在截图后会改变图片的显示方向
+    UIImage* smallImage = [[UIImage alloc] initWithCGImage:subImageRef scale:self.scale orientation:self.imageOrientation];     //用上面的方法 在截图后会改变图片的显示方向
+    CGImageRelease(subImageRef);
     UIGraphicsEndImageContext();
-    
     return smallImage;
+    
+
+//    CGImageRef cgImage = self.CGImage;
+//    CGFloat cgImageW = CGImageGetWidth(cgImage);
+//    CGFloat cgImageH = CGImageGetHeight(cgImage);
+//    CGFloat real = cgImageW > cgImageH ? cgImageH : cgImageW;
+//    real = real/2.0;
+//
+//    UIGraphicsBeginImageContext(CGSizeMake(real, real));
+//    [self drawInRect:CGRectMake(0, 0, real/2.0,real/2.0)];
+//    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    CGImageRelease(cgImage);
+//    return smallImage;
 }
 
 -(UIImage*)scaleToSize:(CGSize)size
@@ -69,10 +82,9 @@
  */
 - (NSData *)compressImageWithImage:(UIImage *)image aimWidth:(CGFloat)width aimLength:(NSInteger)length accuracyOfLength:(NSInteger)accuracy{
     UIImage * newImage = [self imageWithImage:image scaledToSize:CGSizeMake(width, width * image.size.height / image.size.width)];
-    
     NSData  * data = UIImageJPEGRepresentation(newImage, 1);
     NSInteger imageDataLen = [data length];
-    
+
     if (imageDataLen <= length + accuracy) {
         return data;
     }else{
@@ -80,23 +92,23 @@
         if (imageData.length < length + accuracy) {
             return imageData;
         }
-        
+
         CGFloat maxQuality = 1.0;
         CGFloat minQuality = 0.0;
         int flag = 0;
-        
+
         while (1) {
             CGFloat midQuality = (maxQuality + minQuality)/2;
-            
+
             if (flag == 6) {
                 NSLog(@"************* %ld ******** %f *************",UIImageJPEGRepresentation(newImage, minQuality).length,minQuality);
                 return UIImageJPEGRepresentation(newImage, minQuality);
             }
             flag ++;
-            
+
             NSData * imageData = UIImageJPEGRepresentation(newImage, midQuality);
             NSInteger len = imageData.length;
-            
+
             if (len > length+accuracy) {
                 NSLog(@"-----%d------%f------%ld-----",flag,midQuality,len);
                 maxQuality = midQuality;
@@ -157,12 +169,18 @@
 }
 
 //对图片尺寸进行压缩--
--(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
+- (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
 {
     UIGraphicsBeginImageContext(newSize);
     [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    
+    //添加
+//    UIGraphicsBeginImageContext(CGSizeMake(22, 22));
+//    [[UIImage imageNamed:@"add_icon"] drawInRect:CGRectMake(0,0,22,22)];
+//    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
     return newImage;
 }
 

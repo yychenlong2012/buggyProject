@@ -79,7 +79,7 @@ IMP_SINGLETON
 
 /* 所有界面逻辑的起始点 */
 - (void)showRightScreen{
-     BOOL isfirstLoadApp = [[NSUserDefaults standardUserDefaults] objectForKey:FirstLoadApp];
+     BOOL isfirstLoadApp = [[[NSUserDefaults standardUserDefaults] objectForKey:FirstLoadApp] boolValue];
 //    !isfirstLoadApp? [self changeToWelcomeScreen]:([MainModel model].isLogin?[self showMainScreen]:[self changeToLoginScreen]);
     
     //是否第一次打开app

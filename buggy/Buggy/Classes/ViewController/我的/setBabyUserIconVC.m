@@ -34,17 +34,20 @@
     [self.view addSubview:self.button];
     [self.view addSubview:self.skip];
 }
+
 -(void)dealloc{
     NSLog(@"setBabyUserIconVC-dealloc");
 }
+
 #pragma mark -- WNImagePickerDelegate
-- (void)getCutImage:(UIImage *)image controller:(WNImagePicker *)vc{
-    [self.navigationController popToViewController:self animated:YES];
+- (void)getCutImage:(UIImage *)image{
     self.icon.image = image;
     //上传baby头像
-    NSData *imageData = [image compressImageWithImage:image aimWidth:300 aimLength:300*1024 accuracyOfLength:1024];
+//    NSData *imageData = [image compressImageWithImage:image aimWidth:300 aimLength:300*1024 accuracyOfLength:1024];
+    NSData *imageData = UIImageJPEGRepresentation(image, 1);
+//    NSLog(@"%ld",imageData.length);
     self.imageData = imageData;
-    
+
     //id不为空说明是修改
     if (self.babyId != nil) {
         [NETWorkAPI updateBabyInfoWithId:self.babyId optionType:UPLOAD_BABY_HEADER optionValue:imageData callback:^(BOOL success, NSError * _Nullable error) {
@@ -78,6 +81,12 @@
         self.icon.frame = CGRectMake(0, 0, RealWidth(90), RealWidth(90));
         self.icon.centerX = _babyIcon.width/2;
         self.icon.image = ImageNamed(@"Group 2 Copy");
+        if ([self.currentIcon isKindOfClass:[NSString class]]) {
+            NSURL *url = [NSURL URLWithString:self.currentIcon];
+            if (url) {
+                [self.icon sd_setImageWithURL:url];
+            }
+        }
         self.icon.userInteractionEnabled = YES;
         __weak typeof(self) wself = self;
         [self.icon addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {

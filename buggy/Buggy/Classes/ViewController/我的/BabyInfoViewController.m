@@ -102,6 +102,7 @@
         setBabyUserIconVC *userIcon = [[setBabyUserIconVC alloc] init];
         userIcon.isResetData = YES;
         userIcon.babyId = self.babyId;
+        userIcon.currentIcon = self.babyModel.header;
         userIcon.sourceVC = self;
         userIcon.view.backgroundColor = kWhiteColor;
         [self.navigationController pushViewController:userIcon animated:YES];
