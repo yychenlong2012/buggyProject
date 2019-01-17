@@ -64,6 +64,7 @@
         self.tipsLabel.textColor = kWhiteColor;
         self.tipsLabel.numberOfLines = 0;
         self.tipsLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:RealWidth(16)];
+        self.tipsLabel.hidden = YES;
         [self addSubview:self.tipsLabel];
         
         //出行管理界面

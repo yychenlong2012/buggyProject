@@ -8,7 +8,7 @@
 
 #import "NetworkAPI.h"
 #import "ScreenMgr.h"
-#import "WXApi.h"
+//#import "WXApi.h"
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "AppDelegate.h"
 #import "WeiboSDK.h"
@@ -182,7 +182,7 @@ static NetworkAPI* _instance = nil;
 
 //验证登录状态
 -(void)uploadRefreshToken{
-//    self.manager.requestSerializer.timeoutInterval = 3;
+    self.manager.requestSerializer.timeoutInterval = 5;
     NSDictionary *dict = @{ @"refresh_token":KUserDefualt_Get(USER_REFRESH_TOKEN) };
     [self.manager POST:CHECK_LOGIN parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         self.manager.requestSerializer.timeoutInterval = 20.f;
@@ -210,13 +210,16 @@ static NetworkAPI* _instance = nil;
         [self resetHTTPHeader];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         self.manager.requestSerializer.timeoutInterval = 20.f;
-        [MBProgressHUD showError:@"网络错误！"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [MBProgressHUD showError:@"网络错误！"];
+        });
+        [SCREENMGR changeToLoginScreen];
     }];
 }
 
 //token检验
 -(void)checkToken{
-//    self.manager.requestSerializer.timeoutInterval = 3;
+    self.manager.requestSerializer.timeoutInterval = 5;
     [self.manager POST:CHECK_LOGIN parameters:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         self.manager.requestSerializer.timeoutInterval = 20.f;
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
@@ -248,7 +251,10 @@ static NetworkAPI* _instance = nil;
         }
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         self.manager.requestSerializer.timeoutInterval = 20.f;
-        [MBProgressHUD showError:@"网络错误！"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [MBProgressHUD showError:@"网络错误！"];
+        });
+        [SCREENMGR changeToLoginScreen];
    }];
 }
 
@@ -266,6 +272,9 @@ static NetworkAPI* _instance = nil;
        }
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
        callback(nil,NO,error);
+       if (error.code == -1004) {
+           [MBProgressHUD showError:@"请检查网络！"];
+       }
    }];
 }
 
@@ -381,6 +390,7 @@ static NetworkAPI* _instance = nil;
 //                                   @"nickName":@"chenlong",
 //                                   @"platform":@"weixin",
 //                                   @"header":@""  };
+//        NSLog(@"%@",openID); //EDBD7F157B5EB8128142217222B7D711   98C7148467FD709476E74807A496E7B3
         self.thirdPartData = [NSMutableDictionary dictionaryWithDictionary:parma];
         [self.manager POST:THIRD_PART_LOGIN parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
@@ -1112,7 +1122,7 @@ static NetworkAPI* _instance = nil;
             formatter.dateFormat = @"yyyyMMddHHmmss";   // 设置时间格式
             NSString *str = [formatter stringFromDate:[NSDate date]];
             NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
-            [formData appendPartWithFileData:imageData name:@"header" fileName:fileName mimeType:@"image/png"];
+            [formData appendPartWithFileData:imageData name:@"finalPicture" fileName:fileName mimeType:@"image/png"];
         }
         
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

@@ -43,8 +43,10 @@
 #define WEIXINSECRET @"ef46c5de4156f80d4fc4f7c52cacd657"
 
 // qq
-#define QQAPPID @"1105156999"
-#define QQAPPKEY @"fxd38ZT4LsU5RbFP"
+//#define QQAPPID @"1105156999"
+//#define QQAPPKEY @"fxd38ZT4LsU5RbFP"
+#define QQAPPID @"1105227558"
+#define QQAPPKEY @"T9B4KDL0ypc6rNCT"
 
 // 高德
 #define AMAP @"4f98bb0f7459ff72eac6aa5dface0b15"

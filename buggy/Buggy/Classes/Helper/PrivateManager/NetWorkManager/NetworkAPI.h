@@ -48,6 +48,7 @@ typedef enum : NSUInteger {
 } SCENE_MUSIC_TYPE;      //操作类型
 
 
+
 typedef void(^HomeDataBlock)(homeDataModel * _Nullable model, BOOL isfirstLogin,NSError * _Nullable error);    //首页数据返回block   isfirstLogin 用于表明三方登陆是否为首次登陆
 typedef void(^ModelBlock)(id _Nullable model, NSError * _Nullable error);
 typedef void(^DataListBlock)(NSArray * _Nullable modelArray, NSInteger currentPage, NSError * _Nullable error);

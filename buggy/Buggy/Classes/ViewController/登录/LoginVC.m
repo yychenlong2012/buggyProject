@@ -136,8 +136,20 @@
     UserProtocol *VC = [UserProtocol new];
     [self.navigationController pushViewController:VC animated:YES];
 }
-#pragma mark ===  手机号码登录
+#pragma mark - 手机号码登录
 - (IBAction)onLogin:(id)sender {
+    //检验手机号格式
+    if (![AYCommon isValidateMobile:self.tfPhoneNum.text]) {
+        [MBProgressHUD showToast:NSLocalizedString(@"请输入正确的手机号", nil)];
+        return;
+    }
+    
+    //判断密码是否为空
+    if (self.tfPassword.text.length == 0) {
+        [MBProgressHUD showToast:NSLocalizedString(@"请输入正确的密码", nil)];
+        return;
+    }
+    
     [NETWorkAPI loginWithMobilePhone:self.tfPhoneNum.text password:self.tfPassword.text callback:^(homeDataModel * _Nullable model, BOOL isfirstLogin, NSError * _Nullable error) {
         
     }];

@@ -52,12 +52,37 @@ long calculate(void) {
     return s;
 }
 
+-(NSString *)getLaunchImage{
+    CGSize viewSize = self.window.bounds.size;
+    NSString *viewOrientation = @"Portrait";    //横屏请设置成 @"Landscape"
+    NSString *launchImage = nil;
+    
+    NSArray* imagesDict = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"UILaunchImages"];
+    for (NSDictionary* dict in imagesDict)
+    {
+        CGSize imageSize = CGSizeFromString(dict[@"UILaunchImageSize"]);
+        
+        if (CGSizeEqualToSize(imageSize, viewSize) && [viewOrientation isEqualToString:dict[@"UILaunchImageOrientation"]])
+        {
+            launchImage = dict[@"UILaunchImageName"];
+        }
+    }
+
+    return launchImage;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    LoginVC *loginVC = [[LoginVC alloc] init];
+//    LoginVC *loginVC = [[LoginVC alloc] init];
+    UIViewController *loginVC = [[UIViewController alloc] init];
     loginVC.view.backgroundColor = [UIColor whiteColor];
+    
+    UIImageView *image = [[UIImageView alloc] init];
+    image.image = [UIImage imageNamed:[self getLaunchImage]];
+    image.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+    [loginVC.view addSubview:image];
     DYBaseNaviagtionController *nav = [[DYBaseNaviagtionController alloc]
                                        initWithRootViewController:loginVC];
     self.window.rootViewController = nav;
@@ -95,7 +120,7 @@ void handleException(NSException *exception){
     //2.设备型号
     NSString *deviceName = [NetWorkStatus getDeviceName];
     //3.系统版本
-    NSString *OSVersion = [NSString stringWithFormat:@"iOS %@",[UIDevice currentDevice].systemVersion];
+    NSString *OSVersion = [NSString stringWithFormat:@"%@",[UIDevice currentDevice].systemVersion];
     //4.崩溃名
     NSString *exceptionName = [exception name];
     //5.崩溃原因
@@ -110,9 +135,9 @@ void handleException(NSException *exception){
             topViewController = naviVC.topViewController;
         }
     }
-    NSString *callStackStr = [NSString stringWithFormat:@"当前界面%@\n调用栈",[topViewController class]];
+    NSString *callStackStr = [NSString stringWithFormat:@"崩溃界面%@<br>调用栈",[topViewController class]];
     for (NSString *str in array) {
-        callStackStr = [NSString stringWithFormat:@"%@\n%@",callStackStr,str];
+        callStackStr = [NSString stringWithFormat:@"%@<br>%@",callStackStr,str];
     }
     //7.崩溃前画面
     UIViewController *vc = [UIViewController presentingVC];
@@ -127,19 +152,19 @@ void handleException(NSException *exception){
     NSString *networkType = @"none";
     switch (network) {
         case 0:
-            networkType = @"NETWORK_TYPE_NONE";
+            networkType = @"NONE";
             break;
         case 1:
-            networkType = @"NETWORK_TYPE_2G";
+            networkType = @"2G";
             break;
         case 2:
-            networkType = @"NETWORK_TYPE_3G";
+            networkType = @"3G";
             break;
         case 3:
-            networkType = @"NETWORK_TYPE_4G";
+            networkType = @"4G";
             break;
         case 5:
-            networkType = @"NETWORK_TYPE_WIFI";
+            networkType = @"WIFI";
     }
     //9.崩溃前蓝牙状态
     BOOL isConnected = BLEMANAGER.currentPeripheral==nil?NO:YES;
@@ -164,7 +189,7 @@ void handleException(NSException *exception){
                             @"networkType":networkType,
                             @"bluetooth":isConnected==YES?@"已连接":@"未连接",
                             @"crashTime":crashTime==nil?@"":crashTime,
-                            @"AppVersion":AppVersion==nil?@"":[NSString stringWithFormat:@"iOS_APP_%@",AppVersion],
+                            @"AppVersion":AppVersion==nil?@"":AppVersion,
                             @"uniqueIdentifier":identifier==nil?@"":identifier,
                              @"slide":slide==nil?@"":slide
                            };

@@ -16,15 +16,15 @@
 #import "MainModel.h"
 #import "UIImage+COSAdtions.h"
 
-#define WEIBOAPPKEY @"3074598193"
-#define WEIBOAPPSECREAT @"811403f7ef7c35ff14478b960e7188ba"
-#define WEIBOREDIRECTURI @"http://sns.whalecloud.com/sina2/callback"
+//#define WEIBOAPPKEY @"3074598193"
+//#define WEIBOAPPSECREAT @"811403f7ef7c35ff14478b960e7188ba"
+//#define WEIBOREDIRECTURI @"http://sns.whalecloud.com/sina2/callback"
+//
+//#define WEIXINAPPID @"wxe4636c9399ddee3f"
+//#define WEIXINSECRET @"ef46c5de4156f80d4fc4f7c52cacd657"
 
-#define WEIXINAPPID @"wxe4636c9399ddee3f"
-#define WEIXINSECRET @"ef46c5de4156f80d4fc4f7c52cacd657"
-
-#define QQAPPID @"1105156999"
-#define QQAPPKEY @"fxd38ZT4LsU5RbFP"
+//#define QQAPPID @"1105156999"
+//#define QQAPPKEY @"fxd38ZT4LsU5RbFP"
 
 @implementation shareManager
 
@@ -71,7 +71,7 @@
     WXImageObject *imageObject = [WXImageObject object];
     imageObject.imageData = UIImagePNGRepresentation(image);
     message.mediaObject = imageObject;
-    
+
     SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
     req.message = message;

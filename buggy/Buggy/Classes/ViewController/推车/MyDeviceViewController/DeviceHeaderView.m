@@ -7,8 +7,11 @@
 //
 
 #import "DeviceHeaderView.h"
-#import "Layer.h"
 #import "UIImageView+Gif.h"
+
+@interface DeviceHeaderView()
+@property (nonatomic,strong) CAReplicatorLayer *replicator;
+@end
 
 @implementation DeviceHeaderView{
     
@@ -17,15 +20,12 @@
     
     UILabel *_cartLB;
     UILabel *_openiPhoneBluetoothLB;
-    
-    NSTimer *_timer;
+
     UIImageView *_gifImage;
 }
 
 - (void)dealloc{
  
-    [_timer invalidate];
-    _timer = nil;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -38,7 +38,6 @@
 }
 
 - (void)setupUI{
-    
     self.backgroundColor = COLOR_HEXSTRING(@"#EEEEEE");
     // 车子开启提示
     _cartLB = [Factory labelWithFrame:CGRectMake(0, 0, 85 * _MAIN_RATIO_375, 40 * _MAIN_RATIO_375) font:FONT_DEFAULT_Light(14) text:NSLocalizedString(@"长按电源键\n启动设备", nil) textColor:COLOR_HEXSTRING(@"#333333") onView:self textAlignment:NSTextAlignmentCenter];
@@ -62,36 +61,48 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"gif6.gif" ofType:nil];
     [_gifImage gif_setImage:[NSURL fileURLWithPath:path]];
     [self addSubview:_gifImage];
-    
+}
+
+-(CAReplicatorLayer *)replicator{
+    if (_replicator == nil) {
+        //创建复制图层容器
+        _replicator= [CAReplicatorLayer layer];
+        _replicator.instanceCount = 7;
+        _replicator.instanceDelay = 0.2;
+        //放大动画
+        CABasicAnimation *anim = [CABasicAnimation animation];
+        anim.keyPath = @"transform.scale";
+        anim.fromValue = @1;
+        anim.toValue = @18;
+        //透明度动画
+        CABasicAnimation *anim2 = [CABasicAnimation animation];
+        anim2.keyPath = @"opacity";
+        anim2.toValue = @0.0;
+        anim2.fromValue = @0.8;
+        
+        CAAnimationGroup *group = [CAAnimationGroup animation];
+        group.animations = @[anim,anim2];
+        group.duration = 1.4;
+        group.repeatCount = 100;
+        //创建子图层
+        CALayer *layer = [CALayer layer];
+        [layer addAnimation:group forKey:nil];
+        layer.bounds = CGRectMake(0, 0, 8, 8);
+        layer.cornerRadius = 4;
+        layer.backgroundColor = COLOR_HEXSTRING(@"#EA779F").CGColor;
+        [_replicator addSublayer:layer];
+    }
+    return _replicator;
 }
 
 - (void)addSearchAnimation{
-    
-    __weak typeof(self) wself = self;
-    
-    if ([AYDeviceManager currentVersion]>10) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-            Layer *layer = [Layer layer];
-            layer.radius = 60;
-            layer.animationDuration = 2;
-            layer.position = CGPointMake(ScreenWidth - 110 * _MAIN_RATIO_375,172 *_MAIN_RATIO_375);
-            [wself.layer insertSublayer:layer below:self->_instructionImage.layer];
-        }];
-    }else{
-       _timer = [ NSTimer  scheduledTimerWithTimeInterval:2 target:self selector:@selector(animation) userInfo:nil repeats:YES];
-    }
+    self.replicator.position = CGPointMake(ScreenWidth - 110 * _MAIN_RATIO_375,172 *_MAIN_RATIO_375);
+    [self.layer insertSublayer:self.replicator below:_instructionImage.layer];
 }
-- (void)animation{
-    Layer *layer = [Layer layer];
-    layer.radius = 60;
-    layer.animationDuration = 2;
-    layer.position = CGPointMake(ScreenWidth - 110 * _MAIN_RATIO_375,172 *_MAIN_RATIO_375);
-    [self.layer insertSublayer:layer below:_instructionImage.layer];
-}
+
 - (void)removeSearchAnimation{
-    
-    [_timer invalidate];
-    _timer = nil;
+    [self.replicator removeFromSuperlayer];
+    self.replicator = nil;
 }
 
 
