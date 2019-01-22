@@ -234,6 +234,10 @@
     }else if (code == 35 || code == 36){
         jsonName = @"34";
     }
+    //如果jsonName为空，则添加默认值
+    if (jsonName == nil) {
+        jsonName = @"0";
+    }
     
     NSString *path = [[NSBundle mainBundle] pathForResource:jsonName ofType:@"json"];
     if (path != nil) {

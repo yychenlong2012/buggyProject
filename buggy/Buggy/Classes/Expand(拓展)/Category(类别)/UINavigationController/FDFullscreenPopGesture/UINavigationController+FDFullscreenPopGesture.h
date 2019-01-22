@@ -31,12 +31,12 @@
 /// automatically patch UINavigationController with this feature.
 @interface UINavigationController (FDFullscreenPopGesture)
 
-/// The gesture recognizer that actually handles interactive pop.
+/// 实际处理交互式pop的手势识别器。
 @property (nonatomic, strong, readonly) UIPanGestureRecognizer *fd_fullscreenPopGestureRecognizer;
 
-/// A view controller is able to control navigation bar's appearance by itself,
-/// rather than a global way, checking "fd_prefersNavigationBarHidden" property.
-/// Default to YES, disable it if you don't want so.
+/// 视图控制器能够自己控制导航栏的外观
+/// 检查“fd_prefersNavigationBarHidden”属性而不是全局方法。
+/// 默认为YES，如果不需要禁用它。
 @property (nonatomic, assign) BOOL fd_viewControllerBasedNavigationBarAppearanceEnabled;
 
 @end
@@ -46,8 +46,7 @@
 /// cases.
 @interface UIViewController (FDFullscreenPopGesture)
 
-/// Whether the interactive pop gesture is disabled when contained in a navigation
-/// stack.
+/// 当包含在导航堆栈中时，是否禁用交互式pop手势
 @property (nonatomic, assign) BOOL fd_interactivePopDisabled;
 
 /// Indicate this view controller prefers its navigation bar hidden or not,

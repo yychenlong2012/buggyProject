@@ -39,6 +39,10 @@ const NSInteger kLOTCacheSize = 50;
     [animationsCache_ removeObjectForKey:oldKey];
     [lruOrderArray_ removeObject:oldKey];
   }
+    //判断key是否为空
+    if (key == nil) {
+        return;
+    }
   [lruOrderArray_ removeObject:key];
   [lruOrderArray_ addObject:key];
   [animationsCache_ setObject:animation forKey:key];
