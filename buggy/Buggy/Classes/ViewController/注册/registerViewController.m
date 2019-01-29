@@ -56,6 +56,8 @@
         self.field4.placeholder = NSLocalizedString(@"请输入新的6-22位密码", nil);
     }
     
+    [self.field2 setSecureTextEntry:NO];
+    
     __weak typeof(self) wself = self;
     self.verifyView.bolck = ^(NSString *imageCodeStr){
         //打印生成的验证码
@@ -245,5 +247,10 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.contentTop.constant = navigationH + 30;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.timer invalidate];
+    self.timer = nil;
 }
 @end

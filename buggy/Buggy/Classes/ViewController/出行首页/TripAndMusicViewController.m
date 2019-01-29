@@ -30,6 +30,7 @@
 #import "NSString+AVLoader.h"
 #import <Photos/Photos.h>
 
+
 @interface TripAndMusicViewController()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource,BLEDataParserDelegate,BlueToothManagerDelegate,tripAndMusicOneCellViewDelegate>
 @property (nonatomic,strong) UITableView *tripTableView;      //出行界面
 @property (nonatomic,strong) UIView *topBgView;    //顶部背景view

@@ -45,6 +45,8 @@
     self.view3.layer.borderWidth = 0.5;
     self.verifyBtn.tag = 0;
     
+    [self.field2 setSecureTextEntry:NO];
+    
     __weak typeof(self) wself = self;
     self.verifyView.bolck = ^(NSString *imageCodeStr){
         //打印生成的验证码
@@ -195,6 +197,11 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.contentTop.constant = navigationH + 30;
     [self.view addSubview:self.naviView];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 @end

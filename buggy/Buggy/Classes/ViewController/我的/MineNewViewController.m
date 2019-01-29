@@ -172,8 +172,11 @@
 
 //打开正确的推车界面
 -(void)openRightCarWith:(DeviceModel *)model{
-    NSUUID *justuuid = [[NSUUID UUID]initWithUUIDString:model.bluetoothuuid];
-    CBPeripheral * justperi =[[BLEMANAGER.centralManager  retrievePeripheralsWithIdentifiers:@[justuuid]] firstObject];   //根据uuid恢复设备
+    NSUUID *justuuid = [[NSUUID UUID] initWithUUIDString:model.bluetoothuuid];
+    if (justuuid == nil) {
+        return;
+    }
+    CBPeripheral * justperi =[[BLEMANAGER.centralManager retrievePeripheralsWithIdentifiers:@[justuuid]] firstObject];   //根据uuid恢复设备
     
     //新版本的判断
     if (model.deviceidentifier != nil) {
