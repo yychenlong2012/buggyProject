@@ -902,6 +902,9 @@ static NetworkAPI* _instance = nil;
 
 //修改设备名称
 -(void)updateDeviceName:(NSString *)name Id:(NSString *)Id callback:(statusBlock _Nonnull)callback{
+    if (Id == nil) {
+        return;
+    }
     NSDictionary *parma = @{ @"objectId":Id,
                              @"bluetoothName":name };
     [self.manager POST:UPDATE_DEVICE_NAME parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
