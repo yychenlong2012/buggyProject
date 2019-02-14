@@ -36,6 +36,7 @@
 @property (nonatomic,strong) CarA3SetTableViewCell *twoCell;
 @property (nonatomic,strong) CarA3SectionView *twoSectionHeader;
 @property (nonatomic,strong) UIView *lockHUD;      //一键防盗提示
+@property (nonatomic,strong) NSString *carBattery;    //推车电量
 @end
 
 @implementation CarA3DetailsViewController
@@ -286,6 +287,7 @@
 
 // 设备电量的回调
 - (void)deviceBattery:(NSString *)battery{
+    self.carBattery = battery;
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
     CarA3StatusTableViewCell *cell = [self.tableView cellForRowAtIndexPath:index];
     [cell setBattery:battery];
@@ -311,6 +313,7 @@
     self.isGuardOpen = sucess;
     self.twoCell.switchBtn.on = sucess;
     self.twoCell.autoBrakeBtn.enabled = !sucess;
+    self.twoSectionHeader.lock.hidden = !sucess;
     if (sucess) {
         [MBProgressHUD showToast:NSLocalizedString(@"一键防盗开启", nil)];
     }else{
@@ -471,25 +474,6 @@
     }
 }
 
-- (void)canBrake:(void(^)(BOOL can))canBrake{
-    CGFloat iphoneBattery = [UIDevice currentDevice].batteryLevel * 100;
-    iphoneBattery = iphoneBattery > 0 ? iphoneBattery : -iphoneBattery;
-    __block NSInteger deviceBattery;
-    [[CacheManager manager] getLocalData:A3DEVICEDATA complete:^(NSObject *object) {
-        if (object) {
-            NSDictionary *dic = (NSDictionary *)object;
-            deviceBattery = [dic[@"battery"] integerValue];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (deviceBattery > 5 && iphoneBattery > 5) {
-                    canBrake(YES);
-                }else{
-                    canBrake(NO);
-                }
-            });
-        }
-    }];
-}
-
 - (BOOL)bleConnecting{
     if (BLEMANAGER.currentPeripheral == nil) {    //连接的状态未连接
         return NO; // test yes             未连接蓝牙时这里会调用很多次
@@ -572,15 +556,20 @@
 //            [wself.bleDataCallBackAPI sendOrderToSetCancleDeviceBrake:on];
         };
         //智能刹车开关
-        _twoCell.cancleDeviceBrakeActionBlock = ^(BOOL on ,BOOL isON) {
-            [wself canBrake:^(BOOL can) {
-                if (can ) {
-                    [wself.bleDataCallBackAPI sendOrderToSetDeviceBrake:on];
-                }else{
+        _twoCell.cancleDeviceBrakeActionBlock = ^(UISwitch *switchBtn) {
+            if (self.carBattery != nil) {   //推车已连接 并且返回了电量
+                //手机电量  这里暂时不考虑手机电量
+//                CGFloat iphoneBattery = [UIDevice currentDevice].batteryLevel * 100;
+//                iphoneBattery = iphoneBattery > 0 ? iphoneBattery : -iphoneBattery;
+                if (wself.carBattery.integerValue >= 5) {
+                    [wself.bleDataCallBackAPI sendOrderToSetDeviceBrake:switchBtn.on];
+                }else{  //电量过低
                     [MBProgressHUD showToastDown:NSLocalizedString(@"设备电量过低，无法进行操作", nil)];
-//                    [weakSetCell isON:can];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        switchBtn.on = !switchBtn.on;
+                    });
                 }
-            }];
+            }
         };
     }
     return _twoCell;

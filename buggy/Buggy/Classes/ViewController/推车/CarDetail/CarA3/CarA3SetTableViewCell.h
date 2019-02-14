@@ -13,7 +13,7 @@
 typedef void(^BackLightSetBlock)(int value);
 typedef void(^CloseDeviceBlock)(void);
 typedef void(^SwitchActionBlock)(BOOL on );
-typedef void(^CancleDeviceBrakeAction)(BOOL on,BOOL isON);
+typedef void(^CancleDeviceBrakeAction)(UISwitch *switchBtn);
 
 @interface CarA3SetTableViewCell : UITableViewCell
 

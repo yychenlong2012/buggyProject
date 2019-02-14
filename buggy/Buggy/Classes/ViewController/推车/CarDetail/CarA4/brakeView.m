@@ -99,4 +99,11 @@
         make.top.equalTo(wself.topLabel.mas_bottom).offset(25);
     }];
 }
+
+//刹车功能是否可点击  一键防盗开启时刹车不可点击
+-(void)buttonStatus:(BOOL)status{
+    self.autoClickView.userInteractionEnabled = status;
+    self.smartClickView.userInteractionEnabled = status;
+    self.switchBtn.enabled = status;
+}
 @end

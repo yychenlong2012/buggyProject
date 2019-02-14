@@ -268,19 +268,19 @@ static void *AFHTTPRequestSerializerObserverContext = &AFHTTPRequestSerializerOb
 // Workarounds for crashing behavior using Key-Value Observing with XCTest
 // See https://github.com/AFNetworking/AFNetworking/issues/2523
 
-- (void)setAllowsCellularAccess:(BOOL)allowsCellularAccess {
+- (void)setAllowsCellularAccess:(BOOL)allowsCellularAccess {   //设置允许手机访问
     [self willChangeValueForKey:NSStringFromSelector(@selector(allowsCellularAccess))];
     _allowsCellularAccess = allowsCellularAccess;
     [self didChangeValueForKey:NSStringFromSelector(@selector(allowsCellularAccess))];
 }
 
-- (void)setCachePolicy:(NSURLRequestCachePolicy)cachePolicy {
+- (void)setCachePolicy:(NSURLRequestCachePolicy)cachePolicy {   //设置缓存策略
     [self willChangeValueForKey:NSStringFromSelector(@selector(cachePolicy))];
     _cachePolicy = cachePolicy;
     [self didChangeValueForKey:NSStringFromSelector(@selector(cachePolicy))];
 }
 
-- (void)setHTTPShouldHandleCookies:(BOOL)HTTPShouldHandleCookies {
+- (void)setHTTPShouldHandleCookies:(BOOL)HTTPShouldHandleCookies {   //处理cookies
     [self willChangeValueForKey:NSStringFromSelector(@selector(HTTPShouldHandleCookies))];
     _HTTPShouldHandleCookies = HTTPShouldHandleCookies;
     [self didChangeValueForKey:NSStringFromSelector(@selector(HTTPShouldHandleCookies))];

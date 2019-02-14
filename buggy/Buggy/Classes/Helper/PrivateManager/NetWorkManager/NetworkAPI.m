@@ -903,6 +903,7 @@ static NetworkAPI* _instance = nil;
 //修改设备名称
 -(void)updateDeviceName:(NSString *)name Id:(NSString *)Id callback:(statusBlock _Nonnull)callback{
     if (Id == nil) {
+        [MBProgressHUD showToast:NSLocalizedString(@"修改失败", nil)];
         return;
     }
     NSDictionary *parma = @{ @"objectId":Id,

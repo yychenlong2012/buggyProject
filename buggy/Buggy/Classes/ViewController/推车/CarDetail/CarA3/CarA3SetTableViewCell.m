@@ -163,7 +163,7 @@
     }else{
         self.switchBtn.enabled = YES;
     }
-    self.cancleDeviceBrakeActionBlock(sw.on,NO);   //第二个参数暂时不用
+    self.cancleDeviceBrakeActionBlock(sw);
 }
 
 - (void)backLightSet:(UISlider *)slider{

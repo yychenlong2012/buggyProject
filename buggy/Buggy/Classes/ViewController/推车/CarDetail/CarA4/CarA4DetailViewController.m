@@ -274,11 +274,13 @@
         self.safeSwitch.on = NO;
         self.lockImageView.hidden = YES;
         self.isSafeOpen = NO;
+        [self.brakeview buttonStatus:YES];
         return;
     }else if (byte[3] == 0x8b && byte[4] == 0x05){   //一键防盗开启
         self.safeSwitch.on = YES;
         self.lockImageView.hidden = NO;
         self.isSafeOpen = YES;
+        [self.brakeview buttonStatus:NO];
         return;
     }else if (byte[3] == 0x8b && byte[4] == 0x0F){   //刹车模式
         if (byte[5] == 0x00) {

@@ -18,4 +18,6 @@
 -(void)smartBrakeMode;
 //隐藏自动刹车
 -(void)hiddenAutoBrake;
+//按钮可用状态
+-(void)buttonStatus:(BOOL)status;
 @end
