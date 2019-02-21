@@ -128,6 +128,38 @@
                                  @"type":@"Ios"
                                };
         
+        /*
+         2019-02-20 17:36:54.490056+0800 Buggy[443:143674] {
+         bluetoothBind = 1;
+         bluetoothDeviceId = "";
+         bluetoothName = "3POMELOS_G";
+         bluetoothUUID = "80AF5A0F-55C0-4BED-DC2D-8CDC71FEA700";
+         company = 3Pomelos;
+         deviceIdentifier = "Pomelos_G";
+         fuctionType = 0;
+         type = Ios;
+         }
+         
+         2019-02-20 17:37:05.299268+0800 Buggy[443:143674] 绑定设备：参数错误！ 类型：{
+         data = "<null>";
+         msg = "\U53c2\U6570\U9519\U8bef\Uff01";
+         status = 2;
+         }
+         
+         2019-02-20 17:37:23.865505+0800 Buggy[443:143674] {
+         bluetoothBind = 1;
+         bluetoothDeviceId = "";
+         bluetoothName = "3POMELOS_NEW_A3";
+         bluetoothUUID = "29825458-A866-B0C4-6BA4-406E0871CF05";
+         company = 3Pomelos;
+         deviceIdentifier = "3POMELOS_A3_New";
+         fuctionType = 4;
+         type = Ios;
+         }
+         
+         
+         2019-02-20 17:37:25.666842+0800 Buggy[443:143674] 绑定设备：操作成功！ 类型
+         */
         [NETWorkAPI bindDeviceWithDict:dict callback:^(BOOL success, NSError * _Nullable error) {
             if (success) {
                 [MBProgressHUD showSuccess:@"绑定成功"];

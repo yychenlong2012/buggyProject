@@ -89,8 +89,8 @@
         
         NSString *hex = [hexString substringWithRange:NSMakeRange(i, 2)];
         NSInteger decimalValue = 0;
-        sscanf([hex UTF8String], "%lx", &decimalValue);
-        [string appendFormat:@"%ld", (long)decimalValue];
+        sscanf([hex UTF8String], "%x", &decimalValue);     //这里千万不能改 请忽略警告
+        [string appendFormat:@"%c", (long)decimalValue];
     }
     return string;
 }

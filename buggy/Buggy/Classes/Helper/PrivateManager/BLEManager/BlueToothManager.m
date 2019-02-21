@@ -597,6 +597,7 @@ typedef struct _CHAR{
     }
 }
 
+
 //特征值更新
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error{
     if (error) {
@@ -671,7 +672,9 @@ typedef struct _CHAR{
     NSMutableString *muString = [NSMutableString new];
     //将数据转成可见命令ascii转码 如DAT:TS
     for(int i =0;i<characteristic.value.length;i++){
-        NSString *getString =[Tools stringFromHexString:[NSString stringWithFormat:@"%02X",buf1.buff[i]&0x000000ff]];
+        NSString *hexString = [NSString stringWithFormat:@"%02X",buf1.buff[i]&0x000000ff];
+        NSString *getString = [Tools stringFromHexString:hexString];
+        NSLog(@"高景观：%@ %@",hexString,getString);
         [muString appendString:getString];
     }
 //    NSLog(@"G处理的data = %@",muString);
