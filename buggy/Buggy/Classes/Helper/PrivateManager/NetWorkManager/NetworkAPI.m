@@ -70,7 +70,7 @@
 #define BIND_PHONE_NUM @""API_HEADER"/Tp/index.php/App/Login/bind_phone.html"           //绑定手机
 
 
-//#define NSLog(format,...) printf("%s",[[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String])
+#define NSLog(format,...) printf("%s",[[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String])
 @interface NetworkAPI()<SDWebImageManagerDelegate>
 
 @property (nonatomic,strong) NSMutableDictionary *thirdPartData;
@@ -922,7 +922,12 @@ static NetworkAPI* _instance = nil;
     [self.manager POST:BIND_DEVICE parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"绑定设备：%@ 类型：%@\n",dict[@"msg"],dict);
-        callback(YES,nil);
+        if ([dict[@"status"] integerValue] == 0) {
+            callback(YES,nil);
+        }else{
+            [MBProgressHUD showToast:[NSString stringWithFormat:@"绑定失败，%@",dict[@"msg"]]];
+            callback(NO,nil);
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
     }];
@@ -935,7 +940,13 @@ static NetworkAPI* _instance = nil;
     [self.manager POST:DEL_DEVICE parameters:parma progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         id dict=[NSJSONSerialization  JSONObjectWithData:responseObject options:0 error:nil];
         NSLog(@"解除绑定：%@ 类型：%@\n",dict[@"msg"],dict);
-        callback(YES,nil);
+        if ([dict[@"status"] integerValue] == 0) {
+            callback(YES,nil);
+        }else{
+            [MBProgressHUD showToast:[NSString stringWithFormat:@"解绑失败，%@",dict[@"msg"]]];
+            callback(NO,nil);
+        }
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         callback(NO,error);
     }];

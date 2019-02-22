@@ -207,6 +207,25 @@
             }
             //点击现在连接
             if (CGRectContainsPoint(self.oneCell.connectBtn.frame, point)) {
+                //如果手机蓝牙未打开，则无法操作
+                switch (BLEMANAGER.centralManager.state) {
+                    case CBManagerStateUnknown:
+                        [MBProgressHUD showToastDown:@"未知的原因"];
+                        return ;
+                    case CBManagerStateUnsupported:
+                        [MBProgressHUD showToastDown:@"当前设备不支持蓝牙连接"];
+                        return ;
+                    case CBManagerStateUnauthorized:
+                        [MBProgressHUD showToastDown:@"您没有授权蓝牙连接"];
+                        return ;
+                    case CBManagerStatePoweredOff:
+                        [MBProgressHUD showToastDown:@"您的手机蓝牙没有打开"];
+                        return ;
+                    default:{
+                        
+                    }
+                }
+
                 if (self.oneCell.connectBtn.hidden == NO) {
                     if (self.oneCell.connectBtn.enabled == NO) {  //正在菊花转
                         return ;

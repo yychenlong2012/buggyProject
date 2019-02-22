@@ -677,7 +677,7 @@ typedef struct _CHAR{
         NSLog(@"高景观：%@ %@",hexString,getString);
         [muString appendString:getString];
     }
-//    NSLog(@"G处理的data = %@",muString);
+    NSLog(@"高景观处理的data = %@",muString);
     if ([self.delegate respondsToSelector:@selector(receiveData:)]) {
         [self.delegate receiveData:muString];
     }
@@ -690,7 +690,7 @@ typedef struct _CHAR{
     if ([[UIViewController presentingVC] isKindOfClass:[MainViewController class]]) {
         MainViewController *main = (MainViewController *)[UIViewController presentingVC];
         if ([[main selectedViewController] isKindOfClass:[DYBaseNaviagtionController class]]) {
-            DYBaseNaviagtionController *navi = [main selectedViewController];
+            DYBaseNaviagtionController *navi = [main selectedViewController]; 
             if ([[navi topViewController] isKindOfClass:[CarOldDetailViewController class]] || [[navi topViewController] isKindOfClass:[CarA3DetailsViewController class]] || [[navi topViewController] isKindOfClass:[CarA4DetailViewController class]] || [[navi topViewController] isKindOfClass:[DeviceViewController class]]) {
                 return;
             }

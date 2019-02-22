@@ -86,14 +86,14 @@
     NSMutableString *string = [NSMutableString string];
     
     for (NSInteger i = 0; i < [hexString length]; i += 2) {
-        
         NSString *hex = [hexString substringWithRange:NSMakeRange(i, 2)];
-        NSInteger decimalValue = 0;
-        sscanf([hex UTF8String], "%x", &decimalValue);     //这里千万不能改 请忽略警告
-        [string appendFormat:@"%c", (long)decimalValue];
+        unsigned int decimalValue = 0;
+        sscanf([hex UTF8String], "%x", &decimalValue);
+        [string appendFormat:@"%c", decimalValue];
     }
     return string;
 }
+
 //string  To   相应的ascii字符串
 +(NSString *)asccistringFromString:(NSString *)string
 {
