@@ -61,6 +61,7 @@
  *  characteristicUUID    0xA040
  */
 - (void)writeValueForPeripheral:(NSData *)data;
+- (void)readValue;
 
 #pragma mark - 数据处理 数据转换 转换成蓝牙可接受的命令
 //根据背光等级生成命令

@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[UITabBar appearance] setTranslucent:NO];   //iOS12 二级界面pop回主界面时，底部tabbar按钮闪动，这里设置为NO即可
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoginOut) name:DIDLOGINOUT object:nil];
     [self setChildrenViewContrllers];
 }

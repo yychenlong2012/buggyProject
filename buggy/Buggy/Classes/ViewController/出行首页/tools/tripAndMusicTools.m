@@ -80,6 +80,24 @@
                 [dict setObject:model.fuctiontype==nil?@"":model.fuctiontype forKey:@"fuctionType"];   //所属界面
                 [temp addObject:dict];
             }
+            
+            //手动添加干脚器的信息
+//            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//            [dict setObject:@"tModul" forKey:@"deviceIdentifier"];  //型号标识
+//            [dict setObject:@"tModul" forKey:@"bluetoothName"];   //蓝牙名
+//            [dict setObject:@"3Pomelos" forKey:@"company"];   //公司
+//            [dict setObject:@"tModul" forKey:@"musicBluetoothName"];   //音乐蓝牙名
+//            [dict setObject:@"5" forKey:@"fuctionType"];   //所属界面
+//            [temp addObject:dict];
+//
+//            NSMutableDictionary *dict2 = [NSMutableDictionary dictionary];
+//            [dict2 setObject:@"tModule" forKey:@"deviceIdentifier"];  //型号标识
+//            [dict2 setObject:@"tModule" forKey:@"bluetoothName"];   //蓝牙名
+//            [dict2 setObject:@"3Pomelos" forKey:@"company"];   //公司
+//            [dict2 setObject:@"tModule" forKey:@"musicBluetoothName"];   //音乐蓝牙名
+//            [dict2 setObject:@"5" forKey:@"fuctionType"];   //所属界面
+//            [temp addObject:dict2];
+            
             [temp writeToFile:filePath atomically:YES];
         }
     }];

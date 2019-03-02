@@ -34,6 +34,7 @@
 #import "CLLabel.h"
 #import "FAQNewViewController.h"
 #import <MJExtension.h>
+#import "DryFootViewController.h"
 
 @interface MineNewViewController ()<UITableViewDelegate,UITableViewDataSource,WNImagePickerDelegate,BlueToothManagerDelegate>
 
@@ -206,7 +207,7 @@
             [device connectionBLE:justperi];
             [self.navigationController pushViewController:device animated:YES];
             return;
-        }else if ([model.fuctiontype isEqualToString:@"2"] || [model.fuctiontype isEqualToString:@"3"]){  //Pomelos_8101   3POMELOS_A6
+        }else if ([model.fuctiontype isEqualToString:@"2"] || [model.fuctiontype isEqualToString:@"3"] || [model.fuctiontype isEqualToString:@"4"]){  //Pomelos_8101  3POMELOS_A6  NEW_A3
             CarA4DetailViewController *car = [[CarA4DetailViewController alloc] init];
             car.fuctionType = model.fuctiontype.integerValue;
             if (model.bluetoothname != nil && ![model.bluetoothname isEqualToString:@""]) {
@@ -217,6 +218,16 @@
             car.peripheralUUID = model.bluetoothuuid;
             car.deviceModel = model;
             [self.navigationController pushViewController:car animated:YES];
+            return;
+        }else if ([model.fuctiontype isEqualToString:@"5"]){  //干脚器
+            DryFootViewController *dry = [[DryFootViewController alloc] init];
+            dry.peripheralUUID = model.bluetoothuuid;
+            if (model.bluetoothname != nil && ![model.bluetoothname isEqualToString:@""]) {
+                dry.deviceName = model.bluetoothname;
+            }else{
+                dry.deviceName = [model getTheDeviceName];
+            }
+            [self.navigationController pushViewController:dry animated:YES];
             return;
         }else{  //默认
             CarA4DetailViewController *car = [[CarA4DetailViewController alloc] init];

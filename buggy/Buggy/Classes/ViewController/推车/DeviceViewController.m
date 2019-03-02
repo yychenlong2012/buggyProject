@@ -17,6 +17,7 @@
 #import "CarA4DetailViewController.h"
 #import "CLImageView.h"
 #import "NetWorkStatus.h"
+#import "DryFootViewController.h"
 
 @interface DeviceViewController ()<UITableViewDataSource,UITableViewDelegate,BlueToothManagerDelegate>
 @property (nonatomic ,strong) UITableView *tableView;
@@ -65,6 +66,8 @@
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *filePath = [cachePath stringByAppendingPathComponent:@"deviceTypeList.plist"];
     self.deviceTypeList = [NSArray arrayWithContentsOfFile:filePath];
+    
+    
 }
 
 - (void)dealloc{
@@ -108,9 +111,19 @@
     //这里获得的设备列表 已经是蓝牙核心模块筛选过后保留下来的设备
     self.peripherals = [NSMutableArray arrayWithArray:[Peripherals allObjects]];
     [_dataSource removeAllObjects];
-    //正在连接的设备是无法扫描到的手动加入
-    if (BLEMANAGER.currentPeripheral != nil) {
-        [self.peripherals insertObject:BLEMANAGER.currentPeripheral atIndex:0];
+    //正在连接的设备是无法扫描到的 需手动加入
+    if (BLEMANAGER.currentPeripheral != nil && BLEMANAGER.currentPeripheral.state == CBPeripheralStateConnected) {
+        //有些蓝牙连接之后还是能搜索到需要去除
+        BOOL isIn = NO;
+        for (CBPeripheral *peripheral in Peripherals) {
+            if ([peripheral.identifier.UUIDString isEqualToString:BLEMANAGER.currentPeripheral.identifier.UUIDString]) {
+                isIn = YES;
+            }
+        }
+        if (isIn == NO) {
+            [self.peripherals insertObject:BLEMANAGER.currentPeripheral atIndex:0];
+        }
+        
     }
     for (CBPeripheral *peripheral in self.peripherals) {       //将设备转换成模型数据
         [_dataSource addObject:[self getDictionaryFormPeripheral:peripheral]];
@@ -262,12 +275,20 @@
             return;
         }
         
-        if (deviceType == 2 || deviceType == 3 || deviceType == 4) {                                     //8101_APP_BLE Pomelos_8101 3POMELOS_A6 3POMELOS_A6
+        if (deviceType == 2 || deviceType == 3 || deviceType == 4) {                  //8101_APP_BLE Pomelos_8101 3POMELOS_A6 3POMELOS_A6
             CarA4DetailViewController *car = [[CarA4DetailViewController alloc] init];
             car.fuctionType = [_dataSource[indexPath.row][@"deviceType"] integerValue];
             car.deviceName = _dataSource[indexPath.row][@"name"];
             car.peripheralUUID = _dataSource[indexPath.row][@"UUID"];
             [self.navigationController pushViewController:car animated:YES];
+            return;
+        }
+        
+        if (deviceType == 5) {     //干脚器
+            DryFootViewController *dry = [[DryFootViewController alloc] init];
+            dry.deviceName = _dataSource[indexPath.row][@"name"];
+            dry.peripheralUUID = _dataSource[indexPath.row][@"UUID"];
+            [self.navigationController pushViewController:dry animated:YES];
             return;
         }
         

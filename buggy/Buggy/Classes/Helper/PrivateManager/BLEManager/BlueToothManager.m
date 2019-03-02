@@ -177,6 +177,10 @@ typedef struct _CHAR{
 //            NSLog(@"写入数据%@",characteristic);
             [self.currentPeripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
         }
+    }else{   //干脚器项目添加
+        if (self.writeCharacteristic != nil) {
+            [self.currentPeripheral writeValue:data forCharacteristic:self.writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
+        }
     }
 }
 
@@ -251,6 +255,10 @@ typedef struct _CHAR{
     if (self.deviceCallBack.count > 0) {    //清除之前的数据
         [self.deviceCallBack removeAllObjects];
     }
+}
+
+- (void)readValue{
+    [self CL_readValue:0x0000 characteristicUUID:0x0000];
 }
 
 
@@ -426,7 +434,7 @@ typedef struct _CHAR{
     }
     //按信号强度筛选蓝牙设备
     if (RSSI.intValue > -RSSI_blueTooth && flag == YES) {
-        NSLog(@"过滤后的蓝牙%@",peripheral);
+        NSLog(@"扫描过滤后的蓝牙%@",peripheral);
         BOOL isRepetitive = NO;   //重复标记
         for (CBPeripheral *peripher in self.discoveredPeripherals){    //查重
             if ([peripheral.identifier.UUIDString isEqualToString:peripher.identifier.UUIDString])
@@ -553,6 +561,7 @@ typedef struct _CHAR{
     if (error) {
         return;
     }
+    NSLog(@"发现特征 = %@",service.characteristics);
     /*
      发现的所有特征 = (
      "<CBCharacteristic: 0x1700aee20, UUID = A042, properties = 0x20, value = (null), notifying = NO>",
@@ -560,7 +569,7 @@ typedef struct _CHAR{
      "<CBCharacteristic: 0x1700aeca0, UUID = A041, properties = 0x2, value = (null), notifying = NO>")
      */
     for (CBCharacteristic *character in service.characteristics) {
-//        NSLog(@"发现服务中的特征%@",character);
+        NSLog(@"发现服务中的特征%@",character);
         // 写入数据的特征值 0x0A40
         if ([character.UUID isEqual:[CBUUID UUIDWithString:@"0000a040-0000-1000-8000-00805F9B34FB"]]) {   //这里写或者不写都没有问题 这个if可以注释
             self.writeCharacteristic = character;
@@ -578,7 +587,32 @@ typedef struct _CHAR{
             [self.currentPeripheral setNotifyValue:YES forCharacteristic:character];    //监听通道开启监听
             continue;
         }
+        
+        //=======================================干脚器
+        // 注册监听通道的特征值
+        if ([character.UUID isEqual:[CBUUID UUIDWithString:@"00010203-0405-0607-0809-0A0B0C0D2B10"]]) {
+            self.notifyCharacteristic = character;
+            self.readCharacteristic = character;
+            [self.currentPeripheral setNotifyValue:YES forCharacteristic:character];    //监听通道开启监听
+            continue;
+        }
+        
+        // 写入数据的特征值
+        if ([character.UUID isEqual:[CBUUID UUIDWithString:@"00010203-0405-0607-0809-0A0B0C0D2B11"]]) {
+            self.writeCharacteristic = character;
+            NSLog(@"写入通道");
+        }
     }
+    
+//    2019-02-25 11:05:07.327741+0800 Buggy[360:45268] 发现特征 = (
+//                                                             "<CBCharacteristic: 0x101795af0, UUID = 00010203-0405-0607-0809-0A0B0C0D2B10, properties = 0x12, value = (null), notifying = NO>",
+//                                                             "<CBCharacteristic: 0x10178c360, UUID = 00010203-0405-0607-0809-0A0B0C0D2B11, properties = 0x6, value = (null), notifying = NO>"
+//                                                             )
+//    2019-02-25 11:05:25.886525+0800 Buggy[360:45268] 发现特征 = (
+//                                                             "<CBCharacteristic: 0x1071cdb90, UUID = 00010203-0405-0607-0809-0A0B0C0D2B12, properties = 0x6, value = (null), notifying = NO>"
+//                                                             )
+    
+    
     
     /*
      180A 为获取设备信息的服务UUID,          service
@@ -674,10 +708,10 @@ typedef struct _CHAR{
     for(int i =0;i<characteristic.value.length;i++){
         NSString *hexString = [NSString stringWithFormat:@"%02X",buf1.buff[i]&0x000000ff];
         NSString *getString = [Tools stringFromHexString:hexString];
-        NSLog(@"高景观：%@ %@",hexString,getString);
+//        NSLog(@"高景观：%@ %@",hexString,getString);
         [muString appendString:getString];
     }
-    NSLog(@"高景观处理的data = %@",muString);
+//    NSLog(@"高景观处理的data = %@",muString);
     if ([self.delegate respondsToSelector:@selector(receiveData:)]) {
         [self.delegate receiveData:muString];
     }
