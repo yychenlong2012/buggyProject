@@ -601,6 +601,7 @@ typedef struct _CHAR{
         if ([character.UUID isEqual:[CBUUID UUIDWithString:@"00010203-0405-0607-0809-0A0B0C0D2B11"]]) {
             self.writeCharacteristic = character;
             NSLog(@"写入通道");
+            continue;
         }
     }
     
@@ -638,7 +639,7 @@ typedef struct _CHAR{
         NSLog(@"特征值更新错误%@",error);
         return;
     }
-//    NSLog(@"推车反馈的数据%@",characteristic.value);
+    NSLog(@"推车反馈的数据%@",characteristic.value);
 #pragma mark 适配新版本通道
     if (characteristic == self.readCharacteristic) {
         NSData *receiveData = characteristic.value;

@@ -300,10 +300,13 @@
         
         if (byte[6] == 0x00) {   //无风无温档
             NSLog(@"无风无温档");
+            self.windLevel.value = 0;
         }else if (byte[6] == 0xff){  //高档位
             NSLog(@"高档位");
+            self.windLevel.value = 11;
         }else{    //中档位
             NSLog(@"中档位");
+            self.windLevel.value = byte[6];
         }
         return;
     }else if (byte[3] == 0x8D && byte[4] == 0x02){   //体重体脂    <55aa080d 02100200 02000000 0000dd>

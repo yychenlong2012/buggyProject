@@ -942,6 +942,8 @@ static NetworkAPI* _instance = nil;
         NSLog(@"解除绑定：%@ 类型：%@\n",dict[@"msg"],dict);
         if ([dict[@"status"] integerValue] == 0) {
             callback(YES,nil);
+        }else if ([dict[@"status"] integerValue] == 3){
+            callback(YES,nil);
         }else{
             [MBProgressHUD showToast:[NSString stringWithFormat:@"解绑失败，%@",dict[@"msg"]]];
             callback(NO,nil);
